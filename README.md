@@ -18,7 +18,7 @@ ZerOS
 	- linker.ld 链接文件
 	- Makefile
 	- README.md
-	- uart.py 可用于串口通讯，以ASCII方式显示 python ./uart.py
+	- uart.py 可用于串口通讯，以ASCII方式显示 python ./uart.py 使用了pyserial，python3.X
 
 	
 	
