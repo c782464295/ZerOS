@@ -17,9 +17,9 @@ wh比w贵10块。
 
 加装了树莓派Zero多功能USB插头（Zero Quick Plug），这样可以多1个USB口，实现给树莓派供电的同时将它接入因特网。
 
-![实物图](images\zj.jpg)
+![实物图](images/zj.jpg)
 
-![键鼠](images\swt.jpg)
+![键鼠](images/swt.jpg)
 
 选择树莓派zero进行操作系统开发的原因是：
 

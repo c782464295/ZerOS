@@ -48,9 +48,9 @@ except Exception as e:
 
 用putty和sscom都可以进行串口通讯，但我们用自己写的python可以以ASCII方式进行显示。
 
-![zero](images\header-photo-zero-large.png)
-![zero](images\header-zero-large.png)
-![zero](images\ttl.jpg)
+![zero](images/header-photo-zero-large.png)
+![zero](images/header-zero-large.png)
+![zero](images/ttl.jpg)
 
 买一根TTL线，连接到树莓派上，直接将USB口插入电脑就可以进行串口通讯，树莓派无需额外供电，适合没有HDMI屏幕的环境，而且开发简单。
 
