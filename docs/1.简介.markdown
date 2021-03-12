@@ -8,7 +8,7 @@ Raspberry Zero包括original W WH三款。
 | 无蓝牙  | 有蓝牙 |有蓝牙|
 | 无排针  | 无排针 |有排针|
 
-wh比w贵10块。
+wh比w贵10块钱，还是直接wh好。
 
 处理器是BCM2835，700MHz，RISC指令集，板载512MB内存和802.11 b/g/n Wifi无线网卡，低功耗蓝牙4.1（BLE），mini-dimi，40pin IO，CSI摄像头接口，micro-usb供电，micro-otg，micro-sd卡插槽。
 
