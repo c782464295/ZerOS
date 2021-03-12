@@ -1,0 +1,44 @@
+## 文件目录
+ZerOS
+
+	- bmp 存放一些系统所需图片
+	- boot 系统启动所需的各种固件和配置
+	- docs 文档
+	- external 外部依赖库，如csud usb控制模块
+	- include 头文件
+	- src 源文件
+	- object 生产的OBJ文件
+	- kernel.disasm 对应的汇编
+	- kernel.elf 生成的elf文件
+	- kernel.img elf转为纯机器码
+	- kernel.map 变量和汇编的映射文件
+	- linker.ld 链接文件
+	- Makefile
+	- README.md
+
+src文件内由于不是复杂系统，所有的源文件没有细分为子文件夹，include头文件夹也未细分。
+## Makefile
+cmd切换到ZerOS后，输入make即可进行编译和链接。
+
+disasm生成对应的汇编代码与C对应。
+
+clean清除已经编译好的。
+
+install将生成的img拷入boot目录，boot目录中含有系统运行的全部内容。
+
+makefile有详细的注释，主要需要注意，首先进行编译，将编译后的文件存在了object文件夹，随后用我们指定的链接脚本linker.ld进行链接。
+
+链接后为ELF文件，包含可执行程序的冗余信息，将其转为binary完成所有操作。
+
+## linker.ld
+使用自定义链接脚本，指定程序在0x8000处加载。
+
+.text 执行代码区
+
+.data 静态内存分配，存储已初始化的变量
+
+.bss 未初始化的变量
+
+.rodata 常量区
+
+ld文件定义了程序编译之后的链接过程，决定了一个可执行程序各个段的存储位置。

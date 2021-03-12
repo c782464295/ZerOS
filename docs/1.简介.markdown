@@ -1,0 +1,89 @@
+## 开发环境
+基于raspberry zero wh。
+
+Raspberry Zero包括original W WH三款。
+
+|original|  W  |  WH  |
+|  ----  | ---- |----|
+| 无蓝牙  | 有蓝牙 |有蓝牙|
+| 无排针  | 无排针 |有排针|
+
+wh比w贵10块。
+
+处理器是BCM2835，700MHz，RISC指令集，板载512MB内存和802.11 b/g/n Wifi无线网卡，低功耗蓝牙4.1（BLE），mini-dimi，40pin IO，CSI摄像头接口，micro-usb供电，micro-otg，micro-sd卡插槽。
+
+
+![zero](images\raspberryzerowh.jpg)
+
+加装了树莓派Zero多功能USB插头（Zero Quick Plug），这样可以多1个USB口，实现给树莓派供电的同时将它接入因特网。
+
+![实物图](images\zj.jpg)
+
+![键鼠](images\swt.jpg)
+
+选择树莓派zero进行操作系统开发的原因是：
+
+1. 价格便宜，如果你有HDMI屏幕的话，整套不到200，就可以享受到实体机器开发，不用QEMU模拟。
+2. 系统自带引导，可以直接加载镜像img，一般开发系统都会选用GRUB来进行引导，这里省去了繁琐的一步。
+3. 树莓派社区活跃，资料多。
+
+## 启动流程
+
+树莓派不是纯开源硬件，但不影响操作系统开发。
+
+1. 未开源的SoC bootcode.bin会挂载SD卡中的FAT32分区，这段代码固化在SoC的ROM中，无法修改。
+
+2. GPU启动后，由固件start.elf文件加载配置文件config.txt和fixup.dat，完成GPU初始化。
+
+3. GPU随后加载kernel.img到内存0x8000处开始执行。
+
+
+> bootcode.bin：这是最先加载的代码，在GPU上执行，是一个GPU程序
+
+> fixup.dat：此数据文件包含重要的与硬件相关的信息
+
+> start.elf：这是树莓派固件,与IBM PC上的BIOS类似
+
+~~~mermaid
+graph TD;
+	cpu上电-->boot分区运行bootloader;
+	boot分区运行bootloader-->启动GPU;
+	启动GPU-->从config中读取参数;
+	从config中读取参数-->加载kernel.img;	
+~~~
+
+所以，bootcode.bin start.elf config.txt fixup.dat是必须的，kernel.img为我们写的系统。
+前四个文件可以在[这里](https://github.com/raspberrypi/firmware/tree/master/boot)下载。
+
+将会用到的工具：
+Cygwin64、gcc-arm-none-eabi、raspios-buster-armhf-lite.img、UltralSo、DiskGenius、Win32DiskImager。
+
+[Win32DiskImager](https://sourceforge.net/projects/win32diskimager/)
+	
+[gcc-arm-none-eabi](https://launchpadlibrarian.net/177524958/gcc-arm-none-eabi-4_8-2014q2-20140609-win32.exe)
+	
+[raspios-buster-armhf-lite.img](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2020-08-24/2020-08-20-raspios-buster-armhf-lite.zip)
+
+[本文Markdown编辑器](https://github.com/cloose/CuteMarkEd)
+## 参考资料
+参考资料：
+
+[Zero小系统](https://github.com/kangyuzhe666/Raspberry-operate-system-DIY)
+
+[b](https://github.com/s-matyukevich/raspberry-pi-os)
+
+[仿Linux](https://github.com/cpl/classic.kernel)
+
+[d](https://jsandler18.github.io/)
+	
+[e long ](https://github.com/dwelch67/raspberrypi-zero)
+	
+[f](https://wiki.osdev.org/ARM_RaspberryPi_Tutorial_C)
+	
+[Zero](https://github.com/UphillD/ARMadillo)
+
+[j](https://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/index.html)
+
+[](https://github.com/BrianSidebotham/arm-tutorial-rpi)
+
+还包括 30天自制操作系统、嵌入式实时操作系统等书。
