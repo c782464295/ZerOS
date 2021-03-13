@@ -68,11 +68,11 @@ Cygwin64、gcc-arm-none-eabi、raspios-buster-armhf-lite.img、UltralSo、DiskGe
 ## 参考资料
 参考资料：
 
-[Zero小系统](https://github.com/kangyuzhe666/Raspberry-operate-system-DIY)
+[本科设计kyz](https://github.com/kangyuzhe666/Raspberry-operate-system-DIY)
 
 [b](https://github.com/s-matyukevich/raspberry-pi-os)
 
-[仿Linux](https://github.com/cpl/classic.kernel)
+[Classic Operating System](https://github.com/cpl/classic.kernel)
 
 [d](https://jsandler18.github.io/)
 	
@@ -80,10 +80,10 @@ Cygwin64、gcc-arm-none-eabi、raspios-buster-armhf-lite.img、UltralSo、DiskGe
 	
 [f](https://wiki.osdev.org/ARM_RaspberryPi_Tutorial_C)
 	
-[Zero](https://github.com/UphillD/ARMadillo)
+[A minimal ARM OS for the Raspberry Pi Zero](https://github.com/UphillD/ARMadillo)
 
 [j](https://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/index.html)
 
-[](https://github.com/BrianSidebotham/arm-tutorial-rpi)
+[n](https://github.com/BrianSidebotham/arm-tutorial-rpi)
 
 还包括 30天自制操作系统、嵌入式实时操作系统等书。
