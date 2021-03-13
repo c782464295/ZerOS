@@ -1,7 +1,7 @@
 Raspberry Zero WH
 Linux-like Operating System
 Made by Sw.
-2020/12/05
+in 2020/12/05
 
 ZerOS
 	- bmp 存放一些图片
