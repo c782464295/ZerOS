@@ -12,21 +12,27 @@ _start:
 	ldr pc, sig_swi
 	ldr pc, sig_prefa
 	ldr pc, sig_dataa
-	nop				@ _unused 未使用
+	ldr pc, sig_unused	@ _unused 未使用
 	ldr pc, sig_irq
 	ldr pc, sig_fiq
 @ 左边的变量中存储有真正的中断处理函数地址
 sig_reset:	.word	_reset
-sig_undef:	.word	@_undef
-sig_swi:	.word	@_swi
-sig_prefa:	.word	@_prefa
-sig_dataa:	.word	@_dataa
-sig_unused:	.word	@_unused
-sig_irq:	.word	@_irq
-sig_fiq:	.word	@_fiq
+@ 除了reset外，其余都定义在interrupt.c中
+sig_undef:	.word	_undef
+sig_swi:	.word	_swi
+sig_prefa:	.word	_prefa
+sig_dataa:	.word	_dataa
+sig_unused:	.word	_unused
+sig_irq:	.word	_irq
+sig_fiq:	.word	_fiq
+
+
 .globl _start_end
 _start_end:
 
+@ 设置全局字符串
+.section .rodata
+_str_helloword:	.asciz "Hello World\r\n"
 
 _reset:
 	@ MOV只能是由8bit连续有效位通过偶数次移位能得到的数。
