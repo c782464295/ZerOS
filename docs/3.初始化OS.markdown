@@ -4,3 +4,23 @@
 启动会传递给_cstartup r0,r1,r2三个参数。如果是QEMU模式启动，则不会传递这三个参数。
 
 r2表示atag，含有板子的一些信息，如果想从这里读取内存大小而不是指定一个值，那么你还需要把bcm2708-rpi-zero-w.dtb文件放入boot目录下。但本文不这样做。
+
+
+ARM处理器共有7中模式，每种模式的寄存器会有些不同。OS One默认运行在SUPERVISOR模式下，当IRQ中断发生时运行在IRQ模式。OS One只使用了这两种模式。
+
+CPSR中[4:0]表示处理器所处的模式
+
+* 0b10000 USER
+
+* 0b10001 FIQ
+
+* 0b10010 IRQ
+
+* 0B10011 SUPERVISOR
+
+* 0b10111 ABORT
+
+* 0b11011 UNDEFINEED
+
+* 0b11111 SYSTEM
+
