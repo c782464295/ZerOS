@@ -34,9 +34,11 @@ _start_end:
 .section .rodata
 _str_helloword:	.asciz "Hello World\r\n"
 
+.section .init
 _reset:
 	@ MOV只能是由8bit连续有效位通过偶数次移位能得到的数。
 	@ LDR除了普通的读数之外，它没有立即数范围的限制。
+	@ _start定义在ld文件中
 	mov r0, #0x8000
 	mov	r1, #0x0000
 	@ 检测寄存器是否损坏
@@ -64,10 +66,7 @@ _reset:
 	mov r0, #(CPSR_MODE_SVR | CPSR_IRQ_INHIBIT | CPSR_FIQ_INHIBIT )
 	msr cpsr_c, r0
 	mov     sp, #0x4000
-	@ldr     sp, =(128 * (1024 * 1024))
-	@ldr     sp, =(256 * (1024 * 1024))
-	@ldr     sp, =(512 * (1024 * 1024))
-	@sub     sp, sp, #0x4
+
 	
 	@ 加载atags到r2
 	mov	r2, #0x100

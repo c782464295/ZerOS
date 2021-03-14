@@ -10,7 +10,7 @@ STACK_SIZE = 0x2000;             /* 栈大小设置8k */
 /* R只读 W读写 X可执行*/
 MEMORY {
 	/* FLASH_CONFIG (rx) : ORIGIN = 0x100, LENGTH = 0x0000004 */
-	sys : ORIGIN = 0x8000,		LENGTH = 2M
+	sys : ORIGIN = 0x8000,		LENGTH = 1M
 	usr : ORIGIN = 0x1000000,	LENGTH = 1M
 }
 /* 入口点位置 0x8000 */
@@ -21,14 +21,26 @@ SECTIONS
 	.text.init : { 
 		*(.text.init) 
 	} > sys
-	.text : { *(.text) } > sys
-
+	
+	/* Kernel Code */
+	.text : { 
+		. = ALIGN(4);
+		*(.text) 
+	} > sys
+	
+	/* 为USB驱动预留 */
+	.text.usb : {
+		. = ALIGN(4);
+		*.c.o(.text)
+	} > sys
+	
 	.data : { *(.data) } > sys
 	/* 只读数据 */
 	.rodata : {
 		. = ALIGN(4);
 		*(.rodata) 
 	} > sys
+	
 	/* .bss在elf文件中是系统负责分配的，EFL记录了BSS大小 */
 	/* 但我们ELF转为了bin，这些信息都没了，所以要自己分配 */
 	__bss_start = .;
@@ -47,6 +59,7 @@ SECTIONS
 
 	/* 定义一个全局变量，可在C文件中引用 */
 	_edata = .; PROVIDE (edata = .);
+	
 	/* Kernel 堆 分配 */
 	_KERNEL_HEAP = ALIGN(0x40);
 

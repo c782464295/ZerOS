@@ -9,6 +9,8 @@ DIR_SRC ?= ./src
 DIR_INC ?= ./include
 DIR_OBJ ?= ./object
 DIR_LIB ?= ./lib
+EXTERN  ?= ./external
+
 # Intermediary
 LIST = kernel.list
 MAP	= kernel.map

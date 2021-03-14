@@ -8,3 +8,10 @@ LCD每一个像素点由3个子像素，其发光用的是统一的发光背板�
 LCD背板是硬的，不能折叠。
 
 但OLED的主要问题是寿命，而且OLED调节明暗不能通过电压大小来调节，是通过显示时间来调节，这样对一些眼睛敏感的人会感到不舒服。
+
+![图片](images/screen.jpg)
+![图片](images/screen2.jpg)
+
+
+应该是连接了3.3V SDL SCL GND这4个引脚。
+![IO](images/io.jpg)
