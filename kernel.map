@@ -17,11 +17,11 @@ Linker script and memory map
 
 .text.init      0x00008000       0x40
  *(.text.init)
- .text.init     0x00008000       0x40 C:\Users\HP\AppData\Local\Temp\cc5puFG9.o
+ .text.init     0x00008000       0x40 C:\Users\HP\AppData\Local\Temp\cckesfLa.o
                 0x00008000                _start
                 0x00008040                _start_end
 
-.text           0x00008040      0x694
+.text           0x00008040      0x690
                 0x00008040                . = ALIGN (0x4)
  *(.text)
  .text          0x00008040      0x218 ./object/gpu.o
@@ -36,92 +36,92 @@ Linker script and memory map
                 0x00008288                _unused
                 0x00008294                _irq
                 0x000082a0                _fiq
- .text          0x000082ac       0x28 ./object/main.o
+ .text          0x000082ac       0x24 ./object/main.o
                 0x000082ac                os_main
- .text          0x000082d4       0x24 ./object/mem_init.o
-                0x000082d4                memory_init
- .text          0x000082f8       0x98 ./object/print.o
-                0x000082f8                GetDefaultFontData
- .text          0x00008390       0x70 ./object/start.o
-                0x00008390                _cstartup
- .text          0x00008400      0x2d4 ./object/uart.o
-                0x00008400                notmain
-                0x00008538                uart_putc
-                0x00008584                uart_printstr
-                0x000085e4                uart_init
- .text          0x000086d4        0x0 C:\Users\HP\AppData\Local\Temp\cc5puFG9.o
+ .text          0x000082d0       0x24 ./object/mem_init.o
+                0x000082d0                memory_init
+ .text          0x000082f4       0x98 ./object/print.o
+                0x000082f4                GetDefaultFontData
+ .text          0x0000838c       0x70 ./object/start.o
+                0x0000838c                _cstartup
+ .text          0x000083fc      0x2d4 ./object/uart.o
+                0x000083fc                notmain
+                0x00008534                uart_putc
+                0x00008580                uart_printstr
+                0x000085e0                uart_init
+ .text          0x000086d0        0x0 C:\Users\HP\AppData\Local\Temp\cckesfLa.o
 
-.glue_7         0x000086d4        0x0
+.glue_7         0x000086d0        0x0
  .glue_7        0x00000000        0x0 linker stubs
 
-.glue_7t        0x000086d4        0x0
+.glue_7t        0x000086d0        0x0
  .glue_7t       0x00000000        0x0 linker stubs
 
-.vfp11_veneer   0x000086d4        0x0
+.vfp11_veneer   0x000086d0        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x000086d4        0x0
+.v4_bx          0x000086d0        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x000086d4        0x0
+.iplt           0x000086d0        0x0
  .iplt          0x00000000        0x0 ./object/gpu.o
 
-.init           0x000086d4       0x7c
- .init          0x000086d4       0x7c C:\Users\HP\AppData\Local\Temp\cc5puFG9.o
-                0x00008718                reboot
-                0x0000871c                halt
-                0x00008720                GET32
-                0x00008728                PUT32
-                0x00008730                _enable_interrupts
-                0x00008740                _disable_interrupts
+.init           0x000086d0       0x7c
+ .init          0x000086d0       0x7c C:\Users\HP\AppData\Local\Temp\cckesfLa.o
+                0x00008714                reboot
+                0x00008718                halt
+                0x0000871c                GET32
+                0x00008724                PUT32
+                0x0000872c                _enable_interrupts
+                0x0000873c                _disable_interrupts
 
-.text.usb       0x00008750        0x0
-                0x00008750                . = ALIGN (0x4)
+.text.usb       0x0000874c        0x0
+                0x0000874c                . = ALIGN (0x4)
  *.c.o(.text)
 
-.data           0x00008750        0x0
+.data           0x0000874c        0x0
  *(.data)
- .data          0x00008750        0x0 ./object/gpu.o
- .data          0x00008750        0x0 ./object/interrupt.o
- .data          0x00008750        0x0 ./object/main.o
- .data          0x00008750        0x0 ./object/mem_init.o
- .data          0x00008750        0x0 ./object/print.o
- .data          0x00008750        0x0 ./object/start.o
- .data          0x00008750        0x0 ./object/uart.o
- .data          0x00008750        0x0 C:\Users\HP\AppData\Local\Temp\cc5puFG9.o
+ .data          0x0000874c        0x0 ./object/gpu.o
+ .data          0x0000874c        0x0 ./object/interrupt.o
+ .data          0x0000874c        0x0 ./object/main.o
+ .data          0x0000874c        0x0 ./object/mem_init.o
+ .data          0x0000874c        0x0 ./object/print.o
+ .data          0x0000874c        0x0 ./object/start.o
+ .data          0x0000874c        0x0 ./object/uart.o
+ .data          0x0000874c        0x0 C:\Users\HP\AppData\Local\Temp\cckesfLa.o
 
-.igot.plt       0x00008750        0x0
+.igot.plt       0x0000874c        0x0
  .igot.plt      0x00000000        0x0 ./object/gpu.o
 
-.rodata         0x00008750     0x1856
-                0x00008750                . = ALIGN (0x4)
+.rodata         0x0000874c     0x1856
+                0x0000874c                . = ALIGN (0x4)
  *(.rodata)
- .rodata        0x00008750     0x1848 ./object/print.o
- .rodata        0x00009f98        0xe C:\Users\HP\AppData\Local\Temp\cc5puFG9.o
-                0x00009fa6                __bss_start = .
-                0x00009fa6                __bss_start__ = .
+ .rodata        0x0000874c     0x1848 ./object/print.o
+ .rodata        0x00009f94        0xe C:\Users\HP\AppData\Local\Temp\cckesfLa.o
+                0x00009fa2                __bss_start = .
+                0x00009fa2                __bss_start__ = .
 
-.rel.dyn        0x00009fa8        0x0
+.rel.dyn        0x00009fa4        0x0
  .rel.iplt      0x00000000        0x0 ./object/gpu.o
 
-.bss            0x00009fa8       0x28
+.bss            0x00009fa4       0x28
  *(.bss .bss.*)
- .bss           0x00009fa8        0x0 ./object/gpu.o
- .bss           0x00009fa8        0x0 ./object/interrupt.o
- .bss           0x00009fa8        0x0 ./object/main.o
- .bss           0x00009fa8        0x0 ./object/mem_init.o
- .bss           0x00009fa8        0x0 ./object/print.o
- .bss           0x00009fa8        0x0 ./object/start.o
- .bss           0x00009fa8        0x0 ./object/uart.o
- .bss           0x00009fa8        0x0 C:\Users\HP\AppData\Local\Temp\cc5puFG9.o
-                0x00009fa8                . = ALIGN ((. != 0x0)?0x4:0x1)
- COMMON         0x00009fa8       0x28 ./object/gpu.o
-                0x00009fa8                FrameBufferInfo
-                0x00009fd0                _bss_end__ = .
-                0x00009fd0                __bss_end__ = .
-                0x00009fd0                . = ALIGN (0x4)
-                0x00009fd0                _edata = .
-                0x00009fd0                PROVIDE (edata, .)
+ .bss           0x00009fa4        0x0 ./object/gpu.o
+ .bss           0x00009fa4        0x0 ./object/interrupt.o
+ .bss           0x00009fa4        0x0 ./object/main.o
+ .bss           0x00009fa4        0x0 ./object/mem_init.o
+ .bss           0x00009fa4        0x0 ./object/print.o
+ .bss           0x00009fa4        0x0 ./object/start.o
+ .bss           0x00009fa4        0x0 ./object/uart.o
+ .bss           0x00009fa4        0x0 C:\Users\HP\AppData\Local\Temp\cckesfLa.o
+                0x00009fa4                . = ALIGN ((. != 0x0)?0x4:0x1)
+ COMMON         0x00009fa4       0x28 ./object/gpu.o
+                0x00009fa4                FrameBufferInfo
+                0x00009fcc                _bss_end__ = .
+                0x00009fcc                __bss_end__ = .
+                0x00009fcc                . = ALIGN (0x4)
+                0x00009fcc                _edata = .
+                0x00009fcc                PROVIDE (edata, .)
                 0x0000a000                _KERNEL_HEAP = ALIGN (0x40)
 LOAD ./object/gpu.o
 LOAD ./object/interrupt.o
@@ -130,7 +130,7 @@ LOAD ./object/mem_init.o
 LOAD ./object/print.o
 LOAD ./object/start.o
 LOAD ./object/uart.o
-LOAD C:\Users\HP\AppData\Local\Temp\cc5puFG9.o
+LOAD C:\Users\HP\AppData\Local\Temp\cckesfLa.o
 START GROUP
 LOAD e:/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.8.4/fpu\libgcc.a
 LOAD e:/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/fpu\libg.a
@@ -146,7 +146,7 @@ OUTPUT(kernel.elf elf32-littlearm)
  .debug_info    0x00000415      0x10a ./object/print.o
  .debug_info    0x0000051f       0xe6 ./object/start.o
  .debug_info    0x00000605      0x218 ./object/uart.o
- .debug_info    0x0000081d       0x3b C:\Users\HP\AppData\Local\Temp\cc5puFG9.o
+ .debug_info    0x0000081d       0x3b C:\Users\HP\AppData\Local\Temp\cckesfLa.o
 
 .debug_abbrev   0x00000000      0x409
  .debug_abbrev  0x00000000       0xdb ./object/gpu.o
@@ -156,7 +156,7 @@ OUTPUT(kernel.elf elf32-littlearm)
  .debug_abbrev  0x00000209       0x7e ./object/print.o
  .debug_abbrev  0x00000287       0xa7 ./object/start.o
  .debug_abbrev  0x0000032e       0xc9 ./object/uart.o
- .debug_abbrev  0x000003f7       0x12 C:\Users\HP\AppData\Local\Temp\cc5puFG9.o
+ .debug_abbrev  0x000003f7       0x12 C:\Users\HP\AppData\Local\Temp\cckesfLa.o
 
 .debug_aranges  0x00000000      0x108
  .debug_aranges
@@ -174,17 +174,17 @@ OUTPUT(kernel.elf elf32-littlearm)
  .debug_aranges
                 0x000000c0       0x20 ./object/uart.o
  .debug_aranges
-                0x000000e0       0x28 C:\Users\HP\AppData\Local\Temp\cc5puFG9.o
+                0x000000e0       0x28 C:\Users\HP\AppData\Local\Temp\cckesfLa.o
 
-.debug_line     0x00000000      0x375
+.debug_line     0x00000000      0x379
  .debug_line    0x00000000       0x93 ./object/gpu.o
  .debug_line    0x00000093       0x68 ./object/interrupt.o
- .debug_line    0x000000fb       0x51 ./object/main.o
- .debug_line    0x0000014c       0x55 ./object/mem_init.o
- .debug_line    0x000001a1       0x5d ./object/print.o
- .debug_line    0x000001fe       0x5d ./object/start.o
- .debug_line    0x0000025b       0xa9 ./object/uart.o
- .debug_line    0x00000304       0x71 C:\Users\HP\AppData\Local\Temp\cc5puFG9.o
+ .debug_line    0x000000fb       0x55 ./object/main.o
+ .debug_line    0x00000150       0x55 ./object/mem_init.o
+ .debug_line    0x000001a5       0x5d ./object/print.o
+ .debug_line    0x00000202       0x5d ./object/start.o
+ .debug_line    0x0000025f       0xa9 ./object/uart.o
+ .debug_line    0x00000308       0x71 C:\Users\HP\AppData\Local\Temp\cckesfLa.o
 
 .debug_str      0x00000000      0x435
  .debug_str     0x00000000      0x1b3 ./object/gpu.o
@@ -229,7 +229,7 @@ OUTPUT(kernel.elf elf32-littlearm)
  .ARM.attributes
                 0x0000013e       0x35 ./object/uart.o
  .ARM.attributes
-                0x00000173       0x1f C:\Users\HP\AppData\Local\Temp\cc5puFG9.o
+                0x00000173       0x1f C:\Users\HP\AppData\Local\Temp\cckesfLa.o
 
 .debug_frame    0x00000000      0x23c
  .debug_frame   0x00000000       0x5c ./object/gpu.o
@@ -241,4 +241,4 @@ OUTPUT(kernel.elf elf32-littlearm)
  .debug_frame   0x000001bc       0x80 ./object/uart.o
 
 .debug_ranges   0x00000000       0x20
- .debug_ranges  0x00000000       0x20 C:\Users\HP\AppData\Local\Temp\cc5puFG9.o
+ .debug_ranges  0x00000000       0x20 C:\Users\HP\AppData\Local\Temp\cckesfLa.o

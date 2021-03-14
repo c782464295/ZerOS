@@ -29,5 +29,8 @@ void _cstartup( u32 r0, u32 r1, u32 atags )
  
 		// 死循环，不会返回
     	os_main(r0, r1, atags);
- 
+		while(1){
+			/* 空! */
+		}
 }
+
