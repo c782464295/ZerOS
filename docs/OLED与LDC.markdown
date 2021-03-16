@@ -55,6 +55,69 @@ OLED 仅使用树莓派的 I2C 和电源引脚，无需独立供电，即插即�
   *I2C1_FIFO=0xA7;     // OLED CMD = invert display
   *I2C1_C=0x8080;      // Start write
 ```
+
+
+```C++
+//开始信号
+void IIC_Start(void)
+{
+    GPIO_OUTPUT_SET(I2C_MASTER_SDA_GPIO,0);//SDA_OUT();
+    I2C_MASTER_GPIO_OUT(I2C_MASTER_SDA_GPIO,1);//IIC_SDA=1;
+    I2C_MASTER_GPIO_OUT(I2C_MASTER_SCL_GPIO,1);//IIC_SCL=1;
+    delay_us(2);
+    I2C_MASTER_GPIO_OUT(I2C_MASTER_SDA_GPIO,0);//IIC_SDA=0;
+    delay_us(2);
+    I2C_MASTER_GPIO_OUT(I2C_MASTER_SCL_GPIO,0);//IIC_SCL=0;
+    delay_us(2);
+}
+
+
+void IIC_WriteByte(uint8_t data)
+{
+    uint8_t i;
+    GPIO_OUTPUT_SET(I2C_MASTER_SDA_GPIO,0);//SDA_OUT();
+    for(i=0;i<8;i++)
+    {
+    	I2C_MASTER_GPIO_OUT(I2C_MASTER_SCL_GPIO,0);//IIC_SCL=0;
+        delay_us(2);
+        if(data & 0x80)     //MSB,从高位开始一位一位传输
+            I2C_MASTER_GPIO_OUT(I2C_MASTER_SDA_GPIO,1);//IIC_SDA=1;
+        else
+            I2C_MASTER_GPIO_OUT(I2C_MASTER_SDA_GPIO,0);//IIC_SDA=0;
+        I2C_MASTER_GPIO_OUT(I2C_MASTER_SCL_GPIO,1);//IIC_SCL=1;
+        delay_us(2);
+        I2C_MASTER_GPIO_OUT(I2C_MASTER_SCL_GPIO,0);//IIC_SCL=0;
+        data<<=1;
+ 
+    }
+}
+void WriteCmd(uint8_t command)
+{
+    IIC_Start();
+    IIC_WriteByte(0x78);//OLED地址
+    IIC_Wait_Ask();
+    IIC_WriteByte(0x00);//寄存器地址
+    IIC_Wait_Ask();
+    IIC_WriteByte(command);
+    IIC_Wait_Ask();
+    IIC_Stop();
+}
+
+void WriteDat(uint8_t data)
+{
+    IIC_Start();
+    IIC_WriteByte(0x78);//OLED地址
+    IIC_Wait_Ask();
+    IIC_WriteByte(0x40);//寄存器地址
+    IIC_Wait_Ask();
+    IIC_WriteByte(data);
+    IIC_Wait_Ask();
+    IIC_Stop();
+}
+
+
+
+```
 [stm32 oled](https://blog.csdn.net/keilert/article/details/82787960)
 
 [OLED屏幕的IIC驱动程序](https://blog.csdn.net/gengyuchao/article/details/86743908)
