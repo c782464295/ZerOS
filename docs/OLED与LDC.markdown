@@ -36,9 +36,25 @@ OLED 仅使用树莓派的 I2C 和电源引脚，无需独立供电，即插即�
 3. 0xAF OLED唤醒
 4. 0xA7 翻转显示
 此时，OLED应全屏亮。
+```C++
+  *I2C1_C=0x8000;      // Enable I2C
+  *I2C1_DIV=2560;
+  *I2C1_C=0x8030;      // Enable I2C, FIFO CLR
 
+  *I2C1_DLEN=2;        // Write 2 bytes
+  *I2C1_A=0x3C;        // Address = OLED
+  *I2C1_FIFO=0x80;     // OLED C0=1, D/C=0
+  *I2C1_FIFO=0xAF;     // OLED CMD = active (not sleep)
+  *I2C1_C=0x8080;      // Start write
 
+  for(d=0;d!=10;d++)  led_flash(100000); // Delay
 
+  *I2C1_DLEN=2;        // Write 2 bytes
+  *I2C1_A=0x3C;        // Address = OLED
+  *I2C1_FIFO=0x80; 
+  *I2C1_FIFO=0xA7;     // OLED CMD = invert display
+  *I2C1_C=0x8080;      // Start write
+```
 [stm32 oled](https://blog.csdn.net/keilert/article/details/82787960)
 
 [OLED屏幕的IIC驱动程序](https://blog.csdn.net/gengyuchao/article/details/86743908)
