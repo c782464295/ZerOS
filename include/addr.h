@@ -65,5 +65,8 @@ enum {
 	AUX_MU_BAUD_REG	= 0x20215068,
 };
 
-
+enum {
+	MMU_BASE		= 0x4000,
+	PERIPHERALS_BASE=0x20000000,
+};
 #endif

@@ -7,9 +7,9 @@
  void os_main(u32 r0, u32 r1, u32 atags){
 	(void) r0;
 	(void) r1;
+	i2c_init();
+	memory_init(atags);
 	
-	 memory_init(atags);
-
  }
  
  
