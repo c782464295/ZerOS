@@ -29,4 +29,16 @@ OLED 仅使用树莓派的 I2C 和电源引脚，无需独立供电，即插即�
 冲，表示已收到数据。CPU 向受控单元发出一个信号后，等待受控单元发出一个应答信号，CPU 接收到应答信号后，根据实际情况作出是否继续传递信号的判断。若未收到应答信号，由判断为 受控单元出现故障。
 这些信号中，开始信号是必需的，结束信号和应答信号，都可以不要
 
+
+打开OLED的步骤
+1. 0x8D 设置电荷泵
+2. 0x14 开启电荷泵
+3. 0xAF OLED唤醒
+4. 0xA7 翻转显示
+此时，OLED应全屏亮。
+
+
+
 [stm32 oled](https://blog.csdn.net/keilert/article/details/82787960)
+
+[OLED屏幕的IIC驱动程序](https://blog.csdn.net/gengyuchao/article/details/86743908)
