@@ -121,3 +121,6 @@ void WriteDat(uint8_t data)
 [stm32 oled](https://blog.csdn.net/keilert/article/details/82787960)
 
 [OLED屏幕的IIC驱动程序](https://blog.csdn.net/gengyuchao/article/details/86743908)
+
+
+https://www.raspberrypi.org/forums/viewtopic.php?f=72&t=291236
