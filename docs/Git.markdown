@@ -34,3 +34,6 @@ git config --global user.name "sw"
 
 最后一步是Push
 
+要在setting里SSH and GPG keys中添加一个key
+
+gui中help-show ssh key复制进去
