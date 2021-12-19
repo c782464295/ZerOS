@@ -13,23 +13,23 @@ wh比w贵10块钱，还是直接wh好。
 处理器是BCM2835，700MHz，RISC指令集，板载512MB内存和802.11 b/g/n Wifi无线网卡，低功耗蓝牙4.1（BLE），mini-dimi，40pin IO，CSI摄像头接口，micro-usb供电，micro-otg，micro-sd卡插槽。
 
 
-![zero](images/raspberryzerowh.jpg)
+![zero](images/raspberryzerowh.jpg =300x300)
 
 加装了树莓派Zero多功能USB插头（Zero Quick Plug），这样可以多1个USB口，实现给树莓派供电的同时将它接入因特网。
 
-![实物图](images/zj.jpg)
+![实物图](images/zj.jpg =300x300)
 
-![键鼠](images/swt.jpg)
+![键鼠](images/swt.jpg =300x300)
 
 选择树莓派zero进行操作系统开发的原因是：
 
 1. 价格便宜，如果你有HDMI屏幕的话，整套不到200，就可以享受到实体机器开发，不用QEMU模拟。
 2. 系统自带引导，可以直接加载镜像img，一般开发系统都会选用GRUB来进行引导，这里省去了繁琐的一步。
-3. 树莓派社区活跃，资料多。
+3. 树莓派社区活跃，资料多。https://forums.raspberrypi.com/ 不过比较多的是外文，需要一定英语水平。
 
 ## 启动流程
 
-树莓派不是纯开源硬件，但不影响操作系统开发。
+树莓派不是纯开源硬件，但不影响操作系统开发。不开源就是说你看不到电路原理图。
 
 1. 未开源的SoC bootcode.bin会挂载SD卡中的FAT32分区，这段代码固化在SoC的ROM中，无法修改。
 
