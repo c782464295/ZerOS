@@ -1,0 +1,428 @@
+make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.3
+# Built for x86_64-pc-cygwin
+# Copyright (C) 1988-2020 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Sun Dec 26 19:39:07 2021
+
+# Variables
+
+# environment
+SYSTEMDRIVE = C:
+# makefile (from 'Makefile', line 57)
+OBJ = $(patsubst  %.c,${DIR_OBJ}/%.o,$(notdir ${SRC}))
+# environment
+LC_ALL = C
+# makefile (from 'Makefile', line 54)
+SRC = $(wildcard  ${DIR_SRC}/*.c)
+# environment
+USERPROFILE = C:\Users\Lenovo
+# environment
+LOCALAPPDATA = C:\Users\Lenovo\AppData\Local
+# environment
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-7ab8cd86-18a7-4dba-8cb0-7910874fe59b-sock
+# environment
+VSCODE_CWD = G:\Microsoft VS Code
+# environment
+CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
+# environment
+SYSTEMROOT = C:\Windows
+# environment
+PROCESSOR_LEVEL = 6
+# environment
+PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\Windows\system32\WindowsPowerShell\v1.0\Modules
+# default
+MAKE_COMMAND := make
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# makefile (from 'Makefile', line 9)
+DIR_INC = ./include
+# environment
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_17896_EPNAGZFTQHSPFWER
+# makefile (from 'Makefile', line 8)
+DIR_SRC = ./src
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+.VARIABLES := 
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+VSCODE_LOG_STACK = false
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_CODE_CACHE_PATH = C:\Users\Lenovo\AppData\Roaming\Code\CachedData\899d46d82c4c95423fb7e10e68eba52050e30ba3
+# environment
+LANG = C
+# default
+.LOADED := 
+# environment
+TMP = /cygdrive/c/Users/Lenovo/AppData/Local/Temp
+# default
+.INCLUDE_DIRS = /usr/include /usr/include
+# makefile
+MAKEFLAGS = pqrR
+# environment
+ONEDRIVE = C:\Users\Lenovo\OneDrive
+# makefile
+CURDIR := /cygdrive/j/ZerOS
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+PROGRAMFILES = C:\Program Files
+# environment
+MFLAGS = -pqrR
+# default
+.SHELLFLAGS := -c
+# environment
+COMMONPROGRAMW6432 = C:\Program Files\Common Files
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST := Makefile
+# automatic
+@F = $(notdir $@)
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+VSCODE_PID = 17896
+# makefile (from 'Makefile', line 55)
+ASB = $(wildcard  ${DIR_SRC}/*.s)
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+*F = $(notdir $*)
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"85dc8b33bfa057e31dfd84e9a10f67e1.zh-cn","_translationsConfigFile":"C:\\Users\\Lenovo\\AppData\\Roaming\\Code\\clp\\85dc8b33bfa057e31dfd84e9a10f67e1.zh-cn\\tcf.json","_cacheRoot":"C:\\Users\\Lenovo\\AppData\\Roaming\\Code\\clp\\85dc8b33bfa057e31dfd84e9a10f67e1.zh-cn","_resolvedLanguagePackCoreLocation":"C:\\Users\\Lenovo\\AppData\\Roaming\\Code\\clp\\85dc8b33bfa057e31dfd84e9a10f67e1.zh-cn\\899d46d82c4c95423fb7e10e68eba52050e30ba3","_corruptedFile":"C:\\Users\\Lenovo\\AppData\\Roaming\\Code\\clp\\85dc8b33bfa057e31dfd84e9a10f67e1.zh-cn\\corrupted.info","_languagePackSupport":true}
+# makefile (from 'Makefile', line 11)
+DIR_LIB = ./lib
+# makefile (from 'Makefile', line 16)
+MAP = kernel.map
+# default
+MAKE_HOST := x86_64-pc-cygwin
+# environment
+PROGRAMDATA = C:\ProgramData
+# default
+SHELL := /bin/sh
+# environment
+HOMEPATH = \Users\Lenovo
+# default
+MAKECMDGOALS := all
+# environment
+DRIVERDATA = C:\Windows\System32\Drivers\DriverData
+# environment
+COMSPEC = C:\Windows\system32\cmd.exe
+# environment
+WINDIR = C:\Windows
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+PATH = /cygdrive/c/Program Files/PlasticSCM5/server:/cygdrive/c/Program Files/PlasticSCM5/client:/cygdrive/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/Windows/System32/OpenSSH:/cygdrive/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/cygdrive/g/MiKTex/miktex/bin/x64:/cygdrive/g/Graphviz/bin:/cygdrive/g/Git/cmd:/cygdrive/g/matlab2021a/runtime/win64:/cygdrive/g/matlab2021a/bin:/cygdrive/g/matlab2021a/polyspace/bin:/cygdrive/g/putty:/cygdrive/g/nodejs:/cygdrive/c/ProgramData/chocolatey/bin:/cygdrive/c/Program Files/Pandoc:/usr/bin:/cygdrive/g/arm/bin:/cygdrive/c/Program Files/dotnet:/cygdrive/g/python39/Scripts:/cygdrive/g/python39:/cygdrive/c/Users/Lenovo/AppData/Local/Microsoft/WindowsApps:/cygdrive/g/MiKTex/miktex/bin/x64:/cygdrive/c/Users/Lenovo/AppData/Roaming/npm:/cygdrive/g/Microsoft VS Code/bin:/cygdrive/c/Users/Lenovo/.dotnet/tools
+# environment
+ZES_ENABLE_SYSMAN = 1
+# environment
+COMPUTERNAME = WSONG
+# default
+MAKEFILES := 
+# automatic
+^F = $(notdir $^)
+# makefile (from 'Makefile', line 12)
+EXTERN = ./external
+# environment
+PROMPT = $P$G
+# environment
+CHOCOLATEYLASTPATHUPDATE = 132783401380946457
+# environment
+LOGONSERVER = \\WSONG
+# environment
+VSCODE_LOG_NATIVE = false
+# environment
+!J: = j:\ZerOS
+# environment
+USERNAME = Lenovo
+# environment
+COMMONPROGRAMFILES = C:\Program Files\Common Files
+# automatic
+?F = $(notdir $?)
+# makefile (from 'Makefile', line 58)
+INC = $(wildcard ${DIR_INC}/*.h)
+# environment
+PROGRAMW6432 = C:\Program Files
+# environment
+PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW
+# automatic
++F = $(notdir $+)
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+USERDOMAIN = WSONG
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+OS = Windows_NT
+# makefile (from 'Makefile', line 15)
+LIST = kernel.list
+# makefile
+.DEFAULT_GOAL := all
+# default
+MAKE_VERSION := 4.3
+# makefile (from 'Makefile', line 10)
+DIR_OBJ = ./object
+# environment
+PROGRAMFILES(X86) = C:\Program Files (x86)
+# makefile (from 'Makefile', line 41)
+LDFLAGS := -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -nostartfiles    -g -Wl,-T,linker.ld -Wl,-Map,kernel.map 
+# environment
+USERDOMAIN_ROAMINGPROFILE = WSONG
+# environment
+NUMBER_OF_PROCESSORS = 12
+# environment
+PUBLIC = C:\Users\Public
+# environment
+MOZ_PLUGIN_PATH = C:\Program Files (x86)\Foxit Software\Foxit Reader\plugins\
+# environment
+APPDATA = C:\Users\Lenovo\AppData\Roaming
+# makefile (from 'Makefile', line 39)
+CFLAGS := -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -nostartfiles   -g -Wl,--verbose -c -I ./include 
+# environment
+HOMEDRIVE = C:
+# environment
+PROCESSOR_ARCHITECTURE = AMD64
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+# environment
+HOME = /home/Lenovo
+# environment
+COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+TEMP = /cygdrive/c/Users/Lenovo/AppData/Local/Temp
+# environment
+VSCODE_IPC_HOOK = \\.\pipe\0fef3a94d6096a0b1a9a5118139e1cab-1.63.2-main-sock
+# environment
+TERM = xterm-256color
+# default
+.RECIPEPREFIX := 
+# automatic
+<F = $(notdir $<)
+# default
+SUFFIXES := 
+# environment
+ALLUSERSPROFILE = C:\ProgramData
+# makefile (from 'Makefile', line 19)
+TARGET = kernel
+# makefile (from 'Makefile', line 5)
+LINKER = linker.ld
+# environment
+SESSIONNAME = Console
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink guile load
+# environment
+PROCESSOR_REVISION = a503
+# makefile (from 'Makefile', line 2)
+GNU = arm-none-eabi-
+# environment
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 3, GenuineIntel
+# variable set hash-table stats:
+# Load=114/1024=11%, Rehash=0, Collisions=15/164=9%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# src (device 910813311, inode 281474976935483): 12 files, no impossibilities.
+# . (device 910813311, inode 281474976933474): 19 files, no impossibilities.
+# ./src (device 910813311, inode 281474976935483): 12 files, no impossibilities.
+
+# 43 files, no impossibilities in 3 directories.
+
+# Implicit Rules
+
+object/%.o: src/%.c Makefile
+#  recipe to execute (from 'Makefile', line 70):
+	${GNU}gcc ${CFLAGS} -c $< -o $@
+	
+	
+
+# 1 implicit rules, 0 (0.0%) terminal.
+# Files
+
+# Not a target:
+object/mem_init.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+object/interrupt.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+kernel.elf: object/gpu.o object/i2c.o object/interrupt.o object/main.o object/mem_init.o object/print.o object/start.o object/uart.o Makefile
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 67):
+	${GNU}gcc ${LDFLAGS} ${OBJ} ${ASB} -L ${DIR_LIB} -o ${TARGET}.elf  
+	
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2021-03-14 12:54:27.6985316
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+object/i2c.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 88):
+	rm -rf  ./object/*.o
+	rm -rf *.img *.elf *.disasm *.map ./boot/*.img
+
+kernel.img: kernel.elf Makefile
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 64):
+	${GNU}objcopy  ${TARGET}.elf -O binary $@
+	
+
+# Not a target:
+object/start.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+object/gpu.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+all:
+#  Command line target.
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := all
+# automatic
+# * := 
+# automatic
+# < := 
+# automatic
+# + := 
+# automatic
+# % := 
+# automatic
+# ^ := 
+# automatic
+# ? := 
+# automatic
+# | := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/11=9%
+#  recipe to execute (from 'Makefile', line 62):
+	make kernel.img
+
+help:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 75):
+	@echo "  make clean"
+	@echo "    - removes all build files and generated files"
+	@echo "  make install"
+	@echo "    - all need in boot directory"
+
+# Not a target:
+object/main.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+install:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 84):
+	cp kernel.img ./boot
+	@echo "==== DONE"
+
+# Not a target:
+ 
+object/print.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+disasm: kernel.elf
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 81):
+	${GNU}objdump -S  $< > ${TARGET}.disasm
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+object/uart.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# files hash-table stats:
+# Load=18/1024=2%, Rehash=0, Collisions=0/43=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 48 / storage = 431 B / avg = 8 B
+# current buf: size = 8162 B / used = 431 B / count = 48 / avg = 8 B
+
+# strcache performance: lookups = 71 / hit rate = 32%
+# hash-table stats:
+# Load=48/8192=1%, Rehash=0, Collisions=0/71=0%
+# Finished Make data base on Sun Dec 26 19:39:07 2021
+
+ 

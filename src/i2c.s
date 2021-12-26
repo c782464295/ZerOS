@@ -164,6 +164,5 @@ i2c_set_slave:
 	LDR		R1, =BSC_BASE_0
 	STRB	R0, [R1, #BSC_A]
 	BX		LR
-	
-	
+
 	
