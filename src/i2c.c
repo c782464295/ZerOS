@@ -6,6 +6,3 @@ void somenop()
 	}
 }
 
-void I2C_SendByte(){
-	PUT32(AUX_ENABLES,1);
-}

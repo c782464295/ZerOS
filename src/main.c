@@ -7,7 +7,7 @@
  void os_main(u32 r0, u32 r1, u32 atags){
 	(void) r0;
 	(void) r1;
-	I2C_SendByte();
+	
 	memory_init(atags);
 	
  }
