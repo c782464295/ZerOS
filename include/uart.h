@@ -2,7 +2,7 @@
 * 串口相关函数
  * **/
 
-
+#include "stdtype.h"
 #ifndef _UART_H
 #define _UART_H
 

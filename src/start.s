@@ -94,6 +94,11 @@ PUT32:
 	str	r1, [r0]
 	bx	lr
 	
+
+.globl dummy
+dummy:
+    bx lr
+	
 @ 开启中断 ，关闭中断
 .global _enable_interrupts
 _enable_interrupts:

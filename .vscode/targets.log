@@ -5,8 +5,9 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
+ 
 
-# Make data base, printed on Sun Dec 26 19:39:07 2021
+# Make data base, printed on Sun Dec 26 22:22:44 2021
 
 # Variables
 
@@ -23,7 +24,7 @@ USERPROFILE = C:\Users\Lenovo
 # environment
 LOCALAPPDATA = C:\Users\Lenovo\AppData\Local
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-7ab8cd86-18a7-4dba-8cb0-7910874fe59b-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-85d504cf-0300-46a3-8bef-84493aeef4f2-sock
 # environment
 VSCODE_CWD = G:\Microsoft VS Code
 # environment
@@ -41,7 +42,7 @@ MAKE_COMMAND := make
 # makefile (from 'Makefile', line 9)
 DIR_INC = ./include
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_17896_EPNAGZFTQHSPFWER
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_16512_FPEOLYMGKPANRSGI
 # makefile (from 'Makefile', line 8)
 DIR_SRC = ./src
 # environment
@@ -95,7 +96,7 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 17896
+VSCODE_PID = 16512
 # makefile (from 'Makefile', line 55)
 ASB = $(wildcard  ${DIR_SRC}/*.s)
 # automatic
@@ -152,6 +153,7 @@ LOGONSERVER = \\WSONG
 VSCODE_LOG_NATIVE = false
 # environment
 !J: = j:\ZerOS
+ 
 # environment
 USERNAME = Lenovo
 # environment
@@ -287,7 +289,7 @@ kernel.elf: object/gpu.o object/i2c.o object/interrupt.o object/main.o object/me
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-03-14 12:54:27.6985316
+#  Last modified 2021-12-26 22:22:37.5662882
 #  File has been updated.
 #  Successfully updated.
 
@@ -384,7 +386,6 @@ install:
 	@echo "==== DONE"
 
 # Not a target:
- 
 object/print.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -423,6 +424,6 @@ object/uart.o:
 # strcache performance: lookups = 71 / hit rate = 32%
 # hash-table stats:
 # Load=48/8192=1%, Rehash=0, Collisions=0/71=0%
-# Finished Make data base on Sun Dec 26 19:39:07 2021
+# Finished Make data base on Sun Dec 26 22:22:44 2021
 
  
