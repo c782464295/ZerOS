@@ -1,3 +1,5 @@
+![GitHub](https://img.shields.io/github/license/c782464295/ZerOS?style=flat-square)
+
 Raspberry Zero WH  
 Linux-like Operating System  
 Made by Sw.  
