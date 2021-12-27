@@ -86,4 +86,6 @@ Cygwin64、gcc-arm-none-eabi、raspios-buster-armhf-lite.img、UltralSo、DiskGe
 
 [n](https://github.com/BrianSidebotham/arm-tutorial-rpi)
 
+[w](https://www.valvers.com/open-software/raspberry-pi/bare-metal-programming-in-c-card/)
+
 还包括 30天自制操作系统、嵌入式实时操作系统等书。
