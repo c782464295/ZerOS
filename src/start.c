@@ -31,6 +31,7 @@ void _cstartup( u32 r0, u32 r1, u32 atags )
 
 	while(1){
 		/* 空! */
+		// 这里没什么用，因为OS-main也不会返回
 	}
 }
 
