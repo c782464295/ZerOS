@@ -7,9 +7,10 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # There is NO WARRANTY, to the extent permitted by law.
  
 
-# Make data base, printed on Sun Dec 26 22:22:44 2021
+# Make data base, printed on Tue Dec 28 17:11:39 2021
 
 # Variables
+ 
 
 # environment
 SYSTEMDRIVE = C:
@@ -153,7 +154,6 @@ LOGONSERVER = \\WSONG
 VSCODE_LOG_NATIVE = false
 # environment
 !J: = j:\ZerOS
- 
 # environment
 USERNAME = Lenovo
 # environment
@@ -241,7 +241,8 @@ GNU = arm-none-eabi-
 # environment
 PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 3, GenuineIntel
 # variable set hash-table stats:
-# Load=114/1024=11%, Rehash=0, Collisions=15/164=9%
+ 
+# Load=114/1024=11%, Rehash=0, Collisions=15/165=9%
 
 # Pattern-specific Variable Values
 
@@ -250,10 +251,10 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 3, GenuineIntel
 # Directories
 
 # src (device 910813311, inode 281474976935483): 12 files, no impossibilities.
-# . (device 910813311, inode 281474976933474): 19 files, no impossibilities.
+# . (device 910813311, inode 281474976933474): 21 files, no impossibilities.
 # ./src (device 910813311, inode 281474976935483): 12 files, no impossibilities.
 
-# 43 files, no impossibilities in 3 directories.
+# 45 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
@@ -289,7 +290,7 @@ kernel.elf: object/gpu.o object/i2c.o object/interrupt.o object/main.o object/me
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-12-26 22:22:37.5662882
+#  Last modified 2021-12-28 17:03:46.9289303
 #  File has been updated.
 #  Successfully updated.
 
@@ -303,9 +304,9 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 88):
+#  recipe to execute (from 'Makefile', line 92):
 	rm -rf  ./object/*.o
-	rm -rf *.img *.elf *.disasm *.map ./boot/*.img
+	rm -rf *.img *.elf *.disasm *.map ./boot/*.img *.nm
 
 kernel.img: kernel.elf Makefile
 #  Implicit rule search has not been done.
@@ -320,6 +321,13 @@ object/start.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+
+nm: kernel.elf
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 85):
+	${GNU}nm  $< > ${TARGET}.nm
 
 # Not a target:
 object/gpu.o:
@@ -381,7 +389,7 @@ install:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 84):
+#  recipe to execute (from 'Makefile', line 88):
 	cp kernel.img ./boot
 	@echo "==== DONE"
 
@@ -411,19 +419,19 @@ object/uart.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=18/1024=2%, Rehash=0, Collisions=0/43=0%
+# Load=19/1024=2%, Rehash=0, Collisions=0/45=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 48 / storage = 431 B / avg = 8 B
-# current buf: size = 8162 B / used = 431 B / count = 48 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 51 / storage = 452 B / avg = 8 B
+# current buf: size = 8162 B / used = 452 B / count = 51 / avg = 8 B
 
-# strcache performance: lookups = 71 / hit rate = 32%
+# strcache performance: lookups = 76 / hit rate = 32%
 # hash-table stats:
-# Load=48/8192=1%, Rehash=0, Collisions=0/71=0%
-# Finished Make data base on Sun Dec 26 22:22:44 2021
+# Load=51/8192=1%, Rehash=0, Collisions=0/76=0%
+# Finished Make data base on Tue Dec 28 17:11:39 2021
 
  

@@ -1,0 +1,1209 @@
+
+kernel.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text.init:
+
+00008000 <_start>:
+.globl _start
+_start:
+	@ 指定中断向量
+	@ 0x00 复位 0x04 未定义指令 0x08 软中断 0x0c 预读取中断 0x10 数据访问中止
+	@ 0x14 保留中断 0x18 中断要求（用于外设） 0x1c 快速中断要求
+	ldr pc, sig_reset
+    8000:	e59ff018 	ldr	pc, [pc, #24]	; 8020 <sig_reset>
+	ldr pc, sig_undef
+    8004:	e59ff018 	ldr	pc, [pc, #24]	; 8024 <sig_undef>
+	ldr pc, sig_swi
+    8008:	e59ff018 	ldr	pc, [pc, #24]	; 8028 <sig_swi>
+	ldr pc, sig_prefa
+    800c:	e59ff018 	ldr	pc, [pc, #24]	; 802c <sig_prefa>
+	ldr pc, sig_dataa
+    8010:	e59ff018 	ldr	pc, [pc, #24]	; 8030 <sig_dataa>
+	ldr pc, sig_unused	@ _unused 未使用
+    8014:	e59ff018 	ldr	pc, [pc, #24]	; 8034 <sig_unused>
+	ldr pc, sig_irq
+    8018:	e59ff018 	ldr	pc, [pc, #24]	; 8038 <sig_irq>
+	ldr pc, sig_fiq
+    801c:	e59ff018 	ldr	pc, [pc, #24]	; 803c <sig_fiq>
+
+00008020 <sig_reset>:
+    8020:	0000889c 	.word	0x0000889c
+
+00008024 <sig_undef>:
+    8024:	00008294 	.word	0x00008294
+
+00008028 <sig_swi>:
+    8028:	000082a0 	.word	0x000082a0
+
+0000802c <sig_prefa>:
+    802c:	000082ac 	.word	0x000082ac
+
+00008030 <sig_dataa>:
+    8030:	000082b8 	.word	0x000082b8
+
+00008034 <sig_unused>:
+    8034:	000082c4 	.word	0x000082c4
+
+00008038 <sig_irq>:
+    8038:	000082d0 	.word	0x000082d0
+
+0000803c <sig_fiq>:
+    803c:	000082dc 	.word	0x000082dc
+
+Disassembly of section .text:
+
+00008040 <gpu_Init_GPU>:
+#include "gpu.h"
+
+
+//初始化
+u32 gpu_Init_GPU(u32 width, u32 height, u32 bitDepth)
+{
+    8040:	e92d4800 	push	{fp, lr}
+    8044:	e28db004 	add	fp, sp, #4
+    8048:	e24dd018 	sub	sp, sp, #24
+    804c:	e50b0010 	str	r0, [fp, #-16]
+    8050:	e50b1014 	str	r1, [fp, #-20]
+    8054:	e50b2018 	str	r2, [fp, #-24]
+	volatile u32 GPU_MSG = 0;
+    8058:	e3a03000 	mov	r3, #0
+    805c:	e50b300c 	str	r3, [fp, #-12]
+	
+	/*参数检查*/
+	if(width > 4096 || height > 4096 || bitDepth > 32)
+    8060:	e51b3010 	ldr	r3, [fp, #-16]
+    8064:	e3530a01 	cmp	r3, #4096	; 0x1000
+    8068:	8a000005 	bhi	8084 <BSC_START_WRITE+0x4>
+    806c:	e51b3014 	ldr	r3, [fp, #-20]
+    8070:	e3530a01 	cmp	r3, #4096	; 0x1000
+    8074:	8a000002 	bhi	8084 <BSC_START_WRITE+0x4>
+    8078:	e51b3018 	ldr	r3, [fp, #-24]
+    807c:	e3530020 	cmp	r3, #32
+    8080:	9a000001 	bls	808c <BSC_START_WRITE+0xc>
+	{
+		return 0;
+    8084:	e3a03000 	mov	r3, #0
+    8088:	ea00001a 	b	80f8 <BSC_START_READ+0x67>
+	}
+	struct FrameBufferInfoS *bufInfo = (struct FrameBufferInfoS *) &FrameBufferInfo;
+    808c:	e59f3070 	ldr	r3, [pc, #112]	; 8104 <BSC_START_READ+0x73>
+    8090:	e50b3008 	str	r3, [fp, #-8]
+
+	bufInfo->phyWidth = width;
+    8094:	e51b3008 	ldr	r3, [fp, #-8]
+    8098:	e51b2010 	ldr	r2, [fp, #-16]
+    809c:	e5832000 	str	r2, [r3]
+	bufInfo->phyHeight = height;
+    80a0:	e51b3008 	ldr	r3, [fp, #-8]
+    80a4:	e51b2014 	ldr	r2, [fp, #-20]
+    80a8:	e5832004 	str	r2, [r3, #4]
+	bufInfo->virWidth = width;
+    80ac:	e51b3008 	ldr	r3, [fp, #-8]
+    80b0:	e51b2010 	ldr	r2, [fp, #-16]
+    80b4:	e5832008 	str	r2, [r3, #8]
+	bufInfo->virHeight = height;
+    80b8:	e51b3008 	ldr	r3, [fp, #-8]
+    80bc:	e51b2014 	ldr	r2, [fp, #-20]
+    80c0:	e583200c 	str	r2, [r3, #12]
+	bufInfo->bitDepth = bitDepth;
+    80c4:	e51b3008 	ldr	r3, [fp, #-8]
+    80c8:	e51b2018 	ldr	r2, [fp, #-24]
+    80cc:	e5832014 	str	r2, [r3, #20]
+	
+	/*禁用cache，读取内存值，防止产生误差。0x40000000 */
+	GPU_MSG = (u32) bufInfo + 0x40000000; 
+    80d0:	e51b3008 	ldr	r3, [fp, #-8]
+    80d4:	e2833101 	add	r3, r3, #1073741824	; 0x40000000
+    80d8:	e50b300c 	str	r3, [fp, #-12]
+	gpu_SendMail(GPU_MSG, 1);
+    80dc:	e51b300c 	ldr	r3, [fp, #-12]
+    80e0:	e1a00003 	mov	r0, r3
+    80e4:	e3a01001 	mov	r1, #1
+    80e8:	eb000006 	bl	8108 <gpu_SendMail>
+	return gpu_RecMail(1);
+    80ec:	e3a00001 	mov	r0, #1
+    80f0:	eb00002b 	bl	81a4 <gpu_RecMail>
+    80f4:	e1a03000 	mov	r3, r0
+}
+    80f8:	e1a00003 	mov	r0, r3
+    80fc:	e24bd004 	sub	sp, fp, #4
+    8100:	e8bd8800 	pop	{fp, pc}
+    8104:	0000a174 	.word	0x0000a174
+
+00008108 <gpu_SendMail>:
+
+
+
+int gpu_SendMail(u32 GPU_MSG, u32 channel)
+{
+    8108:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    810c:	e28db000 	add	fp, sp, #0
+    8110:	e24dd014 	sub	sp, sp, #20
+    8114:	e50b0010 	str	r0, [fp, #-16]
+    8118:	e50b1014 	str	r1, [fp, #-20]
+	volatile u32 *Status = (u32 *)GPU_Status;
+    811c:	e59f3078 	ldr	r3, [pc, #120]	; 819c <gpu_SendMail+0x94>
+    8120:	e50b3008 	str	r3, [fp, #-8]
+	volatile u32 *Write = (u32 *) GPU_Write;
+    8124:	e59f3074 	ldr	r3, [pc, #116]	; 81a0 <gpu_SendMail+0x98>
+    8128:	e50b300c 	str	r3, [fp, #-12]
+	
+	/*参数检查*/
+	if((GPU_MSG & 0xF) != 0)
+    812c:	e51b3010 	ldr	r3, [fp, #-16]
+    8130:	e203300f 	and	r3, r3, #15
+    8134:	e3530000 	cmp	r3, #0
+    8138:	0a000001 	beq	8144 <gpu_SendMail+0x3c>
+	{
+		return -1;
+    813c:	e3e03000 	mvn	r3, #0
+    8140:	ea000011 	b	818c <gpu_SendMail+0x84>
+	}
+
+	if((channel > 15) || (channel < 0))
+    8144:	e51b3014 	ldr	r3, [fp, #-20]
+    8148:	e353000f 	cmp	r3, #15
+    814c:	9a000001 	bls	8158 <gpu_SendMail+0x50>
+	{
+		return -1;
+    8150:	e3e03000 	mvn	r3, #0
+    8154:	ea00000c 	b	818c <gpu_SendMail+0x84>
+	}
+
+	/* 循环等待状态寄存器的最高为为0.则可以发送消息 */
+	while((*Status & 0x80000000) != 0);
+    8158:	e1a00000 	nop			; (mov r0, r0)
+    815c:	e51b3008 	ldr	r3, [fp, #-8]
+    8160:	e5933000 	ldr	r3, [r3]
+    8164:	e3530000 	cmp	r3, #0
+    8168:	bafffffb 	blt	815c <gpu_SendMail+0x54>
+
+	/* 按照格式发送消息到GPU */
+	/* 低4位是要写入的mail，而高28位是要写入的消息 */
+	GPU_MSG = GPU_MSG + channel;  
+    816c:	e51b2010 	ldr	r2, [fp, #-16]
+    8170:	e51b3014 	ldr	r3, [fp, #-20]
+    8174:	e0823003 	add	r3, r2, r3
+    8178:	e50b3010 	str	r3, [fp, #-16]
+	*Write = GPU_MSG;
+    817c:	e51b300c 	ldr	r3, [fp, #-12]
+    8180:	e51b2010 	ldr	r2, [fp, #-16]
+    8184:	e5832000 	str	r2, [r3]
+	
+	return 0;
+    8188:	e3a03000 	mov	r3, #0
+}
+    818c:	e1a00003 	mov	r0, r3
+    8190:	e24bd000 	sub	sp, fp, #0
+    8194:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
+    8198:	e12fff1e 	bx	lr
+    819c:	2000b898 	.word	0x2000b898
+    81a0:	2000b8a0 	.word	0x2000b8a0
+
+000081a4 <gpu_RecMail>:
+
+
+
+u32 gpu_RecMail(u32 channel)
+{
+    81a4:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    81a8:	e28db000 	add	fp, sp, #0
+    81ac:	e24dd01c 	sub	sp, sp, #28
+    81b0:	e50b0018 	str	r0, [fp, #-24]
+	volatile u32 *Status = (u32 *)GPU_Status;
+    81b4:	e59f3090 	ldr	r3, [pc, #144]	; 824c <gpu_RecMail+0xa8>
+    81b8:	e50b3008 	str	r3, [fp, #-8]
+	volatile u32 *Read = (u32 *) GPU_Read;
+    81bc:	e59f308c 	ldr	r3, [pc, #140]	; 8250 <gpu_RecMail+0xac>
+    81c0:	e50b300c 	str	r3, [fp, #-12]
+	volatile u32 GPU_MSG = 0;
+    81c4:	e3a03000 	mov	r3, #0
+    81c8:	e50b3010 	str	r3, [fp, #-16]
+	
+	/*参数检查*/
+	if((channel > 15) || (channel < 0))
+    81cc:	e51b3018 	ldr	r3, [fp, #-24]
+    81d0:	e353000f 	cmp	r3, #15
+    81d4:	9a000001 	bls	81e0 <gpu_RecMail+0x3c>
+	{
+		return 0;
+    81d8:	e3a03000 	mov	r3, #0
+    81dc:	ea000016 	b	823c <gpu_RecMail+0x98>
+	}
+	do{
+		/*循环等待状态寄存器30bit为0.则可以接收消息*/
+		while((*Status & 0x40000000) != 0);
+    81e0:	e1a00000 	nop			; (mov r0, r0)
+    81e4:	e51b3008 	ldr	r3, [fp, #-8]
+    81e8:	e5933000 	ldr	r3, [r3]
+    81ec:	e2033101 	and	r3, r3, #1073741824	; 0x40000000
+    81f0:	e3530000 	cmp	r3, #0
+    81f4:	1afffffa 	bne	81e4 <gpu_RecMail+0x40>
+		
+		GPU_MSG = *Read;
+    81f8:	e51b300c 	ldr	r3, [fp, #-12]
+    81fc:	e5933000 	ldr	r3, [r3]
+    8200:	e50b3010 	str	r3, [fp, #-16]
+		/*通过channel判断是否是所需的消息*/
+		if((GPU_MSG & 0xF) == channel)
+    8204:	e51b3010 	ldr	r3, [fp, #-16]
+    8208:	e203200f 	and	r2, r3, #15
+    820c:	e51b3018 	ldr	r3, [fp, #-24]
+    8210:	e1520003 	cmp	r2, r3
+    8214:	1a000007 	bne	8238 <gpu_RecMail+0x94>
+		{
+			/*GPU_MSG = 0 表示成功发送消息，否则失败*/
+			GPU_MSG = (GPU_MSG & 0xFFFFFFF0);
+    8218:	e51b3010 	ldr	r3, [fp, #-16]
+    821c:	e3c3300f 	bic	r3, r3, #15
+    8220:	e50b3010 	str	r3, [fp, #-16]
+			if(GPU_MSG == 0)
+    8224:	e51b3010 	ldr	r3, [fp, #-16]
+    8228:	e3530000 	cmp	r3, #0
+    822c:	1a000001 	bne	8238 <gpu_RecMail+0x94>
+			{
+				return (u32)&FrameBufferInfo;				
+    8230:	e59f301c 	ldr	r3, [pc, #28]	; 8254 <gpu_RecMail+0xb0>
+    8234:	ea000000 	b	823c <gpu_RecMail+0x98>
+			}
+		}
+	}while(1);
+    8238:	eaffffe8 	b	81e0 <gpu_RecMail+0x3c>
+}
+    823c:	e1a00003 	mov	r0, r3
+    8240:	e24bd000 	sub	sp, fp, #0
+    8244:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
+    8248:	e12fff1e 	bx	lr
+    824c:	2000b898 	.word	0x2000b898
+    8250:	2000b880 	.word	0x2000b880
+    8254:	0000a174 	.word	0x0000a174
+
+00008258 <somenop>:
+void somenop()
+{
+    8258:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    825c:	e28db000 	add	fp, sp, #0
+    8260:	e24dd00c 	sub	sp, sp, #12
+	int i = 255;
+    8264:	e3a030ff 	mov	r3, #255	; 0xff
+    8268:	e50b3008 	str	r3, [fp, #-8]
+	while (i > 0) {
+    826c:	ea000002 	b	827c <somenop+0x24>
+		i--;
+    8270:	e51b3008 	ldr	r3, [fp, #-8]
+    8274:	e2433001 	sub	r3, r3, #1
+    8278:	e50b3008 	str	r3, [fp, #-8]
+void somenop()
+{
+	int i = 255;
+	while (i > 0) {
+    827c:	e51b3008 	ldr	r3, [fp, #-8]
+    8280:	e3530000 	cmp	r3, #0
+    8284:	cafffff9 	bgt	8270 <somenop+0x18>
+		i--;
+	}
+}
+    8288:	e24bd000 	sub	sp, fp, #0
+    828c:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
+    8290:	e12fff1e 	bx	lr
+
+00008294 <_undef>:
+	volatile unsigned int Disable_Basic_IRQs;
+}irq_controller_t;
+
+
+
+void _undef(void){
+    8294:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    8298:	e28db000 	add	fp, sp, #0
+	while(1){
+		
+	}
+    829c:	eafffffe 	b	829c <_undef+0x8>
+
+000082a0 <_swi>:
+}
+
+
+void _swi(void){
+    82a0:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    82a4:	e28db000 	add	fp, sp, #0
+	while(1){
+		
+	}
+    82a8:	eafffffe 	b	82a8 <_swi+0x8>
+
+000082ac <_prefa>:
+}
+void _prefa(void){
+    82ac:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    82b0:	e28db000 	add	fp, sp, #0
+	while(1){
+		
+	}
+    82b4:	eafffffe 	b	82b4 <_prefa+0x8>
+
+000082b8 <_dataa>:
+}
+void _dataa(void){
+    82b8:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    82bc:	e28db000 	add	fp, sp, #0
+	while(1){
+		
+	}
+    82c0:	eafffffe 	b	82c0 <_dataa+0x8>
+
+000082c4 <_unused>:
+}
+void _unused(void){
+    82c4:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    82c8:	e28db000 	add	fp, sp, #0
+	while(1){
+		
+	}
+    82cc:	eafffffe 	b	82cc <_unused+0x8>
+
+000082d0 <_irq>:
+}
+void _irq(void){
+    82d0:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    82d4:	e28db000 	add	fp, sp, #0
+	while(1){
+		
+	}
+    82d8:	eafffffe 	b	82d8 <_irq+0x8>
+
+000082dc <_fiq>:
+}
+
+void _fiq(void){
+    82dc:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    82e0:	e28db000 	add	fp, sp, #0
+	while(1){
+		
+	}
+    82e4:	eafffffe 	b	82e4 <_fiq+0x8>
+
+000082e8 <os_main>:
+ 
+volatile unsigned int* gpioregs;
+
+// 三个参数，因为没有用到，释放
+// 否则会造成3个寄存器被占用
+ void os_main(u32 r0, u32 r1, u32 atags){
+    82e8:	e92d4800 	push	{fp, lr}
+    82ec:	e28db004 	add	fp, sp, #4
+    82f0:	e24dd018 	sub	sp, sp, #24
+    82f4:	e50b0010 	str	r0, [fp, #-16]
+    82f8:	e50b1014 	str	r1, [fp, #-20]
+    82fc:	e50b2018 	str	r2, [fp, #-24]
+	//memory_init(atags);
+
+    unsigned int ra;
+
+    // create pointer to the gpioregs;
+    gpioregs = (unsigned int*)GPIOREGS;
+    8300:	e59f30ac 	ldr	r3, [pc, #172]	; 83b4 <os_main+0xcc>
+    8304:	e59f20ac 	ldr	r2, [pc, #172]	; 83b8 <os_main+0xd0>
+    8308:	e5832000 	str	r2, [r3]
+ 
+    // set gpio16 as output
+    gpioregs[GPFSEL1] |= (1 << 18);
+    830c:	e59f30a0 	ldr	r3, [pc, #160]	; 83b4 <os_main+0xcc>
+    8310:	e5933000 	ldr	r3, [r3]
+    8314:	e2833004 	add	r3, r3, #4
+    8318:	e59f2094 	ldr	r2, [pc, #148]	; 83b4 <os_main+0xcc>
+    831c:	e5922000 	ldr	r2, [r2]
+    8320:	e2822004 	add	r2, r2, #4
+    8324:	e5922000 	ldr	r2, [r2]
+    8328:	e3822701 	orr	r2, r2, #262144	; 0x40000
+    832c:	e5832000 	str	r2, [r3]
+
+    while(1)
+    {
+        gpioregs[GPCLR0] = (1 << 16); // GPIO16
+    8330:	e59f307c 	ldr	r3, [pc, #124]	; 83b4 <os_main+0xcc>
+    8334:	e5933000 	ldr	r3, [r3]
+    8338:	e2833028 	add	r3, r3, #40	; 0x28
+    833c:	e3a02801 	mov	r2, #65536	; 0x10000
+    8340:	e5832000 	str	r2, [r3]
+        for(ra=0;ra<0x100000;ra++) dummy(ra);
+    8344:	e3a03000 	mov	r3, #0
+    8348:	e50b3008 	str	r3, [fp, #-8]
+    834c:	ea000004 	b	8364 <os_main+0x7c>
+    8350:	e51b0008 	ldr	r0, [fp, #-8]
+    8354:	eb000167 	bl	88f8 <dummy>
+    8358:	e51b3008 	ldr	r3, [fp, #-8]
+    835c:	e2833001 	add	r3, r3, #1
+    8360:	e50b3008 	str	r3, [fp, #-8]
+    8364:	e51b3008 	ldr	r3, [fp, #-8]
+    8368:	e3530601 	cmp	r3, #1048576	; 0x100000
+    836c:	3afffff7 	bcc	8350 <os_main+0x68>
+
+        gpioregs[GPSET0] = (1 << 16); // GPIO16
+    8370:	e59f303c 	ldr	r3, [pc, #60]	; 83b4 <os_main+0xcc>
+    8374:	e5933000 	ldr	r3, [r3]
+    8378:	e283301c 	add	r3, r3, #28
+    837c:	e3a02801 	mov	r2, #65536	; 0x10000
+    8380:	e5832000 	str	r2, [r3]
+        for(ra=0;ra<0x100000;ra++) dummy(ra);
+    8384:	e3a03000 	mov	r3, #0
+    8388:	e50b3008 	str	r3, [fp, #-8]
+    838c:	ea000004 	b	83a4 <os_main+0xbc>
+    8390:	e51b0008 	ldr	r0, [fp, #-8]
+    8394:	eb000157 	bl	88f8 <dummy>
+    8398:	e51b3008 	ldr	r3, [fp, #-8]
+    839c:	e2833001 	add	r3, r3, #1
+    83a0:	e50b3008 	str	r3, [fp, #-8]
+    83a4:	e51b3008 	ldr	r3, [fp, #-8]
+    83a8:	e3530601 	cmp	r3, #1048576	; 0x100000
+    83ac:	3afffff7 	bcc	8390 <os_main+0xa8>
+    }
+    83b0:	eaffffde 	b	8330 <os_main+0x48>
+    83b4:	0000a19c 	.word	0x0000a19c
+    83b8:	20200000 	.word	0x20200000
+
+000083bc <GetDefaultFontData>:
+    0x07000000, 0xfc0f0000, 0x48000000, 0x05004600, 0x01000d00, 0x07000000, 0xfd0f0000, 0x4e000000, 0x05004600, 0x01000d00, 0x07000000, 0xfe0f0000, 
+    0x54000000, 0x05004600, 0x01000d00, 0x07000000, 0xff0f0000, 0x5a000000, 0x05004600, 0x01000d00, 0x07000000, 0x000f0000, 
+};
+
+void GetDefaultFontData(const void** fnt_data, unsigned int* fnt_size, const void** png_data, unsigned int* png_size)
+{
+    83bc:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+    83c0:	e28db000 	add	fp, sp, #0
+    83c4:	e24dd014 	sub	sp, sp, #20
+    83c8:	e50b0008 	str	r0, [fp, #-8]
+    83cc:	e50b100c 	str	r1, [fp, #-12]
+    83d0:	e50b2010 	str	r2, [fp, #-16]
+    83d4:	e50b3014 	str	r3, [fp, #-20]
+	if (fnt_data) *fnt_data = (const void*)proggy_clean_13_fnt_data;
+    83d8:	e51b3008 	ldr	r3, [fp, #-8]
+    83dc:	e3530000 	cmp	r3, #0
+    83e0:	0a000002 	beq	83f0 <GetDefaultFontData+0x34>
+    83e4:	e51b3008 	ldr	r3, [fp, #-8]
+    83e8:	e59f2054 	ldr	r2, [pc, #84]	; 8444 <GetDefaultFontData+0x88>
+    83ec:	e5832000 	str	r2, [r3]
+	if (fnt_size) *fnt_size = proggy_clean_13_fnt_size;
+    83f0:	e51b300c 	ldr	r3, [fp, #-12]
+    83f4:	e3530000 	cmp	r3, #0
+    83f8:	0a000002 	beq	8408 <GetDefaultFontData+0x4c>
+    83fc:	e59f2044 	ldr	r2, [pc, #68]	; 8448 <GetDefaultFontData+0x8c>
+    8400:	e51b300c 	ldr	r3, [fp, #-12]
+    8404:	e5832000 	str	r2, [r3]
+	if (png_data) *png_data = (const void*)proggy_clean_13_png_data;
+    8408:	e51b3010 	ldr	r3, [fp, #-16]
+    840c:	e3530000 	cmp	r3, #0
+    8410:	0a000002 	beq	8420 <GetDefaultFontData+0x64>
+    8414:	e51b3010 	ldr	r3, [fp, #-16]
+    8418:	e59f202c 	ldr	r2, [pc, #44]	; 844c <GetDefaultFontData+0x90>
+    841c:	e5832000 	str	r2, [r3]
+	if (png_size) *png_size = proggy_clean_13_png_size;
+    8420:	e51b3014 	ldr	r3, [fp, #-20]
+    8424:	e3530000 	cmp	r3, #0
+    8428:	0a000002 	beq	8438 <GetDefaultFontData+0x7c>
+    842c:	e59f201c 	ldr	r2, [pc, #28]	; 8450 <GetDefaultFontData+0x94>
+    8430:	e51b3014 	ldr	r3, [fp, #-20]
+    8434:	e5832000 	str	r2, [r3]
+    8438:	e24bd000 	sub	sp, fp, #0
+    843c:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
+    8440:	e12fff1e 	bx	lr
+    8444:	00008f3c 	.word	0x00008f3c
+    8448:	00001227 	.word	0x00001227
+    844c:	00008920 	.word	0x00008920
+    8450:	00000615 	.word	0x00000615
+
+00008454 <_cstartup>:
+// GPU引导程序通过r0-r2和boot.S将参数传递给内核，
+// 参数r0包含用于启动的设备的代码。
+// r1包含ARM Linux机器类型
+// r2包含ATAG的地址
+void _cstartup( u32 r0, u32 r1, u32 atags )
+{
+    8454:	e92d4800 	push	{fp, lr}
+    8458:	e28db004 	add	fp, sp, #4
+    845c:	e24dd018 	sub	sp, sp, #24
+    8460:	e50b0010 	str	r0, [fp, #-16]
+    8464:	e50b1014 	str	r1, [fp, #-20]
+    8468:	e50b2018 	str	r2, [fp, #-24]
+	// 在ld文件中计算出的bss大小，C环境要求BSS清0，这里我们手动清0
+	// unsigned int var1;
+	// unsigned int funcvar1;
+    // static unsigned int funcvar2;
+	// 这种变量都在BSS中，否则这些值将会是随机的，不会被初始化为0
+	int* bss = &__bss_start__;
+    846c:	e59f3044 	ldr	r3, [pc, #68]	; 84b8 <_cstartup+0x64>
+    8470:	e50b3008 	str	r3, [fp, #-8]
+	int* bss_end = &__bss_end__;
+    8474:	e59f3040 	ldr	r3, [pc, #64]	; 84bc <_cstartup+0x68>
+    8478:	e50b300c 	str	r3, [fp, #-12]
+ 
+	// 将BSS内存部分初始化为全0
+    while( bss < bss_end )
+    847c:	ea000004 	b	8494 <_cstartup+0x40>
+    	*bss++ = 0;
+    8480:	e51b3008 	ldr	r3, [fp, #-8]
+    8484:	e2832004 	add	r2, r3, #4
+    8488:	e50b2008 	str	r2, [fp, #-8]
+    848c:	e3a02000 	mov	r2, #0
+    8490:	e5832000 	str	r2, [r3]
+	// 这种变量都在BSS中，否则这些值将会是随机的，不会被初始化为0
+	int* bss = &__bss_start__;
+	int* bss_end = &__bss_end__;
+ 
+	// 将BSS内存部分初始化为全0
+    while( bss < bss_end )
+    8494:	e51b2008 	ldr	r2, [fp, #-8]
+    8498:	e51b300c 	ldr	r3, [fp, #-12]
+    849c:	e1520003 	cmp	r2, r3
+    84a0:	3afffff6 	bcc	8480 <_cstartup+0x2c>
+    	*bss++ = 0;
+ 
+	// 死循环，不会返回
+    os_main(r0, r1, atags);
+    84a4:	e51b0010 	ldr	r0, [fp, #-16]
+    84a8:	e51b1014 	ldr	r1, [fp, #-20]
+    84ac:	e51b2018 	ldr	r2, [fp, #-24]
+    84b0:	ebffff8c 	bl	82e8 <os_main>
+
+	while(1){
+		/* 空! */
+		// 这里没什么用，因为OS-main也不会返回
+	}
+    84b4:	eafffffe 	b	84b4 <_cstartup+0x60>
+    84b8:	0000a172 	.word	0x0000a172
+    84bc:	0000a1a0 	.word	0x0000a1a0
+
+000084c0 <notmain>:
+#include "stdtype.h"
+// 这两个函数定义在startup.s中，以汇编形式存在
+extern void PUT32 ( u32, u32 );
+extern u32 GET32 ( u32 );
+
+int notmain ( void ) {
+    84c0:	e92d4800 	push	{fp, lr}
+    84c4:	e28db004 	add	fp, sp, #4
+    84c8:	e24dd008 	sub	sp, sp, #8
+    u32 cfg;
+
+    PUT32(AUX_ENABLES,1);
+    84cc:	e59f00f8 	ldr	r0, [pc, #248]	; 85cc <notmain+0x10c>
+    84d0:	e3a01001 	mov	r1, #1
+    84d4:	eb000105 	bl	88f0 <PUT32>
+    PUT32(AUX_MU_IER_REG,0);
+    84d8:	e59f00f0 	ldr	r0, [pc, #240]	; 85d0 <notmain+0x110>
+    84dc:	e3a01000 	mov	r1, #0
+    84e0:	eb000102 	bl	88f0 <PUT32>
+    PUT32(AUX_MU_CNTL_REG,0);
+    84e4:	e59f00e8 	ldr	r0, [pc, #232]	; 85d4 <notmain+0x114>
+    84e8:	e3a01000 	mov	r1, #0
+    84ec:	eb0000ff 	bl	88f0 <PUT32>
+    PUT32(AUX_MU_LCR_REG,3);
+    84f0:	e59f00e0 	ldr	r0, [pc, #224]	; 85d8 <notmain+0x118>
+    84f4:	e3a01003 	mov	r1, #3
+    84f8:	eb0000fc 	bl	88f0 <PUT32>
+    PUT32(AUX_MU_MCR_REG,0);
+    84fc:	e59f00d8 	ldr	r0, [pc, #216]	; 85dc <notmain+0x11c>
+    8500:	e3a01000 	mov	r1, #0
+    8504:	eb0000f9 	bl	88f0 <PUT32>
+    PUT32(AUX_MU_IER_REG,0);
+    8508:	e59f00c0 	ldr	r0, [pc, #192]	; 85d0 <notmain+0x110>
+    850c:	e3a01000 	mov	r1, #0
+    8510:	eb0000f6 	bl	88f0 <PUT32>
+    PUT32(AUX_MU_IIR_REG,0xC6);
+    8514:	e59f00c4 	ldr	r0, [pc, #196]	; 85e0 <notmain+0x120>
+    8518:	e3a010c6 	mov	r1, #198	; 0xc6
+    851c:	eb0000f3 	bl	88f0 <PUT32>
+    PUT32(AUX_MU_BAUD_REG,270);
+    8520:	e59f00bc 	ldr	r0, [pc, #188]	; 85e4 <notmain+0x124>
+    8524:	e59f10bc 	ldr	r1, [pc, #188]	; 85e8 <notmain+0x128>
+    8528:	eb0000f0 	bl	88f0 <PUT32>
+
+    cfg = GET32(GPFSEL1);
+    852c:	e59f00b8 	ldr	r0, [pc, #184]	; 85ec <notmain+0x12c>
+    8530:	eb0000ec 	bl	88e8 <GET32>
+    8534:	e50b000c 	str	r0, [fp, #-12]
+    cfg &=~(7<<12); //gpio14
+    8538:	e51b300c 	ldr	r3, [fp, #-12]
+    853c:	e3c33a07 	bic	r3, r3, #28672	; 0x7000
+    8540:	e50b300c 	str	r3, [fp, #-12]
+    cfg |= 2<<12;    //alt5
+    8544:	e51b300c 	ldr	r3, [fp, #-12]
+    8548:	e3833a02 	orr	r3, r3, #8192	; 0x2000
+    854c:	e50b300c 	str	r3, [fp, #-12]
+	cfg &=~(7<<15); //gpio15
+    8550:	e51b300c 	ldr	r3, [fp, #-12]
+    8554:	e3c3390e 	bic	r3, r3, #229376	; 0x38000
+    8558:	e50b300c 	str	r3, [fp, #-12]
+    cfg |= 2<<12;    //alt5
+    855c:	e51b300c 	ldr	r3, [fp, #-12]
+    8560:	e3833a02 	orr	r3, r3, #8192	; 0x2000
+    8564:	e50b300c 	str	r3, [fp, #-12]
+    PUT32(GPFSEL1,cfg);
+    8568:	e59f007c 	ldr	r0, [pc, #124]	; 85ec <notmain+0x12c>
+    856c:	e51b100c 	ldr	r1, [fp, #-12]
+    8570:	eb0000de 	bl	88f0 <PUT32>
+
+
+    PUT32(AUX_MU_CNTL_REG,3);
+    8574:	e59f0058 	ldr	r0, [pc, #88]	; 85d4 <notmain+0x114>
+    8578:	e3a01003 	mov	r1, #3
+    857c:	eb0000db 	bl	88f0 <PUT32>
+
+    u32 ra=0;
+    8580:	e3a03000 	mov	r3, #0
+    8584:	e50b3008 	str	r3, [fp, #-8]
+    while(1)
+    {
+        while(1)
+        {
+            if(GET32(AUX_MU_LSR_REG)&0x20) break;
+    8588:	e59f0060 	ldr	r0, [pc, #96]	; 85f0 <notmain+0x130>
+    858c:	eb0000d5 	bl	88e8 <GET32>
+    8590:	e1a03000 	mov	r3, r0
+    8594:	e2033020 	and	r3, r3, #32
+    8598:	e3530000 	cmp	r3, #0
+    859c:	0a000009 	beq	85c8 <notmain+0x108>
+    85a0:	e1a00000 	nop			; (mov r0, r0)
+        }
+        PUT32(AUX_MU_IO_REG,0x30+(ra++&7));
+    85a4:	e51b3008 	ldr	r3, [fp, #-8]
+    85a8:	e2832001 	add	r2, r3, #1
+    85ac:	e50b2008 	str	r2, [fp, #-8]
+    85b0:	e2033007 	and	r3, r3, #7
+    85b4:	e2833030 	add	r3, r3, #48	; 0x30
+    85b8:	e59f0034 	ldr	r0, [pc, #52]	; 85f4 <notmain+0x134>
+    85bc:	e1a01003 	mov	r1, r3
+    85c0:	eb0000ca 	bl	88f0 <PUT32>
+    }
+    85c4:	eaffffef 	b	8588 <notmain+0xc8>
+    while(1)
+    {
+        while(1)
+        {
+            if(GET32(AUX_MU_LSR_REG)&0x20) break;
+        }
+    85c8:	eaffffee 	b	8588 <notmain+0xc8>
+    85cc:	20215004 	.word	0x20215004
+    85d0:	20215044 	.word	0x20215044
+    85d4:	20215060 	.word	0x20215060
+    85d8:	2021504c 	.word	0x2021504c
+    85dc:	20215050 	.word	0x20215050
+    85e0:	20215048 	.word	0x20215048
+    85e4:	20215068 	.word	0x20215068
+    85e8:	0000010e 	.word	0x0000010e
+    85ec:	20200004 	.word	0x20200004
+    85f0:	20215054 	.word	0x20215054
+    85f4:	20215040 	.word	0x20215040
+
+000085f8 <uart_putc>:
+    return(0);
+}
+
+
+void uart_putc ( u32 c )
+{
+    85f8:	e92d4800 	push	{fp, lr}
+    85fc:	e28db004 	add	fp, sp, #4
+    8600:	e24dd008 	sub	sp, sp, #8
+    8604:	e50b0008 	str	r0, [fp, #-8]
+    while(1)
+    {
+        if(GET32(AUX_MU_LSR_REG)&0x20) break;
+    8608:	e59f002c 	ldr	r0, [pc, #44]	; 863c <uart_putc+0x44>
+    860c:	eb0000b5 	bl	88e8 <GET32>
+    8610:	e1a03000 	mov	r3, r0
+    8614:	e2033020 	and	r3, r3, #32
+    8618:	e3530000 	cmp	r3, #0
+    861c:	0a000000 	beq	8624 <uart_putc+0x2c>
+    8620:	ea000000 	b	8628 <uart_putc+0x30>
+    }
+    8624:	eafffff7 	b	8608 <uart_putc+0x10>
+    PUT32(AUX_MU_IO_REG,c);
+    8628:	e59f0010 	ldr	r0, [pc, #16]	; 8640 <uart_putc+0x48>
+    862c:	e51b1008 	ldr	r1, [fp, #-8]
+    8630:	eb0000ae 	bl	88f0 <PUT32>
+}
+    8634:	e24bd004 	sub	sp, fp, #4
+    8638:	e8bd8800 	pop	{fp, pc}
+    863c:	20215054 	.word	0x20215054
+    8640:	20215040 	.word	0x20215040
+
+00008644 <uart_printstr>:
+
+
+void uart_printstr (const char *str)
+{
+    8644:	e92d4800 	push	{fp, lr}
+    8648:	e28db004 	add	fp, sp, #4
+    864c:	e24dd008 	sub	sp, sp, #8
+    8650:	e50b0008 	str	r0, [fp, #-8]
+	while (*str != '\0') {
+    8654:	ea00000c 	b	868c <uart_printstr+0x48>
+		uart_putc(*str);
+    8658:	e51b3008 	ldr	r3, [fp, #-8]
+    865c:	e5d33000 	ldrb	r3, [r3]
+    8660:	e1a00003 	mov	r0, r3
+    8664:	ebffffe3 	bl	85f8 <uart_putc>
+		if (*str == '\n')
+    8668:	e51b3008 	ldr	r3, [fp, #-8]
+    866c:	e5d33000 	ldrb	r3, [r3]
+    8670:	e353000a 	cmp	r3, #10
+    8674:	1a000001 	bne	8680 <uart_printstr+0x3c>
+			uart_putc('\r');
+    8678:	e3a0000d 	mov	r0, #13
+    867c:	ebffffdd 	bl	85f8 <uart_putc>
+		str++;
+    8680:	e51b3008 	ldr	r3, [fp, #-8]
+    8684:	e2833001 	add	r3, r3, #1
+    8688:	e50b3008 	str	r3, [fp, #-8]
+}
+
+
+void uart_printstr (const char *str)
+{
+	while (*str != '\0') {
+    868c:	e51b3008 	ldr	r3, [fp, #-8]
+    8690:	e5d33000 	ldrb	r3, [r3]
+    8694:	e3530000 	cmp	r3, #0
+    8698:	1affffee 	bne	8658 <uart_printstr+0x14>
+		uart_putc(*str);
+		if (*str == '\n')
+			uart_putc('\r');
+		str++;
+	}
+}
+    869c:	e24bd004 	sub	sp, fp, #4
+    86a0:	e8bd8800 	pop	{fp, pc}
+
+000086a4 <uart_init>:
+
+
+void uart_init ( void ){
+    86a4:	e92d4800 	push	{fp, lr}
+    86a8:	e28db004 	add	fp, sp, #4
+    86ac:	e24dd008 	sub	sp, sp, #8
+    u32 cfg;
+
+    PUT32(AUX_ENABLES,1);
+    86b0:	e59f00b8 	ldr	r0, [pc, #184]	; 8770 <uart_init+0xcc>
+    86b4:	e3a01001 	mov	r1, #1
+    86b8:	eb00008c 	bl	88f0 <PUT32>
+    PUT32(AUX_MU_IER_REG,0);
+    86bc:	e59f00b0 	ldr	r0, [pc, #176]	; 8774 <uart_init+0xd0>
+    86c0:	e3a01000 	mov	r1, #0
+    86c4:	eb000089 	bl	88f0 <PUT32>
+    PUT32(AUX_MU_CNTL_REG,0);
+    86c8:	e59f00a8 	ldr	r0, [pc, #168]	; 8778 <uart_init+0xd4>
+    86cc:	e3a01000 	mov	r1, #0
+    86d0:	eb000086 	bl	88f0 <PUT32>
+    PUT32(AUX_MU_LCR_REG,3);
+    86d4:	e59f00a0 	ldr	r0, [pc, #160]	; 877c <uart_init+0xd8>
+    86d8:	e3a01003 	mov	r1, #3
+    86dc:	eb000083 	bl	88f0 <PUT32>
+    PUT32(AUX_MU_MCR_REG,0);
+    86e0:	e59f0098 	ldr	r0, [pc, #152]	; 8780 <uart_init+0xdc>
+    86e4:	e3a01000 	mov	r1, #0
+    86e8:	eb000080 	bl	88f0 <PUT32>
+    PUT32(AUX_MU_IER_REG,0);
+    86ec:	e59f0080 	ldr	r0, [pc, #128]	; 8774 <uart_init+0xd0>
+    86f0:	e3a01000 	mov	r1, #0
+    86f4:	eb00007d 	bl	88f0 <PUT32>
+    PUT32(AUX_MU_IIR_REG,0xC6);
+    86f8:	e59f0084 	ldr	r0, [pc, #132]	; 8784 <uart_init+0xe0>
+    86fc:	e3a010c6 	mov	r1, #198	; 0xc6
+    8700:	eb00007a 	bl	88f0 <PUT32>
+    PUT32(AUX_MU_BAUD_REG,270);
+    8704:	e59f007c 	ldr	r0, [pc, #124]	; 8788 <uart_init+0xe4>
+    8708:	e59f107c 	ldr	r1, [pc, #124]	; 878c <uart_init+0xe8>
+    870c:	eb000077 	bl	88f0 <PUT32>
+
+    cfg = GET32(GPFSEL1);
+    8710:	e59f0078 	ldr	r0, [pc, #120]	; 8790 <uart_init+0xec>
+    8714:	eb000073 	bl	88e8 <GET32>
+    8718:	e50b0008 	str	r0, [fp, #-8]
+    cfg &=~(7<<12); //gpio14
+    871c:	e51b3008 	ldr	r3, [fp, #-8]
+    8720:	e3c33a07 	bic	r3, r3, #28672	; 0x7000
+    8724:	e50b3008 	str	r3, [fp, #-8]
+    cfg |= 2<<12;    //alt5
+    8728:	e51b3008 	ldr	r3, [fp, #-8]
+    872c:	e3833a02 	orr	r3, r3, #8192	; 0x2000
+    8730:	e50b3008 	str	r3, [fp, #-8]
+	cfg &=~(7<<15); //gpio15
+    8734:	e51b3008 	ldr	r3, [fp, #-8]
+    8738:	e3c3390e 	bic	r3, r3, #229376	; 0x38000
+    873c:	e50b3008 	str	r3, [fp, #-8]
+    cfg |= 2<<12;    //alt5
+    8740:	e51b3008 	ldr	r3, [fp, #-8]
+    8744:	e3833a02 	orr	r3, r3, #8192	; 0x2000
+    8748:	e50b3008 	str	r3, [fp, #-8]
+    PUT32(GPFSEL1,cfg);
+    874c:	e59f003c 	ldr	r0, [pc, #60]	; 8790 <uart_init+0xec>
+    8750:	e51b1008 	ldr	r1, [fp, #-8]
+    8754:	eb000065 	bl	88f0 <PUT32>
+
+
+    PUT32(AUX_MU_CNTL_REG,3);
+    8758:	e59f0018 	ldr	r0, [pc, #24]	; 8778 <uart_init+0xd4>
+    875c:	e3a01003 	mov	r1, #3
+    8760:	eb000062 	bl	88f0 <PUT32>
+	
+	return;
+    8764:	e1a00000 	nop			; (mov r0, r0)
+    8768:	e24bd004 	sub	sp, fp, #4
+    876c:	e8bd8800 	pop	{fp, pc}
+    8770:	20215004 	.word	0x20215004
+    8774:	20215044 	.word	0x20215044
+    8778:	20215060 	.word	0x20215060
+    877c:	2021504c 	.word	0x2021504c
+    8780:	20215050 	.word	0x20215050
+    8784:	20215048 	.word	0x20215048
+    8788:	20215068 	.word	0x20215068
+    878c:	0000010e 	.word	0x0000010e
+    8790:	20200004 	.word	0x20200004
+
+00008794 <math_div>:
+
+.set	BSC_CLEAR_STATUS,	BSC_S_CLKT|BSC_S_ERR|BSC_S_DONE
+
+
+math_div:
+	MOV	R2, #0			@ Reset accumulator
+    8794:	e3a02000 	mov	r2, #0
+	MOV	R3, #32			@ Number of bit divisions
+    8798:	e3a03020 	mov	r3, #32
+	ADDS	R0, R0, R0		@ Shift dividend
+    879c:	e0900000 	adds	r0, r0, r0
+
+000087a0 <_math_div>:
+ _math_div:
+	ADC	R2, R2, R2		@ Shift accumulator, w carry
+    87a0:	e0a22002 	adc	r2, r2, r2
+	CMP	R2, R1			@ Does it go?
+    87a4:	e1520001 	cmp	r2, r1
+	SUBHS	R2, R2, R1		@ if not, substract
+    87a8:	20422001 	subcs	r2, r2, r1
+	ADCS	R0, R0, R0		@ Shift dividend and accumulator
+    87ac:	e0b00000 	adcs	r0, r0, r0
+	SUB	R3, R3, #1		@ Decrement loop count
+    87b0:	e2433001 	sub	r3, r3, #1
+	TST	R3, R3			@ Leave carry
+    87b4:	e1130003 	tst	r3, r3
+	BNE	_math_div		@ Loop
+    87b8:	1afffff8 	bne	87a0 <_math_div>
+
+	MOV	R1, R2			@ Move remainder in R1 for return
+    87bc:	e1a01002 	mov	r1, r2
+					@ R0 holds the quotient
+
+	MOV	PC, LR			@ Return
+    87c0:	e1a0f00e 	mov	pc, lr
+
+000087c4 <gpio_fsel>:
+
+@ gpio_fsel (gpio_pin, gpio_cmd)
+@ Selects a function (lower 3 bits of R1) for register with ID (R0).
+.globl gpio_fsel
+gpio_fsel:
+	CMP	R0, #MAX_GPIO_PIN	@ Check that the PIN is 0-53
+    87c4:	e3500035 	cmp	r0, #53	; 0x35
+	CMPLS	R1, #MAX_GPIO_CMD	@ Check that the CMD is 0-7
+    87c8:	93510007 	cmpls	r1, #7
+	BXHI	LR			@ Exit if not
+    87cc:	812fff1e 	bxhi	lr
+
+	PUSH	{R4-R5, LR}
+    87d0:	e92d4030 	push	{r4, r5, lr}
+
+	MOV	R4, R1			@ R4 = CMD
+    87d4:	e1a04001 	mov	r4, r1
+	MOV	R1, #10			@ R0 = PIN / 10
+    87d8:	e3a0100a 	mov	r1, #10
+	BL	math_div		@ R1 = PIN % 10
+    87dc:	ebffffec 	bl	8794 <math_div>
+
+	ADD	R1, R1, R1, LSL #1	@ R1 = (PIN % 10) * 3
+    87e0:	e0811081 	add	r1, r1, r1, lsl #1
+	LSL	R4, R4, R1		@ R4 = CMD << R1
+    87e4:	e1a04114 	lsl	r4, r4, r1
+
+	LDR	R5, =GPIO_BASE		@ Load GPIO address
+    87e8:	e59f509c 	ldr	r5, [pc, #156]	; 888c <i2c_set_slave+0xc>
+
+	LDR	R2, [R5, R0, LSL #2]	@ Load PIN
+    87ec:	e7952100 	ldr	r2, [r5, r0, lsl #2]
+
+	MOV	R3, #0b111		@ Load 3 bits
+    87f0:	e3a03007 	mov	r3, #7
+	BIC	R2, R2, R3, LSL R1	@ Clear  bits
+    87f4:	e1c22113 	bic	r2, r2, r3, lsl r1
+	ORR	R4, R4, R2		@ Update bits
+    87f8:	e1844002 	orr	r4, r4, r2
+
+	STR	R4, [R5, R0, LSL #2]	@ Save PIN
+    87fc:	e7854100 	str	r4, [r5, r0, lsl #2]
+
+	POP	{R4-R5, PC}		@ Return
+    8800:	e8bd8030 	pop	{r4, r5, pc}
+
+00008804 <gpio_set>:
+
+@ gpio_set (gpio_pin, status)
+@ Sets the GPIO PIN (R0), ON if R1==1, OFF if R1==0.
+.globl gpio_set
+gpio_set:
+	CMP	R0, #MAX_GPIO_PIN	@ Check that the PIN is 0-53
+    8804:	e3500035 	cmp	r0, #53	; 0x35
+	BXHI	LR			@ Exit if not
+    8808:	812fff1e 	bxhi	lr
+
+	CMP	R0, #31			@ Select register bank
+    880c:	e350001f 	cmp	r0, #31
+	LDRLS	R2, =GPIO_BANK_0	@ 0
+    8810:	959f2078 	ldrls	r2, [pc, #120]	; 8890 <i2c_set_slave+0x10>
+	LDRHI	R2, =GPIO_BANK_1	@ 4
+    8814:	859f2078 	ldrhi	r2, [pc, #120]	; 8894 <i2c_set_slave+0x14>
+
+	AND	R0, R0, #0b11111	@ PIN % 31
+    8818:	e200001f 	and	r0, r0, #31
+
+	MOV	R3, #1			@ Set bit
+    881c:	e3a03001 	mov	r3, #1
+	LSL	R0, R3, R0		@
+    8820:	e1a00013 	lsl	r0, r3, r0
+
+	TEQ	R1, #0			@ Check for ON or OFF
+    8824:	e3310000 	teq	r1, #0
+	STRNE	R0, [R2, #40]		@ ON
+    8828:	15820028 	strne	r0, [r2, #40]	; 0x28
+	STREQ	R0, [R2, #28]		@ OFF
+    882c:	0582001c 	streq	r0, [r2, #28]
+
+	BX	LR			@ Return
+    8830:	e12fff1e 	bx	lr
+
+00008834 <i2c_init>:
+
+
+@ I2C初始化
+.globl i2c_init
+i2c_init:
+	PUSH	{LR}
+    8834:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+
+	MOV	R0, #GPIO_SDA	@ Enable SDA
+    8838:	e3a00000 	mov	r0, #0
+	MOV	R1, #0			@
+    883c:	e3a01000 	mov	r1, #0
+	BL	gpio_fsel		@
+    8840:	ebffffdf 	bl	87c4 <gpio_fsel>
+	MOV	R0, #GPIO_SDA	@
+    8844:	e3a00000 	mov	r0, #0
+	MOV	R1, #1			@
+    8848:	e3a01001 	mov	r1, #1
+	BL	gpio_set		@
+    884c:	ebffffec 	bl	8804 <gpio_set>
+
+	MOV	R0, #GPIO_SCL	@ Enable SCL
+    8850:	e3a00001 	mov	r0, #1
+	MOV	R1, #0			@
+    8854:	e3a01000 	mov	r1, #0
+	BL	gpio_fsel		@
+    8858:	ebffffd9 	bl	87c4 <gpio_fsel>
+	MOV	R0, #GPIO_SCL	@
+    885c:	e3a00001 	mov	r0, #1
+	MOV	R1, #1			@
+    8860:	e3a01001 	mov	r1, #1
+	BL	gpio_set		@
+    8864:	ebffffe6 	bl	8804 <gpio_set>
+
+	POP	{PC}			@ Return
+    8868:	e49df004 	pop	{pc}		; (ldr pc, [sp], #4)
+
+0000886c <i2c_wait>:
+	
+@ i2c_wait
+@ Wait for the I2C to finish the current operation.
+.globl i2c_wait
+i2c_wait:
+	LDR	R0, =BSC_BASE_0
+    886c:	e59f0024 	ldr	r0, [pc, #36]	; 8898 <i2c_set_slave+0x18>
+
+00008870 <_i2c_wait>:
+
+ _i2c_wait:
+
+	LDRB	R1, [R0, #BSC_S]
+    8870:	e5d01004 	ldrb	r1, [r0, #4]
+	TST		R1, #BSC_S_DONE
+    8874:	e3110002 	tst	r1, #2
+	BEQ	_i2c_wait
+    8878:	0afffffc 	beq	8870 <_i2c_wait>
+
+	BX	LR
+    887c:	e12fff1e 	bx	lr
+
+00008880 <i2c_set_slave>:
+
+@ i2c_set_slave (slave_addr)
+@ Set the BSC_A register to the 7 bit long address of the slave in R0.
+.globl i2c_set_slave
+i2c_set_slave:
+	LDR		R1, =BSC_BASE_0
+    8880:	e59f1010 	ldr	r1, [pc, #16]	; 8898 <i2c_set_slave+0x18>
+	STRB	R0, [R1, #BSC_A]
+    8884:	e5c1000c 	strb	r0, [r1, #12]
+	BX		LR
+    8888:	e12fff1e 	bx	lr
+	BL	math_div		@ R1 = PIN % 10
+
+	ADD	R1, R1, R1, LSL #1	@ R1 = (PIN % 10) * 3
+	LSL	R4, R4, R1		@ R4 = CMD << R1
+
+	LDR	R5, =GPIO_BASE		@ Load GPIO address
+    888c:	20200000 	.word	0x20200000
+gpio_set:
+	CMP	R0, #MAX_GPIO_PIN	@ Check that the PIN is 0-53
+	BXHI	LR			@ Exit if not
+
+	CMP	R0, #31			@ Select register bank
+	LDRLS	R2, =GPIO_BANK_0	@ 0
+    8890:	20200000 	.word	0x20200000
+	LDRHI	R2, =GPIO_BANK_1	@ 4
+    8894:	20200004 	.word	0x20200004
+	
+@ i2c_wait
+@ Wait for the I2C to finish the current operation.
+.globl i2c_wait
+i2c_wait:
+	LDR	R0, =BSC_BASE_0
+    8898:	20205000 	.word	0x20205000
+
+Disassembly of section .init:
+
+0000889c <_reset>:
+.section .init
+_reset:
+	@ MOV只能是由8bit连续有效位通过偶数次移位能得到的数。
+	@ LDR除了普通的读数之外，它没有立即数范围的限制。
+	@ _start定义在ld文件中
+	mov r0, #0x8000
+    889c:	e3a00902 	mov	r0, #32768	; 0x8000
+	mov	r1, #0x0000
+    88a0:	e3a01000 	mov	r1, #0
+	@ ldmia r0!, {r3-r10} 将基址寄存器r0开始的连续8个地址单元的值分别赋给r3,r4,r5,r6,r7,r8,r9,r10,
+	@ 注意的是r0指定的地址每次赋一次r0会加1,
+	@ ld代表load指向下一个地址单元
+	@ stmia r1!, {r3-r10} /跟上面指令功能相反，将寄存器r3到r10的值依次赋值给r1指定的地址单元，每次赋值一次r1就加1
+	@ st代表store
+	ldmia	r0!, {r2, r3, r4, r5, r6, r7, r8, r9} 
+    88a4:	e8b003fc 	ldm	r0!, {r2, r3, r4, r5, r6, r7, r8, r9}
+	stmia	r1!, {r2, r3, r4, r5, r6, r7, r8, r9}
+    88a8:	e8a103fc 	stmia	r1!, {r2, r3, r4, r5, r6, r7, r8, r9}
+	ldmia	r0!, {r2, r3, r4, r5, r6, r7, r8, r9} 
+    88ac:	e8b003fc 	ldm	r0!, {r2, r3, r4, r5, r6, r7, r8, r9}
+	stmia	r1!, {r2, r3, r4, r5, r6, r7, r8, r9}
+    88b0:	e8a103fc 	stmia	r1!, {r2, r3, r4, r5, r6, r7, r8, r9}
+	
+	@ 设置IRQ模式下的栈指针
+	mov r0, #(CPSR_MODE_IRQ | CPSR_IRQ_INHIBIT | CPSR_FIQ_INHIBIT )
+    88b4:	e3a000d2 	mov	r0, #210	; 0xd2
+	msr cpsr_c, r0
+    88b8:	e121f000 	msr	CPSR_c, r0
+	mov sp, #0x8000
+    88bc:	e3a0d902 	mov	sp, #32768	; 0x8000
+	
+	@ 设置UNDEF模式下的栈指针
+	mov r0,#CPSR_MODE_UNDEFINED
+    88c0:	e3a0001b 	mov	r0, #27
+	msr cpsr_c, r0
+    88c4:	e121f000 	msr	CPSR_c, r0
+	mov sp, #0x5000
+    88c8:	e3a0da05 	mov	sp, #20480	; 0x5000
+	
+	@ 设置SVR模式下的栈指针
+	mov r0, #(CPSR_MODE_SVR | CPSR_IRQ_INHIBIT | CPSR_FIQ_INHIBIT )
+    88cc:	e3a000d3 	mov	r0, #211	; 0xd3
+	msr cpsr_c, r0
+    88d0:	e121f000 	msr	CPSR_c, r0
+	mov     sp, #0x4000
+    88d4:	e3a0d901 	mov	sp, #16384	; 0x4000
+
+	
+	@ 加载atags到r2
+	mov	r2, #0x100
+    88d8:	e3a02c01 	mov	r2, #256	; 0x100
+	@ 跳转到入口函数，_cstartup完成堆栈初始化，从此可以执行C自定义函数
+	b	_cstartup
+    88dc:	eafffedc 	b	8454 <_cstartup>
+
+000088e0 <reboot>:
+
+@ 将PC = 0，达到系统重启
+.globl reboot
+reboot:
+	mov	pc, #0x00
+    88e0:	e3a0f000 	mov	pc, #0
+
+000088e4 <halt>:
+@ 暂停
+.globl halt
+halt:
+	b	halt
+    88e4:	eafffffe 	b	88e4 <halt>
+
+000088e8 <GET32>:
+	
+@ Gets a word from the memory location indicated by r0 and returns it.
+.globl GET32
+GET32:
+	ldr	r0, [r0]
+    88e8:	e5900000 	ldr	r0, [r0]
+	bx	lr
+    88ec:	e12fff1e 	bx	lr
+
+000088f0 <PUT32>:
+
+@ Puts a word to the memory location indicated by r0.
+.globl PUT32
+PUT32:
+	str	r1, [r0]
+    88f0:	e5801000 	str	r1, [r0]
+	bx	lr
+    88f4:	e12fff1e 	bx	lr
+
+000088f8 <dummy>:
+	
+
+.globl dummy
+dummy:
+    bx lr
+    88f8:	e12fff1e 	bx	lr
+
+000088fc <_enable_interrupts>:
+	
+@ 开启中断 ，关闭中断
+.global _enable_interrupts
+_enable_interrupts:
+    mrs	r0, cpsr
+    88fc:	e10f0000 	mrs	r0, CPSR
+    bic	r0, r0, #0x80
+    8900:	e3c00080 	bic	r0, r0, #128	; 0x80
+    msr	cpsr_c, r0
+    8904:	e121f000 	msr	CPSR_c, r0
+    mov     pc, lr
+    8908:	e1a0f00e 	mov	pc, lr
+
+0000890c <_disable_interrupts>:
+.global _disable_interrupts
+_disable_interrupts:
+    mrs	r0, cpsr
+    890c:	e10f0000 	mrs	r0, CPSR
+    orr	r0, r0, #0x80
+    8910:	e3800080 	orr	r0, r0, #128	; 0x80
+    msr	cpsr_c, r0
+    8914:	e121f000 	msr	CPSR_c, r0
+    mov     pc, lr
+    8918:	e1a0f00e 	mov	pc, lr

@@ -19,12 +19,16 @@ extern void os_main( u32 r0, u32 r1, u32 atags );
 void _cstartup( u32 r0, u32 r1, u32 atags )
 {
 	// 在ld文件中计算出的bss大小，C环境要求BSS清0，这里我们手动清0
+	// unsigned int var1;
+	// unsigned int funcvar1;
+    // static unsigned int funcvar2;
+	// 这种变量都在BSS中，否则这些值将会是随机的，不会被初始化为0
 	int* bss = &__bss_start__;
 	int* bss_end = &__bss_end__;
  
 	// 将BSS内存部分初始化为全0
-    //while( bss < bss_end )
-    //	*bss++ = 0;
+    while( bss < bss_end )
+    	*bss++ = 0;
  
 	// 死循环，不会返回
     os_main(r0, r1, atags);

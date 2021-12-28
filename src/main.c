@@ -35,21 +35,36 @@ volatile unsigned int* gpioregs;
 	
 	//memory_init(atags);
 
-    unsigned int ra;
 
     // create pointer to the gpioregs;
     gpioregs = (unsigned int*)GPIOREGS;
- 
+    
+
+    unsigned int rb;
+    rb = gpioregs[GPFSEL4];
+    rb &= ~(7 << 21);
+    rb |= 1<<21;
+    gpioregs[GPFSEL4] = rb;
+
+    
     // set gpio16 as output
     gpioregs[GPFSEL1] |= (1 << 18);
-
+    
+    
+    unsigned int ra;
     while(1)
     {
+        // 亮
         gpioregs[GPCLR0] = (1 << 16); // GPIO16
+        gpioregs[GPCLR1] = 1<<(47-32); // 树莓派zero上自带的那个绿色指示灯
+        for(ra=0;ra<0x100000;ra++) dummy(ra);
+        
+        // 灭
+        gpioregs[GPSET0] = (1 << 16); // GPIO16
+        gpioregs[GPSET1] = 1<<(47-32);
         for(ra=0;ra<0x100000;ra++) dummy(ra);
 
-        gpioregs[GPSET0] = (1 << 16); // GPIO16
-        for(ra=0;ra<0x100000;ra++) dummy(ra);
+        
     }
 
 
