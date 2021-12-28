@@ -18,7 +18,7 @@ Linker script and memory map
 
 .text.init      0x00008000       0x40
  *(.text.init)
- .text.init     0x00008000       0x40 C:\Users\Lenovo\AppData\Local\Temp\ccut0z3f.o
+ .text.init     0x00008000       0x40 C:\Users\Lenovo\AppData\Local\Temp\ccOz1PrX.o
                 0x00008000                _start
                 0x00008040                _start_end
 
@@ -51,13 +51,13 @@ Linker script and memory map
                 0x000085d0                uart_putc
                 0x0000861c                uart_printstr
                 0x0000867c                uart_init
- .text          0x0000876c      0x108 C:\Users\Lenovo\AppData\Local\Temp\cc7U7DKd.o
+ .text          0x0000876c      0x108 C:\Users\Lenovo\AppData\Local\Temp\ccZ3zSpz.o
                 0x0000879c                gpio_fsel
                 0x000087dc                gpio_set
                 0x0000880c                i2c_init
                 0x00008844                i2c_wait
                 0x00008858                i2c_set_slave
- .text          0x00008874        0x0 C:\Users\Lenovo\AppData\Local\Temp\ccut0z3f.o
+ .text          0x00008874        0x0 C:\Users\Lenovo\AppData\Local\Temp\ccOz1PrX.o
 
 .glue_7         0x00008874        0x0
  .glue_7        0x00000000        0x0 linker stubs
@@ -75,7 +75,7 @@ Linker script and memory map
  .iplt          0x00000000        0x0 ./object/gpu.o
 
 .init           0x00008874       0x80
- .init          0x00008874       0x80 C:\Users\Lenovo\AppData\Local\Temp\ccut0z3f.o
+ .init          0x00008874       0x80 C:\Users\Lenovo\AppData\Local\Temp\ccOz1PrX.o
                 0x000088b8                reboot
                 0x000088bc                halt
                 0x000088c0                GET32
@@ -98,8 +98,8 @@ Linker script and memory map
  .data          0x000088f4        0x0 ./object/print.o
  .data          0x000088f4        0x0 ./object/start.o
  .data          0x000088f4        0x0 ./object/uart.o
- .data          0x000088f4        0x0 C:\Users\Lenovo\AppData\Local\Temp\cc7U7DKd.o
- .data          0x000088f4        0x0 C:\Users\Lenovo\AppData\Local\Temp\ccut0z3f.o
+ .data          0x000088f4        0x0 C:\Users\Lenovo\AppData\Local\Temp\ccZ3zSpz.o
+ .data          0x000088f4        0x0 C:\Users\Lenovo\AppData\Local\Temp\ccOz1PrX.o
 
 .igot.plt       0x000088f4        0x0
  .igot.plt      0x00000000        0x0 ./object/gpu.o
@@ -108,7 +108,7 @@ Linker script and memory map
                 0x000088f4                . = ALIGN (0x4)
  *(.rodata)
  .rodata        0x000088f4     0x1848 ./object/print.o
- .rodata        0x0000a13c        0xe C:\Users\Lenovo\AppData\Local\Temp\ccut0z3f.o
+ .rodata        0x0000a13c        0xe C:\Users\Lenovo\AppData\Local\Temp\ccOz1PrX.o
                 0x0000a14a                __bss_start = .
                 0x0000a14a                __bss_start__ = .
 
@@ -125,8 +125,8 @@ Linker script and memory map
  .bss           0x0000a14c        0x0 ./object/print.o
  .bss           0x0000a14c        0x0 ./object/start.o
  .bss           0x0000a14c        0x0 ./object/uart.o
- .bss           0x0000a14c        0x0 C:\Users\Lenovo\AppData\Local\Temp\cc7U7DKd.o
- .bss           0x0000a14c        0x0 C:\Users\Lenovo\AppData\Local\Temp\ccut0z3f.o
+ .bss           0x0000a14c        0x0 C:\Users\Lenovo\AppData\Local\Temp\ccZ3zSpz.o
+ .bss           0x0000a14c        0x0 C:\Users\Lenovo\AppData\Local\Temp\ccOz1PrX.o
                 0x0000a14c                . = ALIGN ((. != 0x0)?0x4:0x1)
  COMMON         0x0000a14c       0x28 ./object/gpu.o
                 0x0000a14c                FrameBufferInfo
@@ -146,8 +146,8 @@ LOAD ./object/mem_init.o
 LOAD ./object/print.o
 LOAD ./object/start.o
 LOAD ./object/uart.o
-LOAD C:\Users\Lenovo\AppData\Local\Temp\cc7U7DKd.o
-LOAD C:\Users\Lenovo\AppData\Local\Temp\ccut0z3f.o
+LOAD C:\Users\Lenovo\AppData\Local\Temp\ccZ3zSpz.o
+LOAD C:\Users\Lenovo\AppData\Local\Temp\ccOz1PrX.o
 START GROUP
 LOAD g:/arm/bin/../lib/gcc/arm-none-eabi/4.8.4/fpu\libgcc.a
 LOAD g:/arm/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/fpu\libg.a
@@ -164,8 +164,8 @@ OUTPUT(kernel.elf elf32-littlearm)
  .debug_info    0x0000043e      0x10a ./object/print.o
  .debug_info    0x00000548       0xe6 ./object/start.o
  .debug_info    0x0000062e      0x218 ./object/uart.o
- .debug_info    0x00000846       0x3d C:\Users\Lenovo\AppData\Local\Temp\cc7U7DKd.o
- .debug_info    0x00000883       0x3b C:\Users\Lenovo\AppData\Local\Temp\ccut0z3f.o
+ .debug_info    0x00000846       0x3d C:\Users\Lenovo\AppData\Local\Temp\ccZ3zSpz.o
+ .debug_info    0x00000883       0x3b C:\Users\Lenovo\AppData\Local\Temp\ccOz1PrX.o
 
 .debug_abbrev   0x00000000      0x431
  .debug_abbrev  0x00000000       0xdb ./object/gpu.o
@@ -176,8 +176,8 @@ OUTPUT(kernel.elf elf32-littlearm)
  .debug_abbrev  0x0000021d       0x7e ./object/print.o
  .debug_abbrev  0x0000029b       0xa7 ./object/start.o
  .debug_abbrev  0x00000342       0xc9 ./object/uart.o
- .debug_abbrev  0x0000040b       0x14 C:\Users\Lenovo\AppData\Local\Temp\cc7U7DKd.o
- .debug_abbrev  0x0000041f       0x12 C:\Users\Lenovo\AppData\Local\Temp\ccut0z3f.o
+ .debug_abbrev  0x0000040b       0x14 C:\Users\Lenovo\AppData\Local\Temp\ccZ3zSpz.o
+ .debug_abbrev  0x0000041f       0x12 C:\Users\Lenovo\AppData\Local\Temp\ccOz1PrX.o
 
 .debug_aranges  0x00000000      0x140
  .debug_aranges
@@ -197,9 +197,9 @@ OUTPUT(kernel.elf elf32-littlearm)
  .debug_aranges
                 0x000000d8       0x20 ./object/uart.o
  .debug_aranges
-                0x000000f8       0x20 C:\Users\Lenovo\AppData\Local\Temp\cc7U7DKd.o
+                0x000000f8       0x20 C:\Users\Lenovo\AppData\Local\Temp\ccZ3zSpz.o
  .debug_aranges
-                0x00000118       0x28 C:\Users\Lenovo\AppData\Local\Temp\ccut0z3f.o
+                0x00000118       0x28 C:\Users\Lenovo\AppData\Local\Temp\ccOz1PrX.o
 
 .debug_line     0x00000000      0x420
  .debug_line    0x00000000       0x93 ./object/gpu.o
@@ -210,8 +210,8 @@ OUTPUT(kernel.elf elf32-littlearm)
  .debug_line    0x000001cb       0x5d ./object/print.o
  .debug_line    0x00000228       0x5a ./object/start.o
  .debug_line    0x00000282       0xa9 ./object/uart.o
- .debug_line    0x0000032b       0x83 C:\Users\Lenovo\AppData\Local\Temp\cc7U7DKd.o
- .debug_line    0x000003ae       0x72 C:\Users\Lenovo\AppData\Local\Temp\ccut0z3f.o
+ .debug_line    0x0000032b       0x83 C:\Users\Lenovo\AppData\Local\Temp\ccZ3zSpz.o
+ .debug_line    0x000003ae       0x72 C:\Users\Lenovo\AppData\Local\Temp\ccOz1PrX.o
 
 .debug_str      0x00000000      0x43d
  .debug_str     0x00000000      0x1b3 ./object/gpu.o
@@ -261,9 +261,9 @@ OUTPUT(kernel.elf elf32-littlearm)
  .ARM.attributes
                 0x00000173       0x35 ./object/uart.o
  .ARM.attributes
-                0x000001a8       0x1f C:\Users\Lenovo\AppData\Local\Temp\cc7U7DKd.o
+                0x000001a8       0x1f C:\Users\Lenovo\AppData\Local\Temp\ccZ3zSpz.o
  .ARM.attributes
-                0x000001c7       0x1f C:\Users\Lenovo\AppData\Local\Temp\ccut0z3f.o
+                0x000001c7       0x1f C:\Users\Lenovo\AppData\Local\Temp\ccOz1PrX.o
 
 .debug_frame    0x00000000      0x23c
  .debug_frame   0x00000000       0x5c ./object/gpu.o
@@ -275,4 +275,4 @@ OUTPUT(kernel.elf elf32-littlearm)
  .debug_frame   0x000001bc       0x80 ./object/uart.o
 
 .debug_ranges   0x00000000       0x20
- .debug_ranges  0x00000000       0x20 C:\Users\Lenovo\AppData\Local\Temp\ccut0z3f.o
+ .debug_ranges  0x00000000       0x20 C:\Users\Lenovo\AppData\Local\Temp\ccOz1PrX.o

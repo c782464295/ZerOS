@@ -79,6 +79,10 @@ help:
 # 生成对应的汇编代码
 disasm:${TARGET}.elf
 	${GNU}objdump -S  $< > ${TARGET}.disasm
+
+# 列出符号清单
+nm:${TARGET}.elf
+	${GNU}nm  $< > ${TARGET}.nm
 # install boot目录中有系统所需全部文件
 install:
 	cp kernel.img ./boot
@@ -86,4 +90,4 @@ install:
 # 清除生成的所有文件
 clean:
 	rm -rf  ./object/*.o
-	rm -rf *.img *.elf *.disasm *.map ./boot/*.img
+	rm -rf *.img *.elf *.disasm *.map ./boot/*.img *.nm
