@@ -1,0 +1,46 @@
+# 计时器说明
+
+
+```C
+#define RPI_SYSTIMER_BASE       0x20003000
+typedef struct {
+    volatile u32 control_status;
+    volatile u32 counter_lo;
+    volatile u32 counter_hi;
+    volatile u32 compare0;
+    volatile u32 compare1;
+    volatile u32 compare2;
+    volatile u32 compare3;
+} rpi_sys_timer_t;
+static rpi_sys_timer_t* rpiSystemTimer = (rpi_sys_timer_t*)RPI_SYSTIMER_BASE;
+```
+```C
+void RPI_WaitMicroSeconds( u32 us )
+{
+    volatile u32 ts = rpiSystemTimer->counter_lo;
+
+    while( ( rpiSystemTimer->counter_lo - ts ) < us )
+    {
+        /* BLANK */
+    }
+}
+```
+使用轮询方式，这样可以
+
+也可以这样
+```C
+u32 ra;
+for(ra=0;ra<0x100000;ra++) dummy(ra);
+```
+```assembly
+.globl dummy
+dummy:
+    bx lr
+```
+
+变量不能定义在for循环中，如：
+```C
+for(u32 ra=0;ra<0x100000;ra++) dummy(ra);
+```
+但以上都是轮询方式，系统在这期间什么都不能做
+比轮询好的是采用终端

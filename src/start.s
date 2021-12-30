@@ -1,4 +1,5 @@
 @ init段 完成一些初始化设置
+@ 这里被指定为程序最先运行的地方
 .section ".text.init"
 
 @ 在ld文件中指明了在此处启动
@@ -41,7 +42,7 @@ _reset:
 	@ _start定义在ld文件中
 	mov r0, #0x8000
 	mov	r1, #0x0000
-	@ 检测寄存器是否损坏
+	@ 检测寄存器是否损坏（错误，是为了加载在内存起始位置）
 	@ ldmia r0!, {r3-r10} 将基址寄存器r0开始的连续8个地址单元的值分别赋给r3,r4,r5,r6,r7,r8,r9,r10,
 	@ 注意的是r0指定的地址每次赋一次r0会加1,
 	@ ld代表load指向下一个地址单元
@@ -52,6 +53,7 @@ _reset:
 	ldmia	r0!, {r2, r3, r4, r5, r6, r7, r8, r9} 
 	stmia	r1!, {r2, r3, r4, r5, r6, r7, r8, r9}
 	
+	@ 设置栈指针，在不同模式下就会使用不同的栈
 	@ 设置IRQ模式下的栈指针
 	mov r0, #(CPSR_MODE_IRQ | CPSR_IRQ_INHIBIT | CPSR_FIQ_INHIBIT )
 	msr cpsr_c, r0
@@ -65,10 +67,10 @@ _reset:
 	@ 设置SVR模式下的栈指针
 	mov r0, #(CPSR_MODE_SVR | CPSR_IRQ_INHIBIT | CPSR_FIQ_INHIBIT )
 	msr cpsr_c, r0
-	mov     sp, #0x4000
+	mov sp, #0x4000
 
 	
-	@ 加载atags到r2
+	@ 加载atags到r2，atags是硬件信息的列表
 	mov	r2, #0x100
 	@ 跳转到入口函数，_cstartup完成堆栈初始化，从此可以执行C自定义函数
 	b	_cstartup
@@ -81,7 +83,13 @@ reboot:
 .globl halt
 halt:
 	b	halt
-	
+
+@ 一个空指令，但与暂停是不同的，这里会返回，暂停不会返回
+.globl dummy
+dummy:
+    bx lr
+
+
 @ Gets a word from the memory location indicated by r0 and returns it.
 .globl GET32
 GET32:
@@ -94,10 +102,6 @@ PUT32:
 	str	r1, [r0]
 	bx	lr
 	
-
-.globl dummy
-dummy:
-    bx lr
 	
 @ 开启中断 ，关闭中断
 .global _enable_interrupts
@@ -114,6 +118,7 @@ _disable_interrupts:
     mov     pc, lr
 	
 @ 只读区域
+@ 只读区域在read only data区域，是不可写的
 .section .rodata
 	@ 定义GPIO相关值
 	.set	MAX_GPIO_PIN,	53

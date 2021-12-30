@@ -16,8 +16,6 @@ typedef 	signed short		s16;
 typedef 	signed int			s32;
 typedef		signed long long	s64;
 
-typedef		char				bool;
-
 #define 	false	0
 #define		true 	1
 #define 	NULL 	0

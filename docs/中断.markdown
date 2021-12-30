@@ -1,0 +1,54 @@
+中断对于arm处理器是一种异常，异常会导致PC(程序计数器)设为预定值然后进行异常处理。
+
+异常处理程序应该快速而简洁，因为它们会频繁发生。
+
+中断信号一般由硬件产生
+
+每个异常类型都有一个向量，这些向量在内存中彼此相邻，称为向量表
+
+对于 ARMv6 体系结构，向量表位于内存地址 0 处，其组织方式如下，来
+
+| Exception Type 	| Mode 	| VE 	| Normal Address 	| High Vector Address 	|
+|---	|---	|---	|---	|---	|
+| Reset 	| Supervisor 	|  	| 0x00 	| 0xFFFF0000 	|
+| Undefined Instruction 	| Undefined 	|  	| 0x04 	| 0xFFFF0004 	|
+| Software Interrupt (SWI) 	| Supervisor 	|  	| 0x08 	| 0xFFFF0008 	|
+| Prefetch Abort 	| Abort 	|  	| 0x0C 	| 0xFFFF000C 	|
+| Data Abort 	| Abort 	|  	| 0x10 	| 0xFFFF0010 	|
+| IRQ (Interrupt) 	| IRQ 	| 0 	| 0x18 	| 0xFFFF0018 	|
+| IRQ (Interrupt) 	| IRQ 	| 1 	| Implementation Defined 	|  	|
+| FIQ (Fast Interrupt) 	| FIQ 	| 0 	| 0x1C 	| 0xFFFF001C 	|
+| FIQ (Fast Interrupt) 	| FIQ 	| 1 	| Implementation Defined 	|  	|
+
+一些寄存器是特定于模式的。这很有用，例如在快速中断异常中，许多寄存器已被模式特定的寄存器替换。这意味着我们可以使用这些寄存器而不必担心在快速中断异常发生之前改变在用户或管理员模式下运行的代码的行为。
+
+通常，我们需要在中断处理程序中做的第一件事是保存我们将要使用的寄存器，而我们在中断处理程序中要做的最后一件事是将这些寄存器的值恢复到之前的值执行的中断处理程序。函数或中断处理程序开头的代码称为序言，函数或处理程序末尾的代码称为结尾。
+
+[gcc 手册中有关 ARM 的函数属性](https://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html)
+
+对于 ARM，您可以通过向中断属性添加可选参数来指定要处理的中断类型，如下所示： 
+```C
+void f () __attribute__ ((interrupt ("IRQ")));
+```
+因此，要编写一个非常基本的“未定义指令”处理程序，我们可以像这样定义声明和实现我们的处理程序：
+```C
+/**
+    @brief The undefined instruction interrupt handler
+
+    If an undefined instruction is encountered, the CPU will start
+    executing this function. Just trap here as a debug solution.
+*/
+void __attribute__((interrupt("UNDEF"))) undefined_instruction_vector(void)
+{
+    while( 1 )
+    {
+        /* Do Nothing! */
+    }
+}
+```
+虽然看起来这是无用的代码，但它实际上非常有用。我们可以在 while(1) 上设置一个断点并进行调试，同时注意这个断点是否跳闸。通常然后我们可以进行一些堆栈展开（手动！）以找到未定义指令的来源。
+
+Raspberry-Pi 向量表非常小，之所以会这样，是因为与 Cortex M 系列等更多嵌入式处理器相比，中断处理程序需要做一些额外的工作。
+
+
+

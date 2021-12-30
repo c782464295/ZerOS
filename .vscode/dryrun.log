@@ -1,6 +1,5 @@
 make.exe --dry-run --keep-going --print-directory
 make: Entering directory '/cygdrive/j/ZerOS'
 make kernel.img
- 
 make: Leaving directory '/cygdrive/j/ZerOS'
  
