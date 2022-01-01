@@ -39,7 +39,7 @@ TARGET ?= kernel
 CFLAGS :=   -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s \
 			-nostartfiles   -g -Wl,--verbose -c -I ${DIR_INC} 
 LDFLAGS :=    -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s \
-			-nostartfiles    -g -Wl,-T,${LINKER} -Wl,-Map,${TARGET}.map 
+			-nostartfiles  -O0  -g -Wl,-T,${LINKER} -Wl,-Map,${TARGET}.map 
 #（1）Makefile中的 符号 $@, $^, $< 的意思：
 #　　$@  表示目标文件
 #　　$^  表示所有的依赖文件

@@ -20,4 +20,7 @@ typedef		signed long long	s64;
 #define		true 	1
 #define 	NULL 	0
 
+
+/* Size type */
+typedef unsigned int size_t;
 #endif

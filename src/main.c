@@ -2,6 +2,7 @@
 *	OS主函数
  * **/
 #include "stdtype.h"
+#include "list.h"
 
 
 //-------------------------------------------------------------------------
@@ -52,6 +53,7 @@ void RPI_WaitMicroSeconds( u32 us )
 #define GPCLR0     10
 #define GPCLR1     11
  
+
 volatile unsigned int* gpioregs;
 
 // 三个参数，因为没有用到，释放
@@ -73,7 +75,11 @@ volatile unsigned int* gpioregs;
     // set gpio16 as output
     gpioregs[GPFSEL1] |= (1 << 18);
     
-    
+    u32 lock = 0;
+    if (lock == 1)
+        lock = 0;
+
+
     u32 ra;
     while(1)
     {

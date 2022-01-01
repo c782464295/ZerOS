@@ -52,7 +52,7 @@ _reset:
 	stmia	r1!, {r2, r3, r4, r5, r6, r7, r8, r9}
 	ldmia	r0!, {r2, r3, r4, r5, r6, r7, r8, r9} 
 	stmia	r1!, {r2, r3, r4, r5, r6, r7, r8, r9}
-	
+
 	@ 设置栈指针，在不同模式下就会使用不同的栈
 	@ 设置IRQ模式下的栈指针
 	mov r0, #(CPSR_MODE_IRQ | CPSR_IRQ_INHIBIT | CPSR_FIQ_INHIBIT )
@@ -89,6 +89,13 @@ halt:
 dummy:
     bx lr
 
+@ 锁的原子操作
+.globl try_lock
+try_lock:
+    mov     r1, #0
+    swp     r2, r1, [r0]
+    mov     r0, r2
+    blx     lr 
 
 @ Gets a word from the memory location indicated by r0 and returns it.
 .globl GET32
@@ -109,13 +116,13 @@ _enable_interrupts:
     mrs	r0, cpsr
     bic	r0, r0, #0x80
     msr	cpsr_c, r0
-    mov     pc, lr
+    mov pc, lr
 .global _disable_interrupts
 _disable_interrupts:
     mrs	r0, cpsr
     orr	r0, r0, #0x80
     msr	cpsr_c, r0
-    mov     pc, lr
+    mov pc, lr
 	
 @ 只读区域
 @ 只读区域在read only data区域，是不可写的

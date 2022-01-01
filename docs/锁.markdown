@@ -1,0 +1,135 @@
+# 锁
+
+具有并发性的系统，需要提供防止数据竞争的方法。
+比如：互斥锁和自旋锁。
+
+自旋锁和互斥锁都依赖于一个“锁变量”，这个变量在锁空闲时为 1，当锁被占用时为 0。锁实现中最重要的部分是确保在尝试获取锁时不会被抢占。
+
+如下：
+```C
+if (lock == 1)
+    lock = 0
+```
+```asm
+    if (lock == 1)
+    8440:	e51b300c 	ldr	r3, lock
+    8444:	e3530001 	cmp	r3, #1                  // 判断是否等于1
+    8448:	1a000001 	bne	8454 <os_main+0x80>     // 如果不等就跳过，继续执行
+        lock = 0;
+    844c:	e3a03000 	mov	r3, #0                  // 如果相等，设置r3=0
+    8450:	e50b300c 	str	r3, lock                // 将r3中的值写入lock变量
+```
+如果在if语句中赋值的时候被强占，那么强占程序此时也执行获取锁的操作，那么最终会有两个程序获得锁，这是我们不愿意看到的。
+
+如果我们在获取锁之后检查我们是否获得了锁，而不是检查我们是否可以获取它然后获取它，就可以解决上述情况。
+
+我们可以使用原子交换（The Atomic Swap）来做到这一点。我们可以在不被抢占的情况下用 0 交换锁变量。如果我们从交换中得到的值仍然是 0，那意味着其他人拥有了锁，而我们没有得到它。但是，如果我们换出 0 并返回 1，则意味着锁可用并且我们拿走了它。我们在它的位置留下了一个 0，表示锁被占用了。
+原子操作最重要的就是只有执行或者不被执行，那么如何实现呢？
+```asm
+
+.section ".text"
+
+.global try_lock
+
+// 这个函数接受一个指向锁变量的指针，并使用原子操作来获取锁。
+// 返回0就是未获得锁，1就是获得了。
+try_lock:
+    mov     r1, #0          //  函数在编译时，编译器一般使用r0为第一个参数，r1为第二参数，r3为第三个参数
+                            //  这里r0为我们传入锁的指针
+    swp     r2, r1, [r0]    //  将r1中的值存入r0中的地址，将r0中地址处的值存入r2中
+                            //  也就是r1中的0写到r2声明占用，swap是一个原子操作
+    mov     r0, r2          //  r2中的值存入r0
+    blx     lr              //  函数返回，返回值存在r0里
+```
+这个程序就算中间被打断，逻辑也是没问题的。关键在于使用原子操作，交换值，而不是直接赋值，因为判断后再赋值需要多条指令，中间如果被打断，逻辑就会出问题。
+因为swp是一个原子操作，要么做，要么不做。
+
+## 自旋锁（spinlock）
+自旋锁是一个很基本的同步方式。
+它一次只允许一个进程持有锁。实现很简单：尝试在一个循环中获取锁，直到它被获取。这个自旋就是这个锁的名字。锁在这个获取循环中“旋转”，在等待时消耗 CPU 周期。
+
+```C
+typedef int spin_lock_t;                //  定义一个锁类型
+
+void spin_init(spin_lock_t * lock) {    //  初始化时要设置解锁状态，表示资源未被占用    
+    *lock = 1;
+}
+
+void spin_lock(spin_lock_t * lock) {    //  自旋获得锁，不获得不返回
+    while (!try_lock(lock));
+}
+
+void spin_unlock(spin_lock_t * lock) {  //  解锁
+    *lock = 1;
+}
+```
+为什么初始化和解锁不用原子操作呢？
+因为初始化代码就是要执行```mov  lock, #1```
+而解锁也是```mov  lock, #1```，这本身就是一个原子操作
+
+## 互斥锁（Mutexes）
+但是自旋锁有个问题就是在获取锁的时候要一直等待，消耗CPU。
+一个互斥锁类似于自旋锁，只允许一个进程同时持有它。
+它的不同之处在于它的实现更复杂，但允许长时间保持锁定而不消耗 CPU 周期。
+
+它通过保持一个试图锁定它的进程队列来做到这一点。互斥锁不会自旋，而是将需要锁定的进程添加到其等待队列中，然后调度一个新进程而不将当前进程添加回运行队列。这样，需要锁的进程在等待时将永远不会运行，因此不会消耗 CPU 周期。当一个进程释放锁时，它会将等待队列中的一个进程添加回运行队列，以便它可以声明锁。
+
+```C
+typedef struct {
+    int lock;                           // 锁
+    process_control_block_t * locker;   // 锁定者的进程控制块
+    pcb_list_t wait_queue;              // 在等待获得锁的队列
+} mutex_t;
+
+mutex_t lock;
+void mutex_init(mutex_t * lock) {   // 锁初始化
+    lock->lock = 1;                 // 未锁定
+    lock->locker = 0;               // 没有锁定者
+    INITIALIZE_LIST(lock->wait_queue);// 初始化锁定者列表
+}
+
+void mutex_lock(mutex_t * lock) {
+    process_control_block_t * new_thread, * old_thread;
+    // 如果你没有得到锁，把自己从运行队列中取出并放到互斥等待队列中
+    while (!try_lock(&lock->lock)) {
+
+        // 得到了锁，选择一个线程运行，之前在运行的放入待运行队列
+        DISABLE_INTERRUPTS();                   // 关中断
+        new_thread = pop_pcb_list(&run_queue);  // 从队列中弹出一个
+        old_thread = current_process;           
+        current_process = new_thread;
+
+        // Put the current thread back of this mutex's wait queue, not on the run queue
+        append_pcb_list(&lock->wait_queue, old_thread);
+
+        // 切换上下文
+        switch_to_thread(old_thread, new_thread);
+        ENABLE_INTERRUPTS();                    // 启用中断
+    }
+    lock->locker = current_process;             // 新锁定者是现在这个进程
+}
+void mutex_unlock(mutex_t * lock) {
+    process_control_block_t * thread;   //
+    lock->lock = 1;                     //
+    lock->locker = 0;                   //
+
+
+    // If there is anyone waiting on this, put them back in the run queue
+    // 这里都是针对时间片轮转法，所以要把进程再放回去。
+    // 如果一个进程要解锁，也可以不把它放回去，解锁表示它运行完毕了
+    if (size_pcb_list(&lock->wait_queue)) {
+        thread = pop_pcb_list(&lock->wait_queue);  
+        push_pcb_list(&run_queue, thread);
+    }
+}
+```
+
+这样使用互斥锁
+```C
+mutex_lock(&test_mut);
+
+mutex_unlock(&test_mut);
+```
+
+
+但是还是需要自旋锁，因为互斥锁里用到了try_lock自旋锁的操作。

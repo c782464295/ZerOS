@@ -1,3 +1,34 @@
+//-----------------------------------------------------------------------------
+// 字体数据
+// 导出自：Bitmap exported from proggy_clean.fon (c) by Tristan Grimmer http://www.proggyfonts.net
+//-----------------------------------------------------------------------------
+// Exported with bmfont (www.angelcode.com/products/bmfont), 字体大小size 13, 没有抗锯齿功能
+// We are using bmfont format and you can load your own font from a file by setting up ImGui::GetIO().Font
+// PNG reduced in size with pngout.exe
+// 将文件转换的代码如下:
+/*
+static void binary_to_c(const char* name_in, const char* symbol)
+{
+    FILE* fi = fopen(name_in, "rb"); fseek(fi, 0, SEEK_END); long sz = ftell(fi); fseek(fi, 0, SEEK_SET);
+    fprintf(stdout, "static const unsigned int %s_size = %d;\n", symbol, sz);
+    fprintf(stdout, "static const unsigned int %s_data[%d/4] =\n{", symbol, ((sz+3)/4)*4);
+    int column = 0;
+    for (unsigned int data = 0; fread(&data, 1, 4, fi); data = 0)
+        if ((column++ % 12) == 0)
+            fprintf(stdout, "\n    0x%08x, ", data);
+        else
+            fprintf(stdout, "0x%08x, ", data);
+    fprintf(stdout, "\n};\n\n");
+    fclose(fi);
+}
+int main(int argc, char** argv)
+{
+    binary_to_c("proggy_clean_13.fnt", "proggy_clean_13_fnt");
+    binary_to_c("proggy_clean_13.png", "proggy_clean_13_png");
+    return 1;
+}
+*/
+//-----------------------------------------------------------------------------
 static const unsigned int proggy_clean_13_png_size = 1557;
 static const unsigned int proggy_clean_13_png_data[1560/4] =
 {
