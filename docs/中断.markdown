@@ -31,7 +31,7 @@
 [gcc 手册中有关 ARM 的函数属性](https://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html)
 
 
-ARM处理器共有7中模式，每种模式的寄存器会有些不同。OS One默认运行在SUPERVISOR模式下，当IRQ中断发生时运行在IRQ模式。OS One只使用了这两种模式。
+ARM处理器共有7中模式，每种模式的寄存器会有些不同。OS默认运行在SUPERVISOR模式下，当IRQ中断发生时运行在IRQ模式。目前我们的OS只使用了这两种模式。
 
 CPSR中[4:0]表示处理器所处的模式
 

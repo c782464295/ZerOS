@@ -3,6 +3,7 @@
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
         "list.h": "c",
-        "stdtype.h": "c"
+        "stdtype.h": "c",
+        "interrupt.h": "c"
     }
 }

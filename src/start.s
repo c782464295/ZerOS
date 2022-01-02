@@ -54,15 +54,11 @@ _reset:
 	stmia	r1!, {r2, r3, r4, r5, r6, r7, r8, r9}
 
 	@ 设置栈指针，在不同模式下就会使用不同的栈
-	@ 设置IRQ模式下的栈指针
+	@ 设置中断（IRQ）模式下的栈指针
 	mov r0, #(CPSR_MODE_IRQ | CPSR_IRQ_INHIBIT | CPSR_FIQ_INHIBIT )
 	msr cpsr_c, r0
 	mov sp, #0x8000
 	
-	@ 设置UNDEF模式下的栈指针
-	mov r0,#CPSR_MODE_UNDEFINED
-	msr cpsr_c, r0
-	mov sp, #0x5000
 	
 	@ 设置SVR模式下的栈指针
 	mov r0, #(CPSR_MODE_SVR | CPSR_IRQ_INHIBIT | CPSR_FIQ_INHIBIT )
@@ -93,6 +89,8 @@ dummy:
 .globl try_lock
 try_lock:
     mov     r1, #0
+	@ swp在arm v6中被弃用，arm v7不支持此命令，但会提示deprecated，不要紧
+	@ 也可以添加-mno-warn-deprecated禁止报警
     swp     r2, r1, [r0]
     mov     r0, r2
     blx     lr 
@@ -110,13 +108,16 @@ PUT32:
 	bx	lr
 	
 	
-@ 开启中断 ，关闭中断
+@ 开启全局中断
+@ 因为启用寄存器的指令无法通过任何 C 指令获得
 .global _enable_interrupts
 _enable_interrupts:
     mrs	r0, cpsr
     bic	r0, r0, #0x80
     msr	cpsr_c, r0
     mov pc, lr
+
+@ 关闭中断
 .global _disable_interrupts
 _disable_interrupts:
     mrs	r0, cpsr
@@ -127,18 +128,6 @@ _disable_interrupts:
 @ 只读区域
 @ 只读区域在read only data区域，是不可写的
 .section .rodata
-	@ 定义GPIO相关值
-	.set	MAX_GPIO_PIN,	53
-	.set	MAX_GPIO_CMD,	7
-
-	.set	GPIO_ON,	1
-	.set	GPIO_OFF,	0
-
-	.set	GPIO_ACT,	47
-	.set	GPIO_RX,	14
-	.set	GPIO_TX,	15
-	.set	GPIO_SDA,	0
-	.set	GPIO_SCL,	1
 	@ arm处理器的7种运行模式定义	
 	.equ    CPSR_MODE_USER,         		0x10 @ 正常状态
 	.equ    CPSR_MODE_FIQ,          		0x11 @ 高速数据通道
