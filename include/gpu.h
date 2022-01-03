@@ -3,6 +3,9 @@
 **/
 #include "stdtype.h"
 
+#ifndef GPU_H
+#define GPU_H
+
 #define GPU_BASE 	0x2000B880
 #define GPU_Read	0x2000B880	
 #define GPU_Poll 	0x2000B890
@@ -11,8 +14,7 @@
 #define GPU_Config 	0x2000B89C
 #define GPU_Write 	0x2000B8A0
 
-struct FrameBufferInfoS
-{
+struct FrameBufferInfoS{
 	u32 phyWidth; 				/* #0 Physical Width */
 	u32 phyHeight;  			/* #4 Physical Height */
 	u32 virWidth; 				/* #8 Virtual Width */
@@ -28,5 +30,8 @@ struct FrameBufferInfoS
 struct FrameBufferInfoS FrameBufferInfo;
 
 u32 gpu_Init(u32 width, u32 height, u32 bitDepth);			//初始化
-int gpu_SendMail(u32 GPU_MSG, u32 channel);														//发送mail
-u32 gpu_RecMail(u32 channel);	
+int gpu_SendMail(u32 GPU_MSG, u32 channel);					//发送mail
+u32 gpu_RecMail(u32 channel);
+
+
+#endif

@@ -2,8 +2,10 @@
 Allocating common symbols
 Common symbol       size              file
 
+GpuBufAddr          0x4               ./object/gpu.o
 gpioregs            0x4               ./object/interrupt.o
 FrameBufferInfo     0x28              ./object/gpu.o
+GpuInfoAddr         0x4               ./object/gpu.o
 
 Memory Configuration
 
@@ -18,140 +20,146 @@ Linker script and memory map
 
 .text.init      0x00008000       0x40
  *(.text.init)
- .text.init     0x00008000       0x40 C:\Users\Lenovo\AppData\Local\Temp\cc4pInFT.o
+ .text.init     0x00008000       0x40 C:\Users\Lenovo\AppData\Local\Temp\ccwzgtc2.o
                 0x00008000                _start
                 0x00008040                _start_end
 
-.text           0x00008040      0xa3c
+.text           0x00008040      0xb64
                 0x00008040                . = ALIGN (0x4)
  *(.text)
  .text          0x00008040       0x98 ./object/font.o
                 0x00008040                GetDefaultFontData
- .text          0x000080d8      0x218 ./object/gpu.o
-                0x000080d8                gpu_Init_GPU
+ .text          0x000080d8      0x2d0 ./object/gpu.o
+                0x000080d8                gpu_Init
                 0x000081a0                gpu_SendMail
                 0x0000823c                gpu_RecMail
- .text          0x000082f0      0x144 ./object/interrupt.o
-                0x000082f0                _undef
-                0x000082fc                _swi
-                0x00008308                _prefa
-                0x00008314                _dataa
-                0x00008320                _unused
-                0x0000832c                _irq
-                0x00008428                _fiq
- .text          0x00008434      0x100 ./object/main.o
-                0x00008434                os_main
- .text          0x00008534       0xb4 ./object/mem_init.o
-                0x00008534                get_mem_size
-                0x000085a8                memory_init
- .text          0x000085e8       0x6c ./object/start.o
-                0x000085e8                _cstartup
- .text          0x00008654       0x4c ./object/timer.o
-                0x00008654                ARM_timer_init
- .text          0x000086a0      0x2d4 ./object/uart.o
-                0x000086a0                notmain
-                0x000087d8                uart_putc
-                0x00008824                uart_printstr
-                0x00008884                uart_init
- .text          0x00008974      0x108 C:\Users\Lenovo\AppData\Local\Temp\ccxjwrd0.o
-                0x000089a4                gpio_fsel
-                0x000089e4                gpio_set
-                0x00008a14                i2c_init
-                0x00008a4c                i2c_wait
-                0x00008a60                i2c_set_slave
- .text          0x00008a7c        0x0 C:\Users\Lenovo\AppData\Local\Temp\cc4pInFT.o
+                0x000082f0                screen_Init
+ .text          0x000083a8        0x0 ./object/i2c.o
+ .text          0x000083a8      0x14c ./object/interrupt.o
+                0x000083a8                _undef
+                0x000083b4                _swi
+                0x000083c0                _prefa
+                0x000083cc                _dataa
+                0x000083d8                _unused
+                0x000083e4                _irq
+                0x000084e8                _fiq
+ .text          0x000084f4      0x100 ./object/main.o
+                0x000084f4                os_main
+ .text          0x000085f4      0x120 ./object/mem_init.o
+                0x000085f4                get_mem_size
+                0x00008668                memory_init
+                0x000086e4                test
+ .text          0x00008714       0x6c ./object/start.o
+                0x00008714                _cstartup
+ .text          0x00008780      0x104 ./object/stdlib.o
+                0x00008780                memset
+                0x000087e4                bzero
+                0x00008810                memcpy
+ .text          0x00008884       0x4c ./object/timer.o
+                0x00008884                ARM_timer_init
+ .text          0x000088d0      0x2d4 ./object/uart.o
+                0x000088d0                notmain
+                0x00008a08                uart_putc
+                0x00008a54                uart_printstr
+                0x00008ab4                uart_init
+ .text          0x00008ba4        0x0 C:\Users\Lenovo\AppData\Local\Temp\ccwzgtc2.o
 
-.glue_7         0x00008a7c        0x0
+.glue_7         0x00008ba4        0x0
  .glue_7        0x00000000        0x0 linker stubs
 
-.glue_7t        0x00008a7c        0x0
+.glue_7t        0x00008ba4        0x0
  .glue_7t       0x00000000        0x0 linker stubs
 
-.vfp11_veneer   0x00008a7c        0x0
+.vfp11_veneer   0x00008ba4        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x00008a7c        0x0
+.v4_bx          0x00008ba4        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x00008a7c        0x0
+.iplt           0x00008ba4        0x0
  .iplt          0x00000000        0x0 ./object/font.o
 
-.init           0x00008a7c       0x84
- .init          0x00008a7c       0x84 C:\Users\Lenovo\AppData\Local\Temp\cc4pInFT.o
-                0x00008ab4                reboot
-                0x00008ab8                halt
-                0x00008abc                dummy
-                0x00008ac0                try_lock
-                0x00008ad0                GET32
-                0x00008ad8                PUT32
-                0x00008ae0                _enable_interrupts
-                0x00008af0                _disable_interrupts
+.init           0x00008ba4       0x84
+ .init          0x00008ba4       0x84 C:\Users\Lenovo\AppData\Local\Temp\ccwzgtc2.o
+                0x00008bdc                reboot
+                0x00008be0                halt
+                0x00008be4                dummy
+                0x00008be8                try_lock
+                0x00008bf8                GET32
+                0x00008c00                PUT32
+                0x00008c08                _enable_interrupts
+                0x00008c18                _disable_interrupts
 
-.text.usb       0x00008b00        0x0
-                0x00008b00                . = ALIGN (0x4)
+.text.usb       0x00008c28        0x0
+                0x00008c28                . = ALIGN (0x4)
  *.c.o(.text)
 
-.data           0x00008b00       0x1c
+.data           0x00008c28       0x1c
  *(.data)
- .data          0x00008b00        0x0 ./object/font.o
- .data          0x00008b00        0x0 ./object/gpu.o
- .data          0x00008b00        0xc ./object/interrupt.o
- .data          0x00008b0c        0x8 ./object/main.o
- .data          0x00008b14        0x0 ./object/mem_init.o
- .data          0x00008b14        0x0 ./object/start.o
- .data          0x00008b14        0x8 ./object/timer.o
- .data          0x00008b1c        0x0 ./object/uart.o
- .data          0x00008b1c        0x0 C:\Users\Lenovo\AppData\Local\Temp\ccxjwrd0.o
- .data          0x00008b1c        0x0 C:\Users\Lenovo\AppData\Local\Temp\cc4pInFT.o
+ .data          0x00008c28        0x0 ./object/font.o
+ .data          0x00008c28        0x0 ./object/gpu.o
+ .data          0x00008c28        0x0 ./object/i2c.o
+ .data          0x00008c28        0xc ./object/interrupt.o
+ .data          0x00008c34        0x8 ./object/main.o
+ .data          0x00008c3c        0x0 ./object/mem_init.o
+ .data          0x00008c3c        0x0 ./object/start.o
+ .data          0x00008c3c        0x0 ./object/stdlib.o
+ .data          0x00008c3c        0x8 ./object/timer.o
+ .data          0x00008c44        0x0 ./object/uart.o
+ .data          0x00008c44        0x0 C:\Users\Lenovo\AppData\Local\Temp\ccwzgtc2.o
 
-.igot.plt       0x00008b1c        0x0
+.igot.plt       0x00008c44        0x0
  .igot.plt      0x00000000        0x0 ./object/font.o
 
-.rodata         0x00008b1c     0x1856
-                0x00008b1c                . = ALIGN (0x4)
+.rodata         0x00008c44     0x1856
+                0x00008c44                . = ALIGN (0x4)
  *(.rodata)
- .rodata        0x00008b1c     0x1848 ./object/font.o
- .rodata        0x0000a364        0xe C:\Users\Lenovo\AppData\Local\Temp\cc4pInFT.o
-                0x0000a372                __bss_start = .
-                0x0000a372                __bss_start__ = .
+ .rodata        0x00008c44     0x1848 ./object/font.o
+ .rodata        0x0000a48c        0xe C:\Users\Lenovo\AppData\Local\Temp\ccwzgtc2.o
+                0x0000a49a                __bss_start = .
+                0x0000a49a                __bss_start__ = .
 
-.rel.dyn        0x0000a374        0x0
+.rel.dyn        0x0000a49c        0x0
  .rel.iplt      0x00000000        0x0 ./object/font.o
 
-.bss            0x0000a374       0x34
+.bss            0x0000a49c       0x40
  *(.bss .bss.*)
- .bss           0x0000a374        0x0 ./object/font.o
- .bss           0x0000a374        0x0 ./object/gpu.o
- .bss           0x0000a374        0x1 ./object/interrupt.o
- .bss           0x0000a375        0x0 ./object/main.o
- *fill*         0x0000a375        0x3 
- .bss           0x0000a378        0x4 ./object/mem_init.o
- .bss           0x0000a37c        0x0 ./object/start.o
- .bss           0x0000a37c        0x0 ./object/timer.o
- .bss           0x0000a37c        0x0 ./object/uart.o
- .bss           0x0000a37c        0x0 C:\Users\Lenovo\AppData\Local\Temp\ccxjwrd0.o
- .bss           0x0000a37c        0x0 C:\Users\Lenovo\AppData\Local\Temp\cc4pInFT.o
-                0x0000a37c                . = ALIGN ((. != 0x0)?0x4:0x1)
- COMMON         0x0000a37c       0x28 ./object/gpu.o
-                0x0000a37c                FrameBufferInfo
- COMMON         0x0000a3a4        0x4 ./object/interrupt.o
-                0x0000a3a4                gpioregs
-                0x0000a3a8                _bss_end__ = .
-                0x0000a3a8                __bss_end__ = .
-                0x0000a3a8                . = ALIGN (0x4)
-                0x0000a3a8                _edata = .
-                0x0000a3a8                PROVIDE (edata, .)
-                0x0000a3c0                _KERNEL_HEAP = ALIGN (0x40)
+ .bss           0x0000a49c        0x0 ./object/font.o
+ .bss           0x0000a49c        0x0 ./object/gpu.o
+ .bss           0x0000a49c        0x0 ./object/i2c.o
+ .bss           0x0000a49c        0x1 ./object/interrupt.o
+ .bss           0x0000a49d        0x0 ./object/main.o
+ *fill*         0x0000a49d        0x3 
+ .bss           0x0000a4a0        0x8 ./object/mem_init.o
+ .bss           0x0000a4a8        0x0 ./object/start.o
+ .bss           0x0000a4a8        0x0 ./object/stdlib.o
+ .bss           0x0000a4a8        0x0 ./object/timer.o
+ .bss           0x0000a4a8        0x0 ./object/uart.o
+ .bss           0x0000a4a8        0x0 C:\Users\Lenovo\AppData\Local\Temp\ccwzgtc2.o
+                0x0000a4a8                . = ALIGN ((. != 0x0)?0x4:0x1)
+ COMMON         0x0000a4a8       0x30 ./object/gpu.o
+                0x0000a4a8                GpuBufAddr
+                0x0000a4ac                FrameBufferInfo
+                0x0000a4d4                GpuInfoAddr
+ COMMON         0x0000a4d8        0x4 ./object/interrupt.o
+                0x0000a4d8                gpioregs
+                0x0000a4dc                _bss_end__ = .
+                0x0000a4dc                __bss_end__ = .
+                0x0000a4dc                . = ALIGN (0x4)
+                0x0000a4dc                _edata = .
+                0x0000a4dc                PROVIDE (edata, .)
+                0x0000a500                _KERNEL_HEAP = ALIGN (0x40)
 LOAD ./object/font.o
 LOAD ./object/gpu.o
+LOAD ./object/i2c.o
 LOAD ./object/interrupt.o
 LOAD ./object/main.o
 LOAD ./object/mem_init.o
 LOAD ./object/start.o
+LOAD ./object/stdlib.o
 LOAD ./object/timer.o
 LOAD ./object/uart.o
-LOAD C:\Users\Lenovo\AppData\Local\Temp\ccxjwrd0.o
-LOAD C:\Users\Lenovo\AppData\Local\Temp\cc4pInFT.o
+LOAD C:\Users\Lenovo\AppData\Local\Temp\ccwzgtc2.o
 START GROUP
 LOAD g:/arm/bin/../lib/gcc/arm-none-eabi/4.8.4/fpu\libgcc.a
 LOAD g:/arm/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/fpu\libg.a
@@ -159,90 +167,101 @@ LOAD g:/arm/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/fpu
 END GROUP
 OUTPUT(kernel.elf elf32-littlearm)
 
-.debug_info     0x00000000      0xf49
+.debug_info     0x00000000     0x1429
  .debug_info    0x00000000      0x10a ./object/font.o
- .debug_info    0x0000010a      0x210 ./object/gpu.o
- .debug_info    0x0000031a      0x272 ./object/interrupt.o
- .debug_info    0x0000058c      0x237 ./object/main.o
- .debug_info    0x000007c3      0x241 ./object/mem_init.o
- .debug_info    0x00000a04       0xdf ./object/start.o
- .debug_info    0x00000ae3      0x1d6 ./object/timer.o
- .debug_info    0x00000cb9      0x218 ./object/uart.o
- .debug_info    0x00000ed1       0x3d C:\Users\Lenovo\AppData\Local\Temp\ccxjwrd0.o
- .debug_info    0x00000f0e       0x3b C:\Users\Lenovo\AppData\Local\Temp\cc4pInFT.o
+ .debug_info    0x0000010a      0x2df ./object/gpu.o
+ .debug_info    0x000003e9       0x56 ./object/i2c.o
+ .debug_info    0x0000043f      0x272 ./object/interrupt.o
+ .debug_info    0x000006b1      0x2d0 ./object/main.o
+ .debug_info    0x00000981      0x41c ./object/mem_init.o
+ .debug_info    0x00000d9d       0xdf ./object/start.o
+ .debug_info    0x00000e7c      0x184 ./object/stdlib.o
+ .debug_info    0x00001000      0x1d6 ./object/timer.o
+ .debug_info    0x000011d6      0x218 ./object/uart.o
+ .debug_info    0x000013ee       0x3b C:\Users\Lenovo\AppData\Local\Temp\ccwzgtc2.o
 
-.debug_abbrev   0x00000000      0x6bc
+.debug_abbrev   0x00000000      0x82f
  .debug_abbrev  0x00000000       0x7e ./object/font.o
- .debug_abbrev  0x0000007e       0xdb ./object/gpu.o
- .debug_abbrev  0x00000159       0xd1 ./object/interrupt.o
- .debug_abbrev  0x0000022a       0xfe ./object/main.o
- .debug_abbrev  0x00000328      0x142 ./object/mem_init.o
- .debug_abbrev  0x0000046a       0xa7 ./object/start.o
- .debug_abbrev  0x00000511       0xbc ./object/timer.o
- .debug_abbrev  0x000005cd       0xc9 ./object/uart.o
- .debug_abbrev  0x00000696       0x14 C:\Users\Lenovo\AppData\Local\Temp\ccxjwrd0.o
- .debug_abbrev  0x000006aa       0x12 C:\Users\Lenovo\AppData\Local\Temp\cc4pInFT.o
+ .debug_abbrev  0x0000007e      0x100 ./object/gpu.o
+ .debug_abbrev  0x0000017e       0x26 ./object/i2c.o
+ .debug_abbrev  0x000001a4       0xd1 ./object/interrupt.o
+ .debug_abbrev  0x00000275      0x10d ./object/main.o
+ .debug_abbrev  0x00000382      0x1ac ./object/mem_init.o
+ .debug_abbrev  0x0000052e       0xa7 ./object/start.o
+ .debug_abbrev  0x000005d5       0xc3 ./object/stdlib.o
+ .debug_abbrev  0x00000698       0xbc ./object/timer.o
+ .debug_abbrev  0x00000754       0xc9 ./object/uart.o
+ .debug_abbrev  0x0000081d       0x12 C:\Users\Lenovo\AppData\Local\Temp\ccwzgtc2.o
 
-.debug_aranges  0x00000000      0x148
+.debug_aranges  0x00000000      0x160
  .debug_aranges
                 0x00000000       0x20 ./object/font.o
  .debug_aranges
                 0x00000020       0x20 ./object/gpu.o
  .debug_aranges
-                0x00000040       0x20 ./object/interrupt.o
+                0x00000040       0x18 ./object/i2c.o
  .debug_aranges
-                0x00000060       0x20 ./object/main.o
+                0x00000058       0x20 ./object/interrupt.o
  .debug_aranges
-                0x00000080       0x20 ./object/mem_init.o
+                0x00000078       0x20 ./object/main.o
  .debug_aranges
-                0x000000a0       0x20 ./object/start.o
+                0x00000098       0x20 ./object/mem_init.o
  .debug_aranges
-                0x000000c0       0x20 ./object/timer.o
+                0x000000b8       0x20 ./object/start.o
  .debug_aranges
-                0x000000e0       0x20 ./object/uart.o
+                0x000000d8       0x20 ./object/stdlib.o
  .debug_aranges
-                0x00000100       0x20 C:\Users\Lenovo\AppData\Local\Temp\ccxjwrd0.o
+                0x000000f8       0x20 ./object/timer.o
  .debug_aranges
-                0x00000120       0x28 C:\Users\Lenovo\AppData\Local\Temp\cc4pInFT.o
+                0x00000118       0x20 ./object/uart.o
+ .debug_aranges
+                0x00000138       0x28 C:\Users\Lenovo\AppData\Local\Temp\ccwzgtc2.o
 
-.debug_line     0x00000000      0x4e7
+.debug_line     0x00000000      0x511
  .debug_line    0x00000000       0x5c ./object/font.o
- .debug_line    0x0000005c       0x93 ./object/gpu.o
- .debug_line    0x000000ef       0xa0 ./object/interrupt.o
- .debug_line    0x0000018f       0x80 ./object/main.o
- .debug_line    0x0000020f       0x76 ./object/mem_init.o
- .debug_line    0x00000285       0x61 ./object/start.o
- .debug_line    0x000002e6       0x62 ./object/timer.o
- .debug_line    0x00000348       0xa9 ./object/uart.o
- .debug_line    0x000003f1       0x83 C:\Users\Lenovo\AppData\Local\Temp\ccxjwrd0.o
- .debug_line    0x00000474       0x73 C:\Users\Lenovo\AppData\Local\Temp\cc4pInFT.o
+ .debug_line    0x0000005c       0xa1 ./object/gpu.o
+ .debug_line    0x000000fd       0x1d ./object/i2c.o
+ .debug_line    0x0000011a       0xa2 ./object/interrupt.o
+ .debug_line    0x000001bc       0x8b ./object/main.o
+ .debug_line    0x00000247       0x81 ./object/mem_init.o
+ .debug_line    0x000002c8       0x61 ./object/start.o
+ .debug_line    0x00000329       0x6a ./object/stdlib.o
+ .debug_line    0x00000393       0x62 ./object/timer.o
+ .debug_line    0x000003f5       0xa9 ./object/uart.o
+ .debug_line    0x0000049e       0x73 C:\Users\Lenovo\AppData\Local\Temp\ccwzgtc2.o
 
-.debug_str      0x00000000      0x671
+.debug_str      0x00000000      0x836
  .debug_str     0x00000000      0x11e ./object/font.o
                                 0x14f (size before relaxing)
- .debug_str     0x0000011e      0x120 ./object/gpu.o
-                                0x1cc (size before relaxing)
- .debug_str     0x0000023e      0x17e ./object/interrupt.o
+ .debug_str     0x0000011e      0x183 ./object/gpu.o
+                                0x22f (size before relaxing)
+ .debug_str     0x000002a1        0xa ./object/i2c.o
+                                0x106 (size before relaxing)
+ .debug_str     0x000002ab      0x17e ./object/interrupt.o
                                 0x283 (size before relaxing)
- .debug_str     0x000003bc       0x34 ./object/main.o
-                                0x26e (size before relaxing)
- .debug_str     0x000003f0       0xe3 ./object/mem_init.o
-                                0x212 (size before relaxing)
- .debug_str     0x000004d3       0x38 ./object/start.o
+ .debug_str     0x00000429       0x34 ./object/main.o
+                                0x2dc (size before relaxing)
+ .debug_str     0x0000045d      0x20e ./object/mem_init.o
+                                0x34d (size before relaxing)
+ .debug_str     0x0000066b       0x38 ./object/start.o
                                 0x13a (size before relaxing)
- .debug_str     0x0000050b       0x1f ./object/timer.o
+ .debug_str     0x000006a3       0x2d ./object/stdlib.o
+                                0x134 (size before relaxing)
+ .debug_str     0x000006d0       0x1f ./object/timer.o
                                 0x25f (size before relaxing)
- .debug_str     0x0000052a      0x147 ./object/uart.o
+ .debug_str     0x000006ef      0x147 ./object/uart.o
                                 0x248 (size before relaxing)
 
 .comment        0x00000000       0x70
  .comment       0x00000000       0x70 ./object/font.o
                                  0x71 (size before relaxing)
  .comment       0x00000000       0x71 ./object/gpu.o
+ .comment       0x00000000       0x71 ./object/i2c.o
  .comment       0x00000000       0x71 ./object/interrupt.o
  .comment       0x00000000       0x71 ./object/main.o
  .comment       0x00000000       0x71 ./object/mem_init.o
  .comment       0x00000000       0x71 ./object/start.o
+ .comment       0x00000000       0x71 ./object/stdlib.o
  .comment       0x00000000       0x71 ./object/timer.o
  .comment       0x00000000       0x71 ./object/uart.o
 
@@ -253,31 +272,34 @@ OUTPUT(kernel.elf elf32-littlearm)
  .ARM.attributes
                 0x00000035       0x35 ./object/gpu.o
  .ARM.attributes
-                0x0000006a       0x35 ./object/interrupt.o
+                0x0000006a       0x35 ./object/i2c.o
  .ARM.attributes
-                0x0000009f       0x35 ./object/main.o
+                0x0000009f       0x35 ./object/interrupt.o
  .ARM.attributes
-                0x000000d4       0x35 ./object/mem_init.o
+                0x000000d4       0x35 ./object/main.o
  .ARM.attributes
-                0x00000109       0x35 ./object/start.o
+                0x00000109       0x35 ./object/mem_init.o
  .ARM.attributes
-                0x0000013e       0x35 ./object/timer.o
+                0x0000013e       0x35 ./object/start.o
  .ARM.attributes
-                0x00000173       0x35 ./object/uart.o
+                0x00000173       0x35 ./object/stdlib.o
  .ARM.attributes
-                0x000001a8       0x1f C:\Users\Lenovo\AppData\Local\Temp\ccxjwrd0.o
+                0x000001a8       0x35 ./object/timer.o
  .ARM.attributes
-                0x000001c7       0x1f C:\Users\Lenovo\AppData\Local\Temp\cc4pInFT.o
+                0x000001dd       0x35 ./object/uart.o
+ .ARM.attributes
+                0x00000212       0x1f C:\Users\Lenovo\AppData\Local\Temp\ccwzgtc2.o
 
-.debug_frame    0x00000000      0x27c
+.debug_frame    0x00000000      0x324
  .debug_frame   0x00000000       0x28 ./object/font.o
- .debug_frame   0x00000028       0x5c ./object/gpu.o
- .debug_frame   0x00000084       0xb0 ./object/interrupt.o
- .debug_frame   0x00000134       0x2c ./object/main.o
- .debug_frame   0x00000160       0x44 ./object/mem_init.o
- .debug_frame   0x000001a4       0x2c ./object/start.o
- .debug_frame   0x000001d0       0x2c ./object/timer.o
- .debug_frame   0x000001fc       0x80 ./object/uart.o
+ .debug_frame   0x00000028       0x78 ./object/gpu.o
+ .debug_frame   0x000000a0       0xb0 ./object/interrupt.o
+ .debug_frame   0x00000150       0x2c ./object/main.o
+ .debug_frame   0x0000017c       0x74 ./object/mem_init.o
+ .debug_frame   0x000001f0       0x2c ./object/start.o
+ .debug_frame   0x0000021c       0x5c ./object/stdlib.o
+ .debug_frame   0x00000278       0x2c ./object/timer.o
+ .debug_frame   0x000002a4       0x80 ./object/uart.o
 
 .debug_ranges   0x00000000       0x20
- .debug_ranges  0x00000000       0x20 C:\Users\Lenovo\AppData\Local\Temp\cc4pInFT.o
+ .debug_ranges  0x00000000       0x20 C:\Users\Lenovo\AppData\Local\Temp\ccwzgtc2.o

@@ -4,7 +4,8 @@
 #include "stdtype.h"
 #include "list.h"
 #include "timer.h"
-
+#include "mem.h"
+#include "gpu.h"
 //-------------------------------------------------------------------------
 
 extern void PUT32 ( unsigned int, unsigned int );
@@ -39,7 +40,6 @@ volatile u32* gpioregs;
 	memory_init(atags);
 
     
-    
 
     // create pointer to the gpioregs;
     gpioregs = (u32*)GPIOREGS;
@@ -50,8 +50,9 @@ volatile u32* gpioregs;
     
     // set gpio16 as output
     gpioregs[GPFSEL1] |= (1 << 18);
-    
+    // screen_Init();
     ARM_timer_init();
+    
 
     u32 ra;
     while(1)

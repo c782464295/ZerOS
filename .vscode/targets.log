@@ -7,7 +7,7 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # There is NO WARRANTY, to the extent permitted by law.
  
 
-# Make data base, printed on Fri Dec 31 12:53:46 2021
+# Make data base, printed on Sun Jan  2 22:11:05 2022
 
 # Variables
  
@@ -25,7 +25,7 @@ USERPROFILE = C:\Users\Lenovo
 # environment
 LOCALAPPDATA = C:\Users\Lenovo\AppData\Local
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-85d504cf-0300-46a3-8bef-84493aeef4f2-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-759435d1-a1df-485b-ac3d-3a0f7789a281-sock
 # environment
 VSCODE_CWD = G:\Microsoft VS Code
 # environment
@@ -43,7 +43,7 @@ MAKE_COMMAND := make
 # makefile (from 'Makefile', line 9)
 DIR_INC = ./include
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_16512_FPEOLYMGKPANRSGI
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_18496_AAPYCPZJPUQZEDAV
 # makefile (from 'Makefile', line 8)
 DIR_SRC = ./src
 # environment
@@ -97,7 +97,7 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 16512
+VSCODE_PID = 18496
 # makefile (from 'Makefile', line 55)
 ASB = $(wildcard  ${DIR_SRC}/*.s)
 # automatic
@@ -181,6 +181,7 @@ LIST = kernel.list
 # makefile
 .DEFAULT_GOAL := all
 # default
+ 
 MAKE_VERSION := 4.3
 # makefile (from 'Makefile', line 10)
 DIR_OBJ = ./object
@@ -197,7 +198,6 @@ PUBLIC = C:\Users\Public
 # environment
 MOZ_PLUGIN_PATH = C:\Program Files (x86)\Foxit Software\Foxit Reader\plugins\
 # environment
- 
 APPDATA = C:\Users\Lenovo\AppData\Roaming
 # makefile (from 'Makefile', line 39)
 CFLAGS := -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -nostartfiles   -g -Wl,--verbose -c -I ./include 
@@ -250,11 +250,11 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 3, GenuineIntel
 
 # Directories
 
-# src (device 910813311, inode 281474976935483): 11 files, no impossibilities.
+# src (device 910813311, inode 281474976935483): 12 files, no impossibilities.
 # . (device 910813311, inode 281474976933474): 20 files, no impossibilities.
-# ./src (device 910813311, inode 281474976935483): 11 files, no impossibilities.
+# ./src (device 910813311, inode 281474976935483): 12 files, no impossibilities.
 
-# 42 files, no impossibilities in 3 directories.
+# 44 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
@@ -279,13 +279,19 @@ object/interrupt.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-kernel.elf: object/font.o object/gpu.o object/interrupt.o object/main.o object/mem_init.o object/start.o object/uart.o Makefile
+kernel.elf: object/font.o object/gpu.o object/interrupt.o object/main.o object/mem_init.o object/start.o object/timer.o object/uart.o Makefile
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 67):
 	${GNU}gcc ${LDFLAGS} ${OBJ} ${ASB} -L ${DIR_LIB} -o ${TARGET}.elf  
 	
+
+# Not a target:
+object/timer.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 Makefile:
@@ -413,19 +419,19 @@ object/uart.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=18/1024=2%, Rehash=0, Collisions=0/43=0%
+# Load=19/1024=2%, Rehash=0, Collisions=0/45=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 48 / storage = 421 B / avg = 8 B
-# current buf: size = 8162 B / used = 421 B / count = 48 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 50 / storage = 444 B / avg = 8 B
+# current buf: size = 8162 B / used = 444 B / count = 50 / avg = 8 B
 
-# strcache performance: lookups = 73 / hit rate = 34%
+# strcache performance: lookups = 75 / hit rate = 33%
 # hash-table stats:
-# Load=48/8192=1%, Rehash=0, Collisions=0/73=0%
-# Finished Make data base on Fri Dec 31 12:53:46 2021
+# Load=50/8192=1%, Rehash=0, Collisions=0/75=0%
+# Finished Make data base on Sun Jan  2 22:11:05 2022
 
  

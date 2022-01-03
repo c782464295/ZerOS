@@ -2,6 +2,11 @@
 *    	自定义标准类型
 **/
 
+/**
+ * https://code.woboq.org/ 
+ * 介绍了C和C++中很多库函数的实现方式
+**/
+
 #ifndef _STDTYPES_H
 #define _STDTYPES_H
 
@@ -23,4 +28,8 @@ typedef		signed long long	s64;
 
 /* Size type */
 typedef unsigned int size_t;
+
+
+
+
 #endif

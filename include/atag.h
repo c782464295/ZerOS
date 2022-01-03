@@ -1,7 +1,11 @@
+#include "stdtype.h"
+
+
 #ifndef ATAG_H
 #define ATAG_H
 
-#include "stdtype.h"
+
+
 
 enum atag_tag_t {
 	NONE		= 0x00000000,
@@ -30,7 +34,7 @@ struct cmdline_t {
 	char line[1];
 };
 
-struct atag_t {
+typedef struct atag{
 	u32 tag_size;
 	enum atag_tag_t tag;
 	union {
@@ -38,6 +42,6 @@ struct atag_t {
 		struct initrd2_t initrd2;
 		struct cmdline_t cmdline;
 	};
-};
+}atag_t;
 
 #endif

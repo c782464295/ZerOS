@@ -2,7 +2,7 @@
 
 
 //初始化
-u32 gpu_Init_GPU(u32 width, u32 height, u32 bitDepth)
+u32 gpu_Init(u32 width, u32 height, u32 bitDepth)
 {
 	volatile u32 GPU_MSG = 0;
 	
@@ -85,3 +85,29 @@ u32 gpu_RecMail(u32 channel)
 	}while(1);
 }
 
+/*Graphic.c  全局变量*/
+unsigned int GpuInfoAddr;  		/*GPU信息首地址*/
+volatile unsigned char *GpuBufAddr;  	/*GPU缓存首地址*/
+typedef struct RGB_24Bit_S
+{
+	unsigned char R;
+	unsigned char G;
+	unsigned char B;
+}RGB_24Bit;
+
+void screen_Init(){
+	GpuInfoAddr = gpu_Init(800, 600, 32);
+	GpuBufAddr =  (volatile unsigned char *)(*(unsigned int *)(GpuInfoAddr + 32));
+	
+	u8 colorBlackR = 0xFF;
+	u8 colorBlackG = 0x00;
+	u8 colorBlackB = 0x00;
+	u32 width = 0;
+
+
+	u8 * base_addr  = (u8 *)((200 * 200 + 50)  + (RGB_24Bit *)GpuBufAddr);
+	*(u8 *)base_addr = colorBlackR;
+	*((u8 *)base_addr + 1) = 0x00;
+	*((u8 *)base_addr + 2)= 0x00;
+
+}

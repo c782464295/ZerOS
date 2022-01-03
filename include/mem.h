@@ -1,7 +1,10 @@
+#include "stdtype.h"
+#include "atag.h"
+
 #ifndef MEM_H
 #define MEM_H
 
-#include "stdtype.h"
+
 
 /* Base memory structure:
  * 4KB Page
@@ -31,5 +34,18 @@ typedef struct heap_segment {
 	u32 segment_size;		/* Size of this segment,
 					 *  including this header. */
 } heap_segment_t;
+
+
+/**
+ * Heap Stuff
+ */
+static void heap_init(u32 heap_start);
+
+void mem_init(atag_t* atags);
+
+
+void* kmalloc(u32 bytes);
+
+void kfree(void *ptr);
 
 #endif

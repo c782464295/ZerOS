@@ -85,3 +85,5 @@ void uart_init ( void ){
 	
 	return;
 }
+
+// uart_init后就可以uart_printstr
