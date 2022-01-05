@@ -24,3 +24,59 @@
 | W 	| The symbol is a weak symbol that has not been specifically tagged as a weak object symbol. 	|
 | - 	| 该符号是 a.out 格式文件中的 stabs symbol 。 	|
 | ? 	| 该符号类型没有定义 	|
+
+
+可以看到其中我们定义得变量很多，有些比较熟悉，有些没见过，但这里面的变量都是你定义过的。
+
+```asm
+00008000 T _start
+```
+可以看到_start存着0x8000，也就是我们的程序起始地址
+
+```
+.globl _start
+_start:
+	@ 指定中断向量
+	@ 0x00 复位 0x04 未定义指令 0x08 软中断 0x0c 预读取中断 0x10 数据访问中止
+	@ 0x14 保留中断 0x18 中断要求（用于外设） 0x1c 快速中断要求
+	ldr pc, sig_reset
+	ldr pc, sig_undef
+	ldr pc, sig_swi
+	ldr pc, sig_prefa
+	ldr pc, sig_dataa
+	ldr pc, sig_unused	@ _unused 未使用
+	ldr pc, sig_irq
+	ldr pc, sig_fiq
+@ 左边的变量中存储有真正的中断处理函数地址
+sig_reset:	.word	_reset
+@ 除了reset外，其余都定义在interrupt.c中
+sig_undef:	.word	_undef
+sig_swi:	.word	_swi
+sig_prefa:	.word	_prefa
+sig_dataa:	.word	_dataa
+sig_unused:	.word	_unused
+sig_irq:	.word	_irq
+sig_fiq:	.word	_fiq
+```
+
+我们再搜索sig_reset
+```
+00008020 t sig_reset
+```
+看到里面存着0x8020
+因为
+```
+    ldr pc, sig_reset
+	ldr pc, sig_undef
+	ldr pc, sig_swi
+	ldr pc, sig_prefa
+	ldr pc, sig_dataa
+	ldr pc, sig_unused	@ _unused 未使用
+	ldr pc, sig_irq
+	ldr pc, sig_fiq
+
+```
+这里有8条指令，每条4个字节，所以是32字节，32的十六进制是0x20
+所以sig_reset是0x20，没问题。
+
+输入make disasm可以得到反汇编代码

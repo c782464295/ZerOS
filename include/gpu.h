@@ -29,6 +29,20 @@ struct FrameBufferInfoS{
 
 struct FrameBufferInfoS FrameBufferInfo;
 
+
+/* Define a structure which defines the register access to a mailbox.
+   Not all mailboxes support the full register set! */
+typedef struct {
+    volatile unsigned int Read;
+    volatile unsigned int reserved1[((0x90 - 0x80) / 4) - 1];
+    volatile unsigned int Poll;
+    volatile unsigned int Sender;
+    volatile unsigned int Status;
+    volatile unsigned int Configuration;
+    volatile unsigned int Write;
+} mailbox_t;
+
+
 u32 gpu_Init(u32 width, u32 height, u32 bitDepth);			//初始化
 int gpu_SendMail(u32 GPU_MSG, u32 channel);					//发送mail
 u32 gpu_RecMail(u32 channel);

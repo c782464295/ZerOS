@@ -6,30 +6,16 @@
 #include "timer.h"
 #include "mem.h"
 #include "gpu.h"
+#include "gpio.h"
 //-------------------------------------------------------------------------
 
-extern void PUT32 ( unsigned int, unsigned int );
-extern unsigned int GET32 ( unsigned int );
-extern void dummy ();
+extern void PUT32(u32, u32);
+extern u32 GET32(u32);
+extern void dummy();
 
 
-#define GPIOREGS       0x20200000UL
- 
-#define GPFSEL0    0
-#define GPFSEL1    1
-#define GPFSEL2    2
-#define GPFSEL3    3
-#define GPFSEL4    4
-#define GPFSEL5    5
-// 6 is reserved
-#define GPSET0     7
-#define GPSET1     8
-// 9 is reserved
-#define GPCLR0     10
-#define GPCLR1     11
  
 
-volatile u32* gpioregs;
 
 // 三个参数，因为没有用到，释放
 // 否则会造成3个寄存器被占用
@@ -38,18 +24,15 @@ volatile u32* gpioregs;
 	(void) r1;
 	
 	memory_init(atags);
-
+    enable_cache();
     
-
+    // GPIO看6.1
     // create pointer to the gpioregs;
-    gpioregs = (u32*)GPIOREGS;
-    
 
-    gpioregs[GPFSEL4] = (1 << 21);
-    gpioregs[GPSET0] = (1 << 16); // GPIO16
-    
+    // set gpio47 as output这个GPU初始化的时候就设定了
+    gpio_mode(47, 1);
     // set gpio16 as output
-    gpioregs[GPFSEL1] |= (1 << 18);
+    gpio_mode(16, 1);
     // screen_Init();
     ARM_timer_init();
     
@@ -59,14 +42,14 @@ volatile u32* gpioregs;
     {
         
         // 亮
-        
-        gpioregs[GPCLR1] = 1<<(47-32); // 树莓派zero上自带的那个绿色指示灯
+        // 这个灯是47，大于32的要减去32，小于的不减
+        gpio_set(47,0); // 树莓派zero上自带的那个绿色指示灯
         for(ra=0;ra<0x100000;ra++) dummy();
         
 
         // 灭
         
-        gpioregs[GPSET1] = 1<<(47-32);
+        gpio_set(47,1);
         for(ra=0;ra<0x100000;ra++) dummy();
 
         

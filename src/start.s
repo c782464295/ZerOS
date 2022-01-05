@@ -107,7 +107,19 @@ PUT32:
 	str	r1, [r0]
 	bx	lr
 	
-	
+@ 启用cache缓存.
+@ 启用后for(ra=0;ra<0x100000;ra++) dummy();都会快很多，导致LED闪烁更频繁
+.global enable_cache
+enable_cache:
+	push {r0, r1}
+	//enable L2 cache
+	mrc p15,0,r0,c1,c0,0
+	ldr r1, =0x1804
+    orr r0, r0, r1
+    mcr p15,0,r0,c1,c0,0
+	pop {r0, r1}
+	bx lr
+
 @ 开启全局中断
 @ 因为启用寄存器的指令无法通过任何 C 指令获得
 .global _enable_interrupts

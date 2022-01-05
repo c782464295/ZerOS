@@ -55,20 +55,6 @@ void _unused(void){
 }
 
 
-#define GPIOREGS       0x20200000UL
- 
-#define GPFSEL0    0
-#define GPFSEL1    1
-#define GPFSEL2    2
-#define GPFSEL3    3
-#define GPFSEL4    4
-#define GPFSEL5    5
-// 6 is reserved
-#define GPSET0     7
-#define GPSET1     8
-// 9 is reserved
-#define GPCLR0     10
-#define GPCLR1     11
  
 /*
 每一种异常模式都有其自己独立的r13，它通常指向异常模式所专用的堆栈，
@@ -77,7 +63,7 @@ void _unused(void){
 
 lr保存子程序返回地址。使用BL或BLX时，跳转指令自动把返回地址放入r14(lr)中；
 */
-volatile u32* gpioregs;
+
 /* void __attribute__((interrupt("IRQ"))) interrupt_vector(void)
 	但是反汇编发现好像没用，所以写汇编实现其功能
 */
@@ -98,7 +84,7 @@ __attribute__((naked)) void _irq(void){
 	static u8 status = 1;
 	static u8 count = 0; // 此时一秒中断100次，看不太清楚
 						// 所以设置每0.5s，一秒2次
-	gpioregs = (u32*)GPIOREGS;
+
 	
 
 	if(rpiIRQController->IRQ_basic_pending & 0x1){
@@ -109,10 +95,10 @@ __attribute__((naked)) void _irq(void){
 			count = 0;
 			if(status == 1){
 				status = 0;
-				gpioregs[GPCLR0] = (1 << 16); // GPIO16
+				gpio_set(16,0);
 			}else{
 				status = 1;
-				gpioregs[GPSET0] = (1 << 16); // GPIO16
+				gpio_set(16,1);
 			}
 		}
 		

@@ -18,3 +18,16 @@ void *memcpy(void *dest, const void *src, size_t len){
         *d++ = *s++;
     return dest;
 }
+
+
+/* Returns the length of a string. */
+size_t strlen (const char *str)
+{
+	const char *ch;
+	ch = str;
+
+	while (*ch)
+		ch++;
+
+	return (ch - str);
+}

@@ -95,19 +95,25 @@ typedef struct RGB_24Bit_S
 	unsigned char B;
 }RGB_24Bit;
 
+
+
 void screen_Init(){
 	GpuInfoAddr = gpu_Init(800, 600, 32);
 	GpuBufAddr =  (volatile unsigned char *)(*(unsigned int *)(GpuInfoAddr + 32));
 	
-	u8 colorBlackR = 0xFF;
-	u8 colorBlackG = 0x00;
-	u8 colorBlackB = 0x00;
-	u32 width = 0;
+	RGB_24Bit colorRed;
+	colorRed.R = 0xFF;
+	colorRed.G = 0x00;
+	colorRed.B = 0x00;
 
 
-	u8 * base_addr  = (u8 *)((200 * 200 + 50)  + (RGB_24Bit *)GpuBufAddr);
-	*(u8 *)base_addr = colorBlackR;
-	*((u8 *)base_addr + 1) = 0x00;
-	*((u8 *)base_addr + 2)= 0x00;
+
+	//u8 * base_addr  = (u8 *)((200 * 200 + 50)  + (RGB_24Bit *)GpuBufAddr);
+	//*(u8 *)base_addr = colorBlackR;
+	//*((u8 *)base_addr + 1) = 0x00;
+	//*((u8 *)base_addr + 2)= 0x00;
+	//GpuBufAddr->
+	// clear screen
+
 
 }

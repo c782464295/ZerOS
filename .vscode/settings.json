@@ -4,6 +4,8 @@
     "files.associations": {
         "list.h": "c",
         "stdtype.h": "c",
-        "interrupt.h": "c"
+        "interrupt.h": "c",
+        "addr.h": "c",
+        "uart.h": "c"
     }
 }

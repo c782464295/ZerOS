@@ -16,7 +16,7 @@
 #define 	BASIC_ACCESS_ERROR_1_IRQ		(1 << 6)
 #define 	BASIC_ACCESS_ERROR_0_IRQ		(1 << 7)
 
-// 中断控制器地址
+// 中断控制器地址 参考7.5
 typedef struct {
 	volatile u32 IRQ_basic_pending;
 	volatile u32 IRQ_pending_1;
