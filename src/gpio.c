@@ -26,12 +26,14 @@ void gpio_set(int pin, int stat){
 }
 
 int gpio_get(int pin){
+    volatile u32* gpioregs = (u32*)GPIOREGS;
     if(pin<32)      return (gpioregs[GPLEV0]>>pin)&1;
-    else if(p<64)   return (gpioregs[GPLEV1]>>pin)&1;
+    else if(pin<64)   return (gpioregs[GPLEV1]>>pin)&1;
     else            return -1;
 }
 
 void gpio_pull(int pin, int pmode){
+    volatile u32* gpioregs = (u32*)GPIOREGS;
     u32 i;
     gpioregs[GPPUD] = pmode;
 

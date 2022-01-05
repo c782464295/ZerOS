@@ -26,6 +26,8 @@ extern void dummy();
 	memory_init(atags);
     enable_cache();
     
+    gpu_Init(800, 600, 24);
+    //drawSquareLoop();
     // GPIO看6.1
     // create pointer to the gpioregs;
 
@@ -33,7 +35,7 @@ extern void dummy();
     gpio_mode(47, 1);
     // set gpio16 as output
     gpio_mode(16, 1);
-    // screen_Init();
+
     ARM_timer_init();
     
 
@@ -44,6 +46,10 @@ extern void dummy();
         // 亮
         // 这个灯是47，大于32的要减去32，小于的不减
         gpio_set(47,0); // 树莓派zero上自带的那个绿色指示灯
+        
+        // 如果只是for(ra=0;ra<0x100000;ra++)
+        // 可能被编译器优化为ra=0x100000
+        // 所以要么关闭优化，要么像下面一样
         for(ra=0;ra<0x100000;ra++) dummy();
         
 

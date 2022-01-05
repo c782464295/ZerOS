@@ -25,6 +25,13 @@
 #define GPPUDCLK0  38
 #define GPPUDCLK1  39
 
+
+// pmode
+#define PULL_OFF	0
+#define PULL_DOWN	1
+#define PULL_UP		2
+
+
 void gpio_mode(int pin, int mode);
 void gpio_set(int pin, int stat);
 int gpio_get(int pin);

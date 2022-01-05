@@ -14,7 +14,15 @@
 #define GPU_Config 	0x2000B89C
 #define GPU_Write 	0x2000B8A0
 
-struct FrameBufferInfoS{
+#define FrameBufferInfoAddress    0x40040000
+/*
+ * The address of the framebuffer data structure must be 16-byte aligned because
+ * it is not left shifted and must be sent to the VC via a mailbox in a format 
+ * such that only the 28 most significant bits can be communicated. The lower 4
+ * contain the channel information.
+ */
+
+typedef struct{
 	u32 phyWidth; 				/* #0 Physical Width */
 	u32 phyHeight;  			/* #4 Physical Height */
 	u32 virWidth; 				/* #8 Virtual Width */
@@ -25,22 +33,12 @@ struct FrameBufferInfoS{
 	volatile u32 y; 			/* #28 Y */
 	volatile u32 bufPointer; 	/* #32 GPU - Pointer， GPU会更改此值，GPU为缓冲区分配的首地址*/
 	volatile u32 bufSize; 		/* #36 GPU - Size ， GPU会更改此值，GPU为缓冲区分配内存的大小*/
-};
-
-struct FrameBufferInfoS FrameBufferInfo;
+}FrameBufferInfo_t __attribute__((aligned(16)));
 
 
-/* Define a structure which defines the register access to a mailbox.
-   Not all mailboxes support the full register set! */
-typedef struct {
-    volatile unsigned int Read;
-    volatile unsigned int reserved1[((0x90 - 0x80) / 4) - 1];
-    volatile unsigned int Poll;
-    volatile unsigned int Sender;
-    volatile unsigned int Status;
-    volatile unsigned int Configuration;
-    volatile unsigned int Write;
-} mailbox_t;
+
+
+
 
 
 u32 gpu_Init(u32 width, u32 height, u32 bitDepth);			//初始化
