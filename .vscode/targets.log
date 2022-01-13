@@ -7,18 +7,18 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # There is NO WARRANTY, to the extent permitted by law.
  
 
-# Make data base, printed on Sun Jan  2 22:11:05 2022
+# Make data base, printed on Thu Jan 13 15:14:47 2022
 
 # Variables
  
 
 # environment
 SYSTEMDRIVE = C:
-# makefile (from 'Makefile', line 57)
+# makefile (from 'Makefile', line 72)
 OBJ = $(patsubst  %.c,${DIR_OBJ}/%.o,$(notdir ${SRC}))
 # environment
 LC_ALL = C
-# makefile (from 'Makefile', line 54)
+# makefile (from 'Makefile', line 69)
 SRC = $(wildcard  ${DIR_SRC}/*.c)
 # environment
 USERPROFILE = C:\Users\Lenovo
@@ -98,7 +98,7 @@ MAKEFILE_LIST := Makefile
 VSCODE_VERBOSE_LOGGING = true
 # environment
 VSCODE_PID = 18496
-# makefile (from 'Makefile', line 55)
+# makefile (from 'Makefile', line 70)
 ASB = $(wildcard  ${DIR_SRC}/*.s)
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
@@ -160,7 +160,7 @@ USERNAME = Lenovo
 COMMONPROGRAMFILES = C:\Program Files\Common Files
 # automatic
 ?F = $(notdir $?)
-# makefile (from 'Makefile', line 58)
+# makefile (from 'Makefile', line 73)
 INC = $(wildcard ${DIR_INC}/*.h)
 # environment
 PROGRAMW6432 = C:\Program Files
@@ -181,14 +181,13 @@ LIST = kernel.list
 # makefile
 .DEFAULT_GOAL := all
 # default
- 
 MAKE_VERSION := 4.3
 # makefile (from 'Makefile', line 10)
 DIR_OBJ = ./object
 # environment
 PROGRAMFILES(X86) = C:\Program Files (x86)
-# makefile (from 'Makefile', line 41)
-LDFLAGS := -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -nostartfiles  -O0  -g -Wl,-T,linker.ld -Wl,-Map,kernel.map 
+# makefile (from 'Makefile', line 56)
+LDFLAGS := -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -nostartfiles  -mpoke-function-name -O0  -g -Wl,-T,linker.ld -Wl,-Map,kernel.map 
 # environment
 USERDOMAIN_ROAMINGPROFILE = WSONG
 # environment
@@ -199,8 +198,8 @@ PUBLIC = C:\Users\Public
 MOZ_PLUGIN_PATH = C:\Program Files (x86)\Foxit Software\Foxit Reader\plugins\
 # environment
 APPDATA = C:\Users\Lenovo\AppData\Roaming
-# makefile (from 'Makefile', line 39)
-CFLAGS := -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -nostartfiles   -g -Wl,--verbose -c -I ./include 
+# makefile (from 'Makefile', line 54)
+CFLAGS := -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -nostartfiles  -mpoke-function-name -g -Wl,--verbose -c -I ./include 
 # environment
 HOMEDRIVE = C:
 # environment
@@ -250,16 +249,16 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 3, GenuineIntel
 
 # Directories
 
-# src (device 910813311, inode 281474976935483): 12 files, no impossibilities.
-# . (device 910813311, inode 281474976933474): 20 files, no impossibilities.
-# ./src (device 910813311, inode 281474976935483): 12 files, no impossibilities.
+# src (device 910813311, inode 281474976935483): 15 files, no impossibilities.
+# . (device 910813311, inode 281474976933474): 22 files, no impossibilities.
+# ./src (device 910813311, inode 281474976935483): 15 files, no impossibilities.
 
-# 44 files, no impossibilities in 3 directories.
+# 52 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
 object/%.o: src/%.c Makefile
-#  recipe to execute (from 'Makefile', line 70):
+#  recipe to execute (from 'Makefile', line 85):
 	${GNU}gcc ${CFLAGS} -c $< -o $@
 	
 	
@@ -279,11 +278,12 @@ object/interrupt.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-kernel.elf: object/font.o object/gpu.o object/interrupt.o object/main.o object/mem_init.o object/start.o object/timer.o object/uart.o Makefile
+kernel.elf: object/font.o object/gpio.o object/gpu.o object/i2c.o object/interrupt.o object/main.o object/mem_init.o object/random.o object/start.o object/stdlib.o object/timer.o object/uart.o Makefile
 #  Implicit rule search has not been done.
 #  Modification time never checked.
+ 
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 67):
+#  recipe to execute (from 'Makefile', line 82):
 	${GNU}gcc ${LDFLAGS} ${OBJ} ${ASB} -L ${DIR_LIB} -o ${TARGET}.elf  
 	
 
@@ -296,15 +296,27 @@ object/timer.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-12-30 20:55:43.090195
+#  Last modified 2022-01-12 21:11:23.7104866
 #  File has been updated.
 #  Successfully updated.
+
+# Not a target:
+object/gpio.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+object/i2c.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 92):
+#  recipe to execute (from 'Makefile', line 107):
 	rm -rf  ./object/*.o
 	rm -rf *.img *.elf *.disasm *.map ./boot/*.img *.nm
 
@@ -312,7 +324,7 @@ kernel.img: kernel.elf Makefile
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 64):
+#  recipe to execute (from 'Makefile', line 79):
 	${GNU}objcopy  ${TARGET}.elf -O binary $@
 	
 
@@ -326,7 +338,7 @@ nm: kernel.elf
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 85):
+#  recipe to execute (from 'Makefile', line 100):
 	${GNU}nm  $< > ${TARGET}.nm
 
 # Not a target:
@@ -337,6 +349,12 @@ object/gpu.o:
 
 # Not a target:
 .DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+object/stdlib.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -366,14 +384,14 @@ all:
 # | := 
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/11=9%
-#  recipe to execute (from 'Makefile', line 62):
+#  recipe to execute (from 'Makefile', line 77):
 	make kernel.img
 
 help:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 75):
+#  recipe to execute (from 'Makefile', line 90):
 	@echo "  make clean"
 	@echo "    - removes all build files and generated files"
 	@echo "  make install"
@@ -389,7 +407,7 @@ install:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 88):
+#  recipe to execute (from 'Makefile', line 103):
 	cp kernel.img ./boot
 	@echo "==== DONE"
 
@@ -403,8 +421,14 @@ disasm: kernel.elf
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 81):
+#  recipe to execute (from 'Makefile', line 96):
 	${GNU}objdump -S  $< > ${TARGET}.disasm
+
+# Not a target:
+object/random.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 .SUFFIXES:
@@ -419,19 +443,19 @@ object/uart.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=19/1024=2%, Rehash=0, Collisions=0/45=0%
+# Load=23/1024=2%, Rehash=0, Collisions=0/53=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 50 / storage = 444 B / avg = 8 B
-# current buf: size = 8162 B / used = 444 B / count = 50 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 59 / storage = 554 B / avg = 9 B
+# current buf: size = 8162 B / used = 554 B / count = 59 / avg = 9 B
 
-# strcache performance: lookups = 75 / hit rate = 33%
+# strcache performance: lookups = 84 / hit rate = 29%
 # hash-table stats:
-# Load=50/8192=1%, Rehash=0, Collisions=0/75=0%
-# Finished Make data base on Sun Jan  2 22:11:05 2022
+# Load=59/8192=1%, Rehash=0, Collisions=0/84=0%
+# Finished Make data base on Thu Jan 13 15:14:47 2022
 
  

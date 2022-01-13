@@ -90,4 +90,8 @@ Cygwin64、gcc-arm-none-eabi、raspios-buster-armhf-lite.img、UltralSo、DiskGe
 
 [bcm2358](http://www.airspayce.com/mikem/bcm2835/index.html)
 
+[BCM2835 Peripherals Specification 手册勘误表](https://elinux.org/BCM2835_datasheet_errata#p96)
+
+[生成点阵显示在屏幕上，64*64](https://dot2pic.com/)
+
 还包括 30天自制操作系统、嵌入式实时操作系统等书。

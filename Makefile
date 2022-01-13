@@ -36,10 +36,25 @@ TARGET ?= kernel
 # 配置交叉编译链时，需要指定目标CPU的型号，同时指定-march、-mtune
 # -mtune=arm1176jzf-s 内核为arm1176jzf-s
 # 使用-mfpu=vfp -mfloat-abi=hard来选择编译成硬浮点
+# -mpoke-function-name
+# Write the name of each function into the text section, directly preceding the function prologue. The generated code is similar to this:
+#               t0
+#                   .ascii "arm_poke_function_name", 0
+#                   .align
+#               t1
+#                   .word 0xff000000 + (t1 - t0)
+#               arm_poke_function_name
+#                   mov     ip, sp
+#                   stmfd   sp!, {fp, ip, lr, pc}
+#                   sub     fp, ip, #4
+# 参考
+# https://gcc.gnu.org/onlinedocs/gcc-4.1.2/gcc/ARM-Options.html
+
+
 CFLAGS :=   -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s \
-			-nostartfiles   -g -Wl,--verbose -c -I ${DIR_INC} 
+			-nostartfiles  -mpoke-function-name -g -Wl,--verbose -c -I ${DIR_INC} 
 LDFLAGS :=    -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s \
-			-nostartfiles  -O0  -g -Wl,-T,${LINKER} -Wl,-Map,${TARGET}.map 
+			-nostartfiles  -mpoke-function-name -O0  -g -Wl,-T,${LINKER} -Wl,-Map,${TARGET}.map 
 #（1）Makefile中的 符号 $@, $^, $< 的意思：
 #　　$@  表示目标文件
 #　　$^  表示所有的依赖文件

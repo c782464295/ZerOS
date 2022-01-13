@@ -80,3 +80,38 @@ sig_fiq:	.word	_fiq
 所以sig_reset是0x20，没问题。
 
 输入make disasm可以得到反汇编代码
+
+
+
+/usr/local/bin/arm-none-eabi-addr2line
+/usr/local/bin/arm-none-eabi-ar
+/usr/local/bin/arm-none-eabi-as
+/usr/local/bin/arm-none-eabi-c++filt
+/usr/local/bin/arm-none-eabi-cpp
+/usr/local/bin/arm-none-eabi-elfedit
+/usr/local/bin/arm-none-eabi-gcc
+/usr/local/bin/arm-none-eabi-gcc-4.8.3
+/usr/local/bin/arm-none-eabi-gcc-ar
+/usr/local/bin/arm-none-eabi-gcc-nm
+/usr/local/bin/arm-none-eabi-gcc-ranlib
+/usr/local/bin/arm-none-eabi-gcov
+/usr/local/bin/arm-none-eabi-gdb
+/usr/local/bin/arm-none-eabi-gprof
+/usr/local/bin/arm-none-eabi-ld
+/usr/local/bin/arm-none-eabi-ld.bfd
+/usr/local/bin/arm-none-eabi-nm
+/usr/local/bin/arm-none-eabi-objcopy
+/usr/local/bin/arm-none-eabi-objdump
+/usr/local/bin/arm-none-eabi-ranlib
+/usr/local/bin/arm-none-eabi-readelf
+/usr/local/bin/arm-none-eabi-run
+/usr/local/bin/arm-none-eabi-size
+/usr/local/bin/arm-none-eabi-strings
+/usr/local/bin/arm-none-eabi-strip
+
+So none menas we are not targeting any operating system here, aka we are in "bare metal". And eabi means the ABI for the ARM architecture.
+
+Q: What is the purpose for each of the CFLAGS?
+
+A: arm-none-eabi-gcc -v --help is our best friend.
+

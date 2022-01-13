@@ -1,5 +1,5 @@
 /*  链接脚本 */
-OUTPUT_FORMAT("elf32-littlearm", "elf32-bigarm","elf32-littlearm")
+OUTPUT_FORMAT("elf32-littlearm")
 OUTPUT_ARCH(arm)
 
 ENTRY(_start)
@@ -20,6 +20,7 @@ SECTIONS
 	/* .text.boot必须在第一位 */
 	.text.init : { 
 		*(.text.init) 
+		*(.init) 
 	} > sys
 	
 	/* Kernel Code */

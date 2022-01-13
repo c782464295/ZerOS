@@ -152,5 +152,12 @@ _disable_interrupts:
 	.equ    CPSR_IRQ_INHIBIT,       		0x80
 	.equ    CPSR_FIQ_INHIBIT,       		0x40
 	.equ    CPSR_THUMB,             		0x20
-	
-	
+
+
+@ 引入图片，字体等资源
+@ 但是会增大img文件的大小
+.align 4
+.global bg_bmp
+bg_bmp:
+.incbin "./bmp/rpi.bmp"
+
