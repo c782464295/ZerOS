@@ -7,6 +7,7 @@
 #include "mem.h"
 #include "gpu.h"
 #include "gpio.h"
+#include "i2c.h"
 //-------------------------------------------------------------------------
 
 extern void PUT32(u32, u32);
@@ -25,13 +26,15 @@ extern void dummy();
 	
 	memory_init(atags);
     enable_cache();
-    
+    i2c_init();
     gpu_Init(64, 64, 24);
+    
     RGB_24Bit color;
     color.B = 0x0;
     color.R = 0xff;
     color.G = 0x0;
     fbPutPixel(10,10, color);
+    
     // GPIO看6.1
     // create pointer to the gpioregs;
 

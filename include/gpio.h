@@ -32,6 +32,8 @@
 #define PULL_UP		2
 
 
+
+
 void gpio_mode(int pin, int mode);
 void gpio_set(int pin, int stat);
 int gpio_get(int pin);

@@ -120,6 +120,12 @@ __attribute__((naked)) void _irq(void){
 	即A+4，所以在返回的时候，将LR-4，所以返回的时候PC= LR-4.返
 	回指令为：SUB PC,LR,#4
 	*/
+
+	/*
+	SUBS pc, lr, #imm subtracts a value from the link register and loads the PC with the result, then copies the SPSR to the CPSR.
+
+	You can use SUBS pc, lr, #imm to return from an exception if there is no return state on the stack. The value of #imm depends on the exception to return from.
+	*/
 }
 
 void _fiq(void){

@@ -1,5 +1,5 @@
 #include "gpu.h"
-
+#include "font.h"
 static const u32 L2_BYPASS_MASK  = 0x40000000;   // disable L2 caching
 
 FrameBufferInfo_t	FrameBufferInfot;
@@ -118,19 +118,7 @@ void fbPutPixel (u32 x, u32 y, RGB_24Bit color){
 		base_addr[i] = bg[i];
 
 	}
-	base_addr[0] = 0xff;
-	base_addr[1] = 0x00;
-	base_addr[2] = 0x00;
-	base_addr[3] = 0x00;
-
-	base_addr[4] = 0x00;
-	base_addr[5] = 0xff;
-	base_addr[6] = 0x00;
-	base_addr[7] = 0x00;
-
-	base_addr[8] = 0x00;
-	base_addr[9] = 0x00;
-	base_addr[10] = 0xff;
-	base_addr[11] = 0x00;
+	
+	write_character(10,10,FrameBufferInfo,'A');
 }
 

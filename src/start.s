@@ -159,5 +159,5 @@ _disable_interrupts:
 .align 4
 .global bg_bmp
 bg_bmp:
-.incbin "./bmp/rpi.bmp"
+.incbin "./bmp/RPI_IMG_BIN_RGB888.bin"
 
